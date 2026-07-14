@@ -1,0 +1,17 @@
+__pycache__/
+.venv/
+.env
+.env.*
+!.env.example
+data/raw/**
+data/pit/**
+out/**
+runs/**/*.parquet
+runs/**/*.csv
+# 스파이크 검증용 cases.csv 는 커밋한다(숫자 검증 가능해야 함). 무거운 peers.* 만 제외.
+!runs/**/cases.csv
+!**/README.md
+!.gitkeep
+# data/pit 구조(README)는 git에 남긴다. 디렉토리를 먼저 재포함해야 파일 재포함이 먹는다.
+!data/pit/**/
+!data/pit/**/README.md

@@ -1,0 +1,4 @@
+[project]
+name = "peer-explorer"
+version = "0.0.0"
+dependencies = []

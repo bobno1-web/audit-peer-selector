@@ -1,0 +1,37 @@
+# default.yaml — 기본 설정 (Loop 0-D 골격). 값 일부는 benchmarks/dev 에서 유도(비워둠).
+
+k: 5                       # peer 개수
+
+# 채점 대상 재무비율: 분자/분모 계정 (ORACLE.md 동결 명세와 일치).
+# 총자산회전율은 정보 누출(매출액 ÷ 총자산; 둘 다 엔진 허용)로 Loop 0-D에서 제거됨.
+ratios:
+  - name: 매출총이익률
+    numerator: 매출총이익
+    denominator: 매출액
+  - name: 영업이익률
+    numerator: 영업이익
+    denominator: 매출액
+  - name: 재고자산회전율
+    numerator: 매출원가
+    denominator: 재고자산
+  - name: 매출채권회전율
+    numerator: 매출액
+    denominator: 매출채권
+
+# 정보 차단벽: 엔진이 볼 수 있는 입력(열거). 이 목록에 없는 모든 계정은 금지(여집합).
+# test_no_leakage.py 가 ratios 각각을 이 목록에 대해 기계적으로 검사한다.
+engine_allowed_inputs:
+  - 산업분류
+  - 매출액
+  - 총자산
+  - 종업원수
+  - 사업내용텍스트
+
+# FAIL 페널티: 값이 아니라 '유도 방법'을 고정한다 (임의 상수 금지).
+penalty:
+  method: dev_baseline_upper_tail   # benchmarks/dev 의 '시장 중앙값' baseline 오차분포 상위 꼬리
+  quantile:                          # (비움) dev 에서 확정
+  value:                             # (비움) dev 에서 유도된 실제 페널티 오차
+
+# 오차 이내 비율 보고 기준(%) — 임계값을 고정하지 않고 셋 다 보고.
+within: [10, 20, 30]
