@@ -55,14 +55,36 @@ def load_aliases(path=ALIASES_PATH):
         if s == "aliases:":
             in_aliases = True
             continue
-        if in_aliases and ":" in s and "[" in s:
-            key, val = s.split(":", 1)
-            aliases[key.strip()] = _inline_list(val)
+        if in_aliases:
+            if raw[:1] not in (" ", "\t"):        # 들여쓰기 해제 → aliases 블록 종료
+                in_aliases = False                # (statement_div 등 다른 최상위 블록 유입 차단)
+            elif ":" in s and "[" in s:
+                key, val = s.split(":", 1)
+                aliases[key.strip()] = _inline_list(val)
     return aliases, target, base
 
 
 def _inline_list(val):
     return [w.strip() for w in val.strip().strip("[]").split(",") if w.strip()]
+
+
+def load_statement_div(path=ALIASES_PATH):
+    """account_aliases.yaml 의 statement_div 블록 → {account: [sj_div...]}. 없으면 빈 dict."""
+    out, in_block = {}, False
+    for raw in path.read_text(encoding="utf-8").splitlines():
+        s = raw.strip()
+        if not s or s.startswith("#"):
+            continue
+        if s == "statement_div:":
+            in_block = True
+            continue
+        if in_block:
+            if raw[:1] not in (" ", "\t"):        # 블록 종료(들여쓰기 해제)
+                break
+            if ":" in s and "[" in s:
+                key, val = s.split(":", 1)
+                out[key.strip()] = _inline_list(val)
+    return out
 
 
 def get_raw(path, params, retries=2):

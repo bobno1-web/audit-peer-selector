@@ -1,0 +1,48 @@
+{
+  "meta": {
+    "seed": 20260714,
+    "exclude_induty": [
+      "64",
+      "65",
+      "66",
+      "68"
+    ],
+    "years": [
+      "2022",
+      "2021",
+      "2020"
+    ],
+    "note": "0-E universe 스파이크 원자료를 0-F에서 소급 재현(A-8). 동일 seed/로직."
+  },
+  "F_listed_total": 3924,
+  "F4_refined_scanned": 231,
+  "F4_excluded_fin_realestate": 31,
+  "F4_refined_measured": 200,
+  "F4_refined_success": 135,
+  "F4_refined_success_rate_pct": 67.5,
+  "F1_failure_diagnosis": {
+    "newly_listed_or_delisted_or_other": 58,
+    "non_december_fy": 2,
+    "konex": 5
+  },
+  "F_corp_cls_hist": {
+    "E": 67,
+    "Y": 51,
+    "K": 105,
+    "N": 8
+  },
+  "F2_krx_fetch": {
+    "ok": false,
+    "attempts": {
+      "getJsonData": {
+        "ok": false,
+        "error": "HTTPError: HTTP Error 400: Bad Request"
+      },
+      "otp_csv": {
+        "ok": false,
+        "rows": 0,
+        "header": ""
+      }
+    }
+  }
+}

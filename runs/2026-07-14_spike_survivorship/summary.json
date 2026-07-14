@@ -1,0 +1,133 @@
+{
+  "meta": {
+    "seed": 20260714,
+    "eval_years": [
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "eval_point": "매년 0515",
+    "detail_ty": "A001",
+    "gate_min_samples": 30,
+    "gate_pass_rate": 0.9,
+    "universe_def": "FY(Y-1) 사업보고서를 [Y-0101, Y-0515]에 제출한 기업"
+  },
+  "B4_universe_sizes": {
+    "2015": 1968,
+    "2016": 2121,
+    "2017": 2211,
+    "2018": 2281,
+    "2019": 2348,
+    "2020": 2428,
+    "2021": 2506,
+    "2022": 2570,
+    "2023": 2676,
+    "2024": 2772,
+    "2025": 2854
+  },
+  "B4_all_filer_counts": {
+    "2015": 2291,
+    "2016": 2446,
+    "2017": 2539,
+    "2018": 2619,
+    "2019": 2698,
+    "2020": 2793,
+    "2021": 2863,
+    "2022": 2965,
+    "2023": 3085,
+    "2024": 3178,
+    "2025": 3267
+  },
+  "B4_size_sequence": [
+    1968,
+    2121,
+    2211,
+    2281,
+    2348,
+    2428,
+    2506,
+    2570,
+    2676,
+    2772,
+    2854
+  ],
+  "B4_is_monotonic_increasing": true,
+  "B4_n_year_over_year_decreases": 0,
+  "B2_dropout_pool": 400,
+  "B2_dropout_sampled": 40,
+  "B2_wired_ok": 40,
+  "B2_wired_rate_pct": 100.0,
+  "B2_corroborated_gone": 40,
+  "B2_corroborated_rate_pct": 100.0,
+  "B3_ipo_pool": 1024,
+  "B3_ipo_sampled": 40,
+  "B3_wired_ok": 40,
+  "B3_corroborated_absent_before": 39,
+  "B3_corroborated_rate_pct": 97.5,
+  "control_sampled": 40,
+  "control_alive_recent": 37,
+  "control_alive_rate_pct": 92.5,
+  "GATE_sample_ok": true,
+  "GATE_monotonic_ok": false,
+  "GATE": "FAIL",
+  "B4_flow_entries_exits": {
+    "2016": {
+      "entries": 193,
+      "exits": 40
+    },
+    "2017": {
+      "entries": 129,
+      "exits": 39
+    },
+    "2018": {
+      "entries": 128,
+      "exits": 58
+    },
+    "2019": {
+      "entries": 114,
+      "exits": 47
+    },
+    "2020": {
+      "entries": 125,
+      "exits": 45
+    },
+    "2021": {
+      "entries": 125,
+      "exits": 47
+    },
+    "2022": {
+      "entries": 125,
+      "exits": 61
+    },
+    "2023": {
+      "entries": 148,
+      "exits": 42
+    },
+    "2024": {
+      "entries": 149,
+      "exits": 53
+    },
+    "2025": {
+      "entries": 139,
+      "exits": 57
+    }
+  },
+  "B4_total_exits_2016_2025": 489,
+  "B4_distinct_ever": 3311,
+  "B4_removed_by_2025": 457,
+  "B4_removed_lastseen_corp_cls": {
+    "E": 439,
+    "Y": 5,
+    "K": 12,
+    "N": 1
+  },
+  "B4_interpretation": "단조증가는 진입(연 114~193)>퇴출(연 40~61)인 실제 시장 성장 때문. 퇴출 누적 489건이 실제로 제거됨(생존편향 아님). 게이트 조건2(단조증가)는 성장/미제거를 구분 못하는 대리지표 — 조건1(퇴출 제거 40/40 확증)이 직접 근거."
+}

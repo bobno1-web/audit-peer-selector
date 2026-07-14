@@ -46,3 +46,38 @@
 - **비개발자용 한 줄 요약**: 잘못 넣었던 조건(종업원수)을 빼고 비상장을 다시 공정하게 시험했지만,
   "필요한 6개 숫자를 다 갖춘 회사"가 절반뿐이라 상장사만으로 최종 확정했다. 상폐 이력을 못 구해
   생존편향이 남는다는 점도 숨기지 않고 적었다.
+
+## Loop 0-F — 하네스 반영 + 생존편향 해결 + PIT 데이터 구축 (Loop 0 종료)
+- **무엇을 했나**: (A) 0-D/0-E 발견을 코드로 — LOOP_PROTOCOL, VERIFY 규칙6·7, skill 3종,
+  check_secrets 훅, test_run_artifacts, 0-E universe 원자료 소급. (B) **생존편향 해결**:
+  공시이력(사업보고서) 기반 시점별 유니버스 복원 — 상폐일 소스 없이. (C) PIT 데이터 구축
+  (as_of·rcept_dt 색인, dev/holdout, 결측 무대체). (D) 무결성 테스트(미래주입 탐지 포함).
+- **점수**: N/A(엔진 없음). 실측: 상폐 40/40 제거·확증, 퇴출 489건, 유니버스 1968→2854,
+  PIT 2,420 corp-years(재무 68.9%). 테스트 23개 green.
+- **이전 대비 변화**: 생존편향을 **방식으로 해결**(KRX 상폐일 없이 공시기록으로). PIT 데이터·
+  as_of 인터페이스 확보 → **엔진 개발 준비 완료.** 게이트는 대리지표(단조성)로 문자상 FAIL이나
+  직접증거로 안전 입증(D-009, 사람판단 대기 중 최선판단 진행).
+- **비개발자용 한 줄 요약**: "상장폐지 날짜 목록"을 못 구해도, **회사가 매년 사업보고서를 내다
+  안 내면 상장폐지된 것**이라는 공시기록만으로 "그때 살아있던 회사 명단"을 시점별로 복원했다.
+  상폐된 회사 40곳을 표본검사해 전부 명단에서 정확히 빠졌음을 확인했고, 미래 정보가 새지 않게
+  막는 자동검사까지 걸었다. 이제 엔진을 만들 데이터가 준비됐다.
+
+### PART Z — 발견 → 반영 라우팅 (0-F). 미반영 0건.
+| 발견 | 성격 | 반영 위치 | 완료 |
+|---|---|---|:--:|
+| 지시서 다중화 → 사고 3회 | 검증절차 | `LOOP_PROTOCOL.md`, `VERIFY.md` 규칙6 | ✅ |
+| 스파이크 원자료 누락(0-E universe) | 기계강제 | `tests/test_run_artifacts.py` + skill `spike_protocol` + `runs/…universe_v2` 소급 | ✅ |
+| "성공률" 관대정의 위험 | 반복절차 | skill `measurement_definitions` | ✅ |
+| 필수목록 수기입력(종업원수 오류) | 반복절차 | skill `spec_derivation` | ✅ |
+| 데이터→오라클(역방향 금지) | 규칙 | `rules/oracle-is-frozen.md` 강화 | ✅ |
+| API 키 노출 위험 | 기계강제 | `hooks/check_secrets.py` + `test_hooks` 회귀 | ✅ |
+| list.json 검색 3개월 제한 | 데이터사실 | `SURVIVORSHIP.md` + 코드 `SUBWINDOWS` | ✅ |
+| corp_cls 현재상태=생존편향 함정 | 설계/데이터 | `SURVIVORSHIP.md` + 코드(종목코드 기반 membership) | ✅ |
+| **게이트 조건2 = 결함 대리지표** | 검증절차/설계 | `VERIFY.md` 규칙7 + `DECISIONS` D-009 | ✅ |
+| 게이트 FAIL→진행(사람 무응답) | 설계 | `DECISIONS` D-009(번복가능) | ✅ |
+| FY2014 재무 미제공 | 데이터사실 | `DATA_CARD.md` 한계1 | ✅ |
+| 유동재고자산 라벨 변형 | 데이터사실 | `config/account_aliases.yaml`(수정) + `DATA_CARD` | ✅ |
+| 정정본 rcept_dt>T 보수 null | 설계 | 코드 `pit_build` + `DATA_CARD` 한계3 | ✅ |
+| 산업분류 current-state | 데이터사실 | `DATA_CARD.md` 한계2 | ✅ |
+| load_aliases 블록 침범 버그 | 기계 | `audit_parser.py` 수정(기존 테스트 green) | ✅ |
+| 사업내용 텍스트 과부하 | 계획 | `features/business/README`(Loop2 지연) | ✅ |

@@ -1,0 +1,10 @@
+# spike_universe_v2 실행 설정 (원자료 재현용)
+# ★ 0-E universe 스파이크를 0-F(A-8)에서 소급 보존. 동일 seed/로직으로 재현.
+seed: 20260714
+n_target: 200
+scan_cap: 320
+exclude_induty: [64, 65, 66, 68]
+financial_probe_years: [2022, 2021, 2020]
+listed_def: corpCode stock_code 6자리 + 끝자리 0(대표 보통주)
+exclusion_basis: 구조적(induty_code 접두, corp_cls, acc_mt) — 종목명 키워드 없음
+krx_probe: getJsonData + OTP→CSV 2방식 실측

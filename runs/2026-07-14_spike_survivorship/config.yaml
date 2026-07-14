@@ -1,0 +1,13 @@
+# spike_survivorship 실행 설정 (원자료 재현용)
+seed: 20260714
+eval_years: [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025]
+eval_point_mmdd: '0515'
+window_start_mmdd: '0101'
+disclosure_detail_ty: A001  # 정기공시-사업보고서
+page_count: 100
+gate_min_samples: 30
+gate_pass_rate: 0.9
+sample_size_each: 40
+recent_probe_fy: 2024
+universe_definition: FY(Y-1) 사업보고서를 [Y-0101, Y-0515]에 제출한 기업
+corroboration: fnlttSinglAcntAll 최근/상장전 FY 데이터 존재여부(000/013)

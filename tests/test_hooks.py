@@ -47,7 +47,7 @@ CLEAN = (
 class TestCleanCodePasses(unittest.TestCase):
     def test_clean_passes_all_hooks(self):
         for hook in ("check_hardcoding.py", "check_lookahead.py",
-                     "check_targets_access.py"):
+                     "check_targets_access.py", "check_secrets.py"):
             self.assertEqual(run_hook(hook, CLEAN), 0, f"{hook} 가 clean 코드를 FAIL 처리함")
 
 
@@ -72,6 +72,23 @@ class TestTargetsAccess(unittest.TestCase):
     def test_banned_account_reference(self):
         src = 'col = "영업이익"\n'
         self.assertEqual(run_hook("check_targets_access.py", src), 1)
+
+
+class TestSecrets(unittest.TestCase):
+    # 가짜 키는 런타임에 조립한다 — 이 테스트 파일 소스에 40자 hex/실키 리터럴을
+    # 남기면 저장소 전체 스캔이 자기 자신을 잡는다.
+    def test_hex40_key_detected(self):
+        fake = "a1b2c3d4e5" * 4                    # 40자 hex (조립)
+        self.assertEqual(run_hook("check_secrets.py", f'k = "{fake}"\n'), 1)
+
+    def test_assignment_secret_detected(self):
+        val = "k9Z3q" + "7Bm4Rp2Ld6Nf8Hs" * 2      # 37자 값 (조립, 플레이스홀더 아님)
+        self.assertEqual(run_hook("check_secrets.py", f'api_key = "{val}"\n'), 1)
+
+    def test_env_reference_not_flagged(self):
+        # 환경변수 참조(플레이스홀더)는 실제 값이 아니므로 통과해야 한다.
+        src = 'api_key = os.environ.get("OPENDART_API_KEY")\n'
+        self.assertEqual(run_hook("check_secrets.py", src), 0)
 
 
 class TestLookahead(unittest.TestCase):

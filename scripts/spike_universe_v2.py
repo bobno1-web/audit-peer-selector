@@ -4,6 +4,7 @@
 구조적 근거만(종목명 키워드 없음): stock_code 끝자리, induty_code, corp_cls, 결산월(acc_mt).
 KRX 상장종목 데이터(증권구분/상장일/폐지일)를 실제로 받아보고 가부를 기록한다.
 """
+import csv
 import io
 import json
 import random
@@ -19,11 +20,14 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import audit_parser as ap                     # noqa: E402
 
+ROOT = Path(__file__).resolve().parents[1]
 SEED = 20260714
 N_TARGET = 200
 SCAN_CAP = 320
 EXCLUDE_INDUTY = ("64", "65", "66", "68")     # 금융·보험·부동산(리츠·펀드·스팩 다수)
 YEARS = ["2022", "2021", "2020"]
+# 원자료 보존(spike_protocol): 0-E universe 스파이크를 0-F에서 소급 재현.
+RUN_DIR = ROOT / "runs" / "2026-07-14_spike_universe_v2"
 
 
 def log(m):
@@ -110,6 +114,7 @@ def main():
     measured = success = excluded = scanned = 0
     fail_diag = Counter()
     cls_hist = Counter()
+    cases = []                                  # 기업별 원자료(cases.csv)
     for rec in common:
         if measured >= N_TARGET or scanned >= SCAN_CAP:
             break
@@ -121,25 +126,36 @@ def main():
         cls_hist[corp_cls or "NA"] += 1
         if ind2 in EXCLUDE_INDUTY:
             excluded += 1
+            cases.append({"corp_code": rec["corp_code"], "corp_name": rec["corp_name"],
+                          "stock_code": rec["stock_code"], "corp_cls": corp_cls,
+                          "induty2": ind2 or "NA", "acc_mt": acc_mt or "NA",
+                          "excluded": 1, "has_financial": "", "fail_reason": "excluded_fin_realestate"})
             continue
         ok = has_financial(rec["corp_code"])
         measured += 1
+        reason = ""
         if ok:
             success += 1
         else:                                   # F-1: 35% 결측 진단(구조적)
             if corp_cls == "N":
-                fail_diag["konex"] += 1
+                reason = "konex"
             elif acc_mt and acc_mt != "12":
-                fail_diag["non_december_fy"] += 1
+                reason = "non_december_fy"
             else:
-                fail_diag["newly_listed_or_delisted_or_other"] += 1
+                reason = "newly_listed_or_delisted_or_other"
+            fail_diag[reason] += 1
+        cases.append({"corp_code": rec["corp_code"], "corp_name": rec["corp_name"],
+                      "stock_code": rec["stock_code"], "corp_cls": corp_cls,
+                      "induty2": ind2 or "NA", "acc_mt": acc_mt or "NA",
+                      "excluded": 0, "has_financial": int(ok), "fail_reason": reason})
         if measured % 25 == 0:
             log(f"  refined {measured}/{N_TARGET} success {success}")
         time.sleep(0.03)
 
     krx = try_krx()
     summary = {
-        "meta": {"seed": SEED, "exclude_induty": list(EXCLUDE_INDUTY), "years": YEARS},
+        "meta": {"seed": SEED, "exclude_induty": list(EXCLUDE_INDUTY), "years": YEARS,
+                 "note": "0-E universe 스파이크 원자료를 0-F에서 소급 재현(A-8). 동일 seed/로직."},
         "F_listed_total": len(listed),
         "F4_refined_scanned": scanned,
         "F4_excluded_fin_realestate": excluded,
@@ -150,8 +166,26 @@ def main():
         "F_corp_cls_hist": dict(cls_hist),
         "F2_krx_fetch": krx,
     }
+    RUN_DIR.mkdir(parents=True, exist_ok=True)
+    (RUN_DIR / "summary.json").write_text(json.dumps(summary, ensure_ascii=False, indent=2),
+                                          encoding="utf-8")
+    with open(RUN_DIR / "cases.csv", "w", newline="", encoding="utf-8-sig") as f:
+        w = csv.DictWriter(f, fieldnames=list(cases[0].keys()))
+        w.writeheader()
+        w.writerows(cases)
+    cfg = (
+        "# spike_universe_v2 실행 설정 (원자료 재현용)\n"
+        "# ★ 0-E universe 스파이크를 0-F(A-8)에서 소급 보존. 동일 seed/로직으로 재현.\n"
+        f"seed: {SEED}\nn_target: {N_TARGET}\nscan_cap: {SCAN_CAP}\n"
+        f"exclude_induty: [{', '.join(EXCLUDE_INDUTY)}]\n"
+        f"financial_probe_years: [{', '.join(YEARS)}]\n"
+        "listed_def: corpCode stock_code 6자리 + 끝자리 0(대표 보통주)\n"
+        "exclusion_basis: 구조적(induty_code 접두, corp_cls, acc_mt) — 종목명 키워드 없음\n"
+        "krx_probe: getJsonData + OTP→CSV 2방식 실측\n"
+    )
+    (RUN_DIR / "config.yaml").write_text(cfg, encoding="utf-8")
     print(json.dumps(summary, ensure_ascii=False, indent=2))
-    log("universe_v2 완료.")
+    log(f"universe_v2 완료. 원자료 → {RUN_DIR}")
 
 
 if __name__ == "__main__":
