@@ -1,0 +1,420 @@
+{
+  "meta": {
+    "seed": 20260715,
+    "criteria_ref": "DECISIONS D-012",
+    "sample_source": "DART 거래소공시(I) 상장폐지 + corp_cls∉{Y,K} 교차확인",
+    "note": "측정만. PASS 는 gate.py approve(사람)만."
+  },
+  "D1_independent_delisted_n": 65,
+  "D1_candidates_scanned": 657,
+  "D1_removal_rate_pct": 55.4,
+  "D1_removal_success": 36,
+  "D1_failures": [
+    {
+      "corp_code": "00676122",
+      "corp_name": "지디",
+      "delist_year": 2018,
+      "corp_cls_now": "E",
+      "example_disclosure": "주권매매거래정지해제(상장폐지효력정지등 가처분신청에 대한 기각결정 확인)",
+      "present_before": 1,
+      "absent_2025": 0,
+      "absent_after_all": 0,
+      "removal_ok": 0
+    },
+    {
+      "corp_code": "00344287",
+      "corp_name": "에이치디현대인프라코어",
+      "delist_year": 2022,
+      "corp_cls_now": "E",
+      "example_disclosure": "투자유의안내(현대두산인프라코어 1WR의 신주인수권 행사기간 만료 및 상장폐지 예고)",
+      "present_before": 1,
+      "absent_2025": 0,
+      "absent_after_all": 0,
+      "removal_ok": 0
+    },
+    {
+      "corp_code": "00173731",
+      "corp_name": "씨앤에스자산관리",
+      "delist_year": 2018,
+      "corp_cls_now": "E",
+      "example_disclosure": "기타시장안내(상장폐지결정 등 효력정지 가처분신청 기각결정 안내)",
+      "present_before": 1,
+      "absent_2025": 0,
+      "absent_after_all": 0,
+      "removal_ok": 0
+    },
+    {
+      "corp_code": "00929228",
+      "corp_name": "엔에스컴퍼니",
+      "delist_year": 2021,
+      "corp_cls_now": "N",
+      "example_disclosure": "주권매매거래정지해제(상장폐지 사유 해소)",
+      "present_before": 1,
+      "absent_2025": 0,
+      "absent_after_all": 0,
+      "removal_ok": 0
+    },
+    {
+      "corp_code": "01046203",
+      "corp_name": "로아앤코홀딩스",
+      "delist_year": 2024,
+      "corp_cls_now": "E",
+      "example_disclosure": "기타시장안내              (정리매매 보류 관련)",
+      "present_before": 1,
+      "absent_2025": 0,
+      "absent_after_all": 0,
+      "removal_ok": 0
+    },
+    {
+      "corp_code": "00291231",
+      "corp_name": "우전",
+      "delist_year": 2015,
+      "corp_cls_now": "E",
+      "example_disclosure": "주권매매거래정지해제(상장폐지에 따른 정리매매 개시)",
+      "present_before": 1,
+      "absent_2025": 0,
+      "absent_after_all": 0,
+      "removal_ok": 0
+    },
+    {
+      "corp_code": "00548519",
+      "corp_name": "큐러블",
+      "delist_year": 2025,
+      "corp_cls_now": "E",
+      "example_disclosure": "주권매매거래정지해제              (상장폐지에 따른 정리매매 개시)",
+      "present_before": 1,
+      "absent_2025": 0,
+      "absent_after_all": 1,
+      "removal_ok": 0
+    },
+    {
+      "corp_code": "00112819",
+      "corp_name": "데코앤에프",
+      "delist_year": 2019,
+      "corp_cls_now": "E",
+      "example_disclosure": "주권매매거래정지해제(상장폐지에 따른 정리매매 개시)",
+      "present_before": 1,
+      "absent_2025": 0,
+      "absent_after_all": 0,
+      "removal_ok": 0
+    },
+    {
+      "corp_code": "00585219",
+      "corp_name": "세원이앤씨",
+      "delist_year": 2023,
+      "corp_cls_now": "E",
+      "example_disclosure": "기타시장안내              (상장폐지결정 효력정지 가처분 신청 기각결정에 따른 정리매매절차 재개)",
+      "present_before": 1,
+      "absent_2025": 0,
+      "absent_after_all": 0,
+      "removal_ok": 0
+    },
+    {
+      "corp_code": "00302078",
+      "corp_name": "엠피씨플러스",
+      "delist_year": 2020,
+      "corp_cls_now": "E",
+      "example_disclosure": "주권매매거래정지해제(상장폐지에 따른 정리매매 개시)",
+      "present_before": 1,
+      "absent_2025": 0,
+      "absent_after_all": 0,
+      "removal_ok": 0
+    },
+    {
+      "corp_code": "00480950",
+      "corp_name": "이아이디",
+      "delist_year": 2023,
+      "corp_cls_now": "E",
+      "example_disclosure": "기타시장안내              (상장폐지결정 효력정지 가처분 신청 기각결정에 따른 정리매매절차 재개)",
+      "present_before": 1,
+      "absent_2025": 0,
+      "absent_after_all": 0,
+      "removal_ok": 0
+    },
+    {
+      "corp_code": "00764807",
+      "corp_name": "골프존클라우드",
+      "delist_year": 2024,
+      "corp_cls_now": "E",
+      "example_disclosure": "기타시장안내              (상장폐지 사유 발생 우려)",
+      "present_before": 1,
+      "absent_2025": 0,
+      "absent_after_all": 0,
+      "removal_ok": 0
+    },
+    {
+      "corp_code": "00656021",
+      "corp_name": "비에프랩스",
+      "delist_year": 2024,
+      "corp_cls_now": "E",
+      "example_disclosure": "기타시장안내              (정리매매 보류 관련)",
+      "present_before": 1,
+      "absent_2025": 0,
+      "absent_after_all": 0,
+      "removal_ok": 0
+    },
+    {
+      "corp_code": "00763358",
+      "corp_name": "스마트솔루션즈",
+      "delist_year": 2022,
+      "corp_cls_now": "E",
+      "example_disclosure": "기타경영사항(자율공시)              (상장폐지결정 효력정지 등 가처분 신청 기각결정에 대한 즉시항고)",
+      "present_before": 1,
+      "absent_2025": 0,
+      "absent_after_all": 0,
+      "removal_ok": 0
+    },
+    {
+      "corp_code": "00945208",
+      "corp_name": "더미동",
+      "delist_year": 2024,
+      "corp_cls_now": "E",
+      "example_disclosure": "주권매매거래정지해제              (상장폐지에 따른 정리매매 개시)",
+      "present_before": 1,
+      "absent_2025": 0,
+      "absent_after_all": 0,
+      "removal_ok": 0
+    },
+    {
+      "corp_code": "00295370",
+      "corp_name": "제이앤케이인더스트리",
+      "delist_year": 2020,
+      "corp_cls_now": "E",
+      "example_disclosure": "주권매매거래정지해제(상장폐지결정등효력정지 가처분신청 기각결정에 따른 정리매매절차 개시)",
+      "present_before": 1,
+      "absent_2025": 0,
+      "absent_after_all": 0,
+      "removal_ok": 0
+    },
+    {
+      "corp_code": "00410739",
+      "corp_name": "푸른소나무",
+      "delist_year": 2020,
+      "corp_cls_now": "E",
+      "example_disclosure": "기타시장안내              (정리매매 보류 관련)",
+      "present_before": 1,
+      "absent_2025": 0,
+      "absent_after_all": 0,
+      "removal_ok": 0
+    },
+    {
+      "corp_code": "00164362",
+      "corp_name": "행남사",
+      "delist_year": 2018,
+      "corp_cls_now": "E",
+      "example_disclosure": "기타경영사항(자율공시)(상장폐지결정등 효력정지 가처분 신청 기각에 따른 즉시항고장 접수)",
+      "present_before": 1,
+      "absent_2025": 0,
+      "absent_after_all": 0,
+      "removal_ok": 0
+    },
+    {
+      "corp_code": "00302120",
+      "corp_name": "피앤텔",
+      "delist_year": 2015,
+      "corp_cls_now": "E",
+      "example_disclosure": "주권매매거래정지해제(상장폐지에 따른 정리매매 개시)",
+      "present_before": 1,
+      "absent_2025": 0,
+      "absent_after_all": 0,
+      "removal_ok": 0
+    },
+    {
+      "corp_code": "00957568",
+      "corp_name": "로아앤코",
+      "delist_year": 2017,
+      "corp_cls_now": "E",
+      "example_disclosure": "주권매매거래정지해제              (상장폐지에 따른 정리매매 개시)",
+      "present_before": 1,
+      "absent_2025": 0,
+      "absent_after_all": 0,
+      "removal_ok": 0
+    },
+    {
+      "corp_code": "00244419",
+      "corp_name": "디에스티",
+      "delist_year": 2017,
+      "corp_cls_now": "E",
+      "example_disclosure": "주권매매거래정지해제(상장폐지에 따른 정리매매 개시)",
+      "present_before": 1,
+      "absent_2025": 0,
+      "absent_after_all": 0,
+      "removal_ok": 0
+    },
+    {
+      "corp_code": "00818472",
+      "corp_name": "이큐셀",
+      "delist_year": 2020,
+      "corp_cls_now": "E",
+      "example_disclosure": "주권매매거래정지해제              (상장폐지에 따른 정리매매 개시)",
+      "present_before": 1,
+      "absent_2025": 0,
+      "absent_after_all": 0,
+      "removal_ok": 0
+    },
+    {
+      "corp_code": "01011562",
+      "corp_name": "우성아이비",
+      "delist_year": 2018,
+      "corp_cls_now": "E",
+      "example_disclosure": "기타시장안내(상장폐지 결정등 효력정지 가처분신청 기각결정에 따른 정리매매절차 재개)",
+      "present_before": 1,
+      "absent_2025": 0,
+      "absent_after_all": 0,
+      "removal_ok": 0
+    },
+    {
+      "corp_code": "01118643",
+      "corp_name": "솔루믹스",
+      "delist_year": 2025,
+      "corp_cls_now": "N",
+      "example_disclosure": "기타시장안내              (상장폐지 관련 이의신청서 접수 및 개선기간 부여)",
+      "present_before": 1,
+      "absent_2025": 0,
+      "absent_after_all": 1,
+      "removal_ok": 0
+    },
+    {
+      "corp_code": "00402989",
+      "corp_name": "유한코스메틱",
+      "delist_year": 2021,
+      "corp_cls_now": "E",
+      "example_disclosure": "기타경영사항(자율공시)(정리매매절차 진행중지 가처분 신청)",
+      "present_before": 1,
+      "absent_2025": 0,
+      "absent_after_all": 0,
+      "removal_ok": 0
+    },
+    {
+      "corp_code": "00111227",
+      "corp_name": "대양제지공업",
+      "delist_year": 2022,
+      "corp_cls_now": "E",
+      "example_disclosure": "기타경영사항(자율공시)              (상장폐지 후 투자자보호대책(장외매수))",
+      "present_before": 1,
+      "absent_2025": 0,
+      "absent_after_all": 0,
+      "removal_ok": 0
+    },
+    {
+      "corp_code": "00154426",
+      "corp_name": "아이에이치큐",
+      "delist_year": 2023,
+      "corp_cls_now": "E",
+      "example_disclosure": "기타시장안내              (상장폐지결정 효력정지 가처분 신청 기각결정에 따른 정리매매절차 재개)",
+      "present_before": 1,
+      "absent_2025": 0,
+      "absent_after_all": 0,
+      "removal_ok": 0
+    },
+    {
+      "corp_code": "00681142",
+      "corp_name": "쌍방울",
+      "delist_year": 2023,
+      "corp_cls_now": "E",
+      "example_disclosure": "기타경영사항(자율공시)              (상장폐지결정 효력정지 등 가처분 신청 기각결정에 대한 즉시항고)",
+      "present_before": 1,
+      "absent_2025": 0,
+      "absent_after_all": 0,
+      "removal_ok": 0
+    },
+    {
+      "corp_code": "00638539",
+      "corp_name": "앤에스",
+      "delist_year": 2021,
+      "corp_cls_now": "E",
+      "example_disclosure": "주권매매거래정지해제(상장폐지에 따른 정리매매 개시)",
+      "present_before": 1,
+      "absent_2025": 0,
+      "absent_after_all": 0,
+      "removal_ok": 0
+    }
+  ],
+  "D2_missing_survivor_by_T": {
+    "2017": {
+      "gap": 1,
+      "universe": 2211,
+      "pct": 0.05
+    },
+    "2018": {
+      "gap": 1,
+      "universe": 2281,
+      "pct": 0.04
+    },
+    "2019": {
+      "gap": 3,
+      "universe": 2348,
+      "pct": 0.13
+    },
+    "2020": {
+      "gap": 7,
+      "universe": 2428,
+      "pct": 0.29
+    },
+    "2021": {
+      "gap": 12,
+      "universe": 2506,
+      "pct": 0.48
+    },
+    "2022": {
+      "gap": 16,
+      "universe": 2570,
+      "pct": 0.62
+    },
+    "2023": {
+      "gap": 3,
+      "universe": 2676,
+      "pct": 0.11
+    }
+  },
+  "D2_missing_survivor_avg_pct": 0.25,
+  "D2_total_gap_events": 43,
+  "D2_characteristics": {
+    "sampled": 31,
+    "induty2_top5": [
+      [
+        "64",
+        6
+      ],
+      [
+        "29",
+        3
+      ],
+      [
+        "20",
+        3
+      ],
+      [
+        "59",
+        2
+      ],
+      [
+        "24",
+        2
+      ]
+    ],
+    "top1_share_pct": 19.4,
+    "corp_cls_dist": {
+      "K": 13,
+      "E": 14,
+      "N": 3,
+      "Y": 1
+    }
+  },
+  "criteria": {
+    "c1_removal>=95%_n>=50": false,
+    "c2_missing<3%": true,
+    "c2_not_concentrated": true,
+    "c2_pass": true
+  },
+  "verdict_measured": "FAIL",
+  "D1_diagnosis": {
+    "failures_all_in_universe_2025": 29,
+    "meaning": "실패 29개 전원이 2025 유니버스에 존재 = FY2024 사업보고서 제출 = 살아있음. 실제 상폐 아님(상장폐지 사유발생/감사의견거절 스캐어를 이의신청·개선기간으로 생존).",
+    "genuine_departures": 36,
+    "survived_scares(contamination)": 29,
+    "genuine_departure_timing_aligned_±1yr": "28/36 = 77.8% (delist_year=최초공시연도라 노이즈; 예: 조기 스캐어 후 후기 상폐)",
+    "structural_finding": "①(제거 정확도)는 파일링 기반 유니버스에서 near-tautological: 상폐(=시장 이탈)=사업보고서 중단=유니버스 부재 가 사실상 동일 사건. Type-1 오류(죽은 기업을 유니버스에 포함)는 구조적으로 거의 불가능(죽으면 제출 안 함). 의미있는 검사는 ②(살아있는데 빠지는가)이며 통과.",
+    "independent_signal_notes": "corpCode 종목코드는 상폐사도 유지(블랭크 안 됨) → 상폐 신호로 무효. KRX 상폐일 소스 부재(0-E). 거래소 상장폐지 공시는 생존 스캐어를 포함해 노이즈."
+  }
+}

@@ -1,0 +1,7 @@
+# gate_survivorship_v2 실행 설정
+seed: 20260715
+delist_keywords: [상장폐지, 정리매매]
+cand_cap: 800
+target_delisted: 65
+sample_source: DART 거래소공시(pblntf_ty=I) 상장폐지 + corp_cls 교차확인
+criteria: DECISIONS D-012 (독립 표본 >=95% / 미제출-생존 <3% or 비쏠림)

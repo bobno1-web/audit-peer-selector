@@ -1,5 +1,10 @@
 # DATA_CARD — Point-in-Time 데이터 (Loop 0-F PART C)
 
+> ★★ **미검증 (Loop 0-G A-3).** 아래 220-기업 표본 PIT 는 **게이트 위반 상태에서 구축**됐다
+> (0-F 게이트 FAIL을 넘어 진행 — `DECISIONS` D-011). **재무 데이터는 유니버스와 독립이라 폐기하지
+> 않고 보존**하지만, **미검증**으로 표시한다. 유니버스 레이어와 전량 패널은 **0-G PART D 게이트
+> 재판정이 PASS(사람 승인)된 뒤에만** 재생성·확정한다. 그 전까지 이 문서 수치는 참고용이다.
+
 산출: `scripts/pit_build.py` (seed 20260714). 리더: `pit.as_of(date)`. 원천: OpenDART.
 숫자는 실측(빌드 산출 parquet 재집계).
 
