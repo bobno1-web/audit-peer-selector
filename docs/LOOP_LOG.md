@@ -245,3 +245,33 @@
 | API 비용 폭발 위험(임베딩/재취득) | 기계 | `.claude/rules/api-budget.md` + `scripts/vector_cache.py` + `test_embedding_cache.py` | ✅ |
 | 승리조건(0.433) 여전히 미달 — 상한은 존재하되 더 낮음 | 발견 | `DECISIONS` D-023 + `SHOWDOWN_L3.md` | ✅ |
 | **매핑 정확성 독립검증(별칭 재유도)** ← 검증방 Loop2 미상환 | 이월(명시) | 이번 루프 범위 밖(채점기 별칭은 전 엔진 공통 상수) → **Loop 4+로 이월**. `SHOWDOWN_L3.md`/여기 명시 | ⏭ |
+
+## Loop 4 — 무료 축 추가(성장) + 임베딩 효과 정찰 + 부문/연령 API 블록
+- **무엇을 했나**: (PART0) 돈 쓰기 전 **무료 임베딩 정찰** — 산업코드 해상도(eta²)·텍스트 기여 성격·
+  최악20건 원인분류로 임베딩 여지 판정. (PART1) 부문별매출 파서·테스트·수집기 작성(검증완료)했으나
+  raw 취득이 **020 일한도 블록** → 데이터 없음. (PART2) **매출성장률 축**(캐시 scale, 룩어헤드0, 무료)
+  추가; 설립연도(age)는 company.json 필요→블록. (PART3) 5축 dev 재학습(벡터화+canonical 등가검증).
+  (PART4) 여섯 대조군 결판 + 성장 ablation + paired·**firm-clustered** 부트스트랩.
+- **점수**: L4 = **0.4965** (dev APE 중앙값, n=43,300). 가중치 산업0.21/규모0.29/시총0.14/텍스트0.29/**성장0.07**.
+- **이전 대비 변화**: baseline 0.5416 → L2 0.5162 → L3 0.5011 → **L4 0.4965** (L3 −0.9%, baseline −8.3%,
+  둘 다 paired+clustered 유의). ★ **성장 축 순수 기여 −0.9%**(ablation: 성장 빼면 0.5012≈L3), 영업이익률
+  0.749→0.729로 시장 돌파 확대. 승리조건 0.433 미달. **임베딩 권고 = 아직 쓰지 마라(LOW)**.
+- **비개발자용 한 줄 요약**: 돈 드는 AI 임베딩을 사기 전에 "그게 파고들 틈이 있나"를 공짜로 정찰했더니
+  **틈은 있어도 임베딩이 크게 메울 근거는 약했다**(최악 사례 대부분이 실적이 0에 가까워 어떤 방법으로도
+  못 맞히는 것). 대신 공짜 축(매출 성장세)을 하나 더 넣으니 성적이 아주 조금(−0.9%) 더 좋아졌고, 특히
+  영업이익률 예측이 나아졌다. 사업 구성(부문별 매출)은 이번에 DART 하루 사용량 초과로 못 받아 다음으로
+  미뤘다. 목표선(−20%)엔 여전히 못 미치고, 최종 시험지(2023~2025)는 열지 않았다.
+
+### PART Z — 발견 → 반영 라우팅 (Loop 4). 미반영 0건.
+| 발견 | 성격 | 반영 위치 | 완료 |
+|---|---|---|:--:|
+| **임베딩 여지 낮음~중간 (산업코드 성기나 최악16/20이 APE폭발·불가고정)** | 발견 | `EMBEDDING_SCOUT.md`(정찰) + `SHOWDOWN_L4.md`(권고 LOW) | ✅ |
+| **성장 축 −0.9% 유의 기여(ablation 실증, 영업이익률 집중)** | 데이터사실 | `SHOWDOWN_L4.md` + `scripts/build_growth.py` + config `growth_feature` | ✅ |
+| **L4 baseline −8.3%·L3 −0.9% (paired+clustered 유의)** | 데이터사실 | `SHOWDOWN_L4.md` + `scripts/loop4_showdown.py` | ✅ |
+| **무료 축 한계기여 소진 → peer 선정 상한 재확인** | 발견 | `DECISIONS` D-024 + `SHOWDOWN_L4.md` | ✅ |
+| **firm-clustered 부트스트랩** ← 검증방 Loop3 권고 | 기계+데이터 | `scripts/loop4_showdown.py`(clustered CI) + `SHOWDOWN_L4.md` | ✅(상환) |
+| **부문별매출 raw 취득 020 블록 — 파서/수집기 준비완료, 데이터 대기** | 기계+제약 | `segment_parser.py`+`test_segment_parser.py`(6통과)+`collect_segment.py`+`SEGMENT_EXTRACTION.md` | ⏭(quota 대기) |
+| **설립연도(age) company.json 020 블록** | 제약 | `SHOWDOWN_L4.md`/`DECISIONS` D-024 (성장만 반영, age 이월) | ⏭(quota 대기) |
+| **Loop3가 raw 섹션 미캐시 → 부문 재취득 필요(전문 캐시 낭비)** | 기계 | `SEGMENT_EXTRACTION.md`(Loop5+ raw 섹션도 캐시 권장) | ⏭(제안) |
+| **매핑 정확성 독립검증(별칭 재유도)** ← 검증방 Loop2, Loop3 이월 | 이월(명시) | 채점기 별칭은 전 엔진 공통 상수(상대비교 무영향) → **Loop 5+ 재이월**(검증방 몫). 여기 명시 | ⏭ |
+| 승리조건(0.433) 여전히 미달 — 상한 존재하되 계속 조금씩 낮아짐 | 발견 | `DECISIONS` D-024 + `SHOWDOWN_L4.md` | ✅ |

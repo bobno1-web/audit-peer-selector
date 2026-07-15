@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 """similarity 엔진 — 다축 유사도의 '가중 점수' 합산 랭킹.
 
-Loop 2: 3축(산업·규모·텍스트[전문]).  ★ Loop 3: 4축(산업·규모·**시총**·텍스트[**섹션**]).
+Loop 2: 3축.  Loop 3: 4축.  ★ Loop 4: 최대 6축(성장·부문 추가). 활성 축은 config.
 구성 요소는 config(similarity.components)에서 온다 — 개수/순서가 곧 가중치 순서.
   - industry: 접두 tier(완전>2자리)에서 유도한 유사도(1.0/0.5/0).
   - scale   : 로그(매출액·총자산) 유클리드 거리 → exp(-d). 결측 → 0.
   - mktcap  : 로그(시가총액) 거리 → exp(-|d|). 결측 → 0. (as_of 시점 시총, 룩어헤드 0)
   - text    : '사업의 내용' 섹션 TF-IDF 코사인(캐시). 결측 → 0.
+  - growth  : 매출성장률 거리(데이터유도 스케일) → exp(-|d|). 결측 → 0. (T 이전 매출만)
+  - segment : 부문 집중도 프로필(HHI·최대비중·부문수) 표준화 거리 → exp(-d). 결측 → 0.
 가중치는 손으로 안 정한다 — dev 탐색 결과(runs/…/weights.json)를 읽는다(holdout 미사용).
 ★ scoring/·targets/ 접근 0. as_of(with_targets=False)로 features 만. 매직상수/리터럴 0(config).
 ★ 데이터층 게이트(data_layer) PASS 후에만 실행(gate.require_pass).
@@ -27,7 +29,7 @@ import gate                                              # noqa: E402
 
 CONFIG = ROOT / "config" / "default.yaml"
 TXTVEC = ROOT / "data" / "pit" / "features" / "business" / "section_vectors.npz"
-RUN = ROOT / "runs" / "2026-07-15_loop3_similarity"
+RUN = ROOT / "runs" / "2026-07-15_loop4_similarity"
 
 
 def load_cfg():
@@ -50,6 +52,31 @@ def _log_pos(series):
         return np.where(v > 0, np.log(v), np.nan)
 
 
+def _robust_scale(v):
+    """데이터 유도 스케일(IQR) — 매직상수 대신 스냅샷 분포에서 유도. IQR=0(값 희소)이면 std→1 폴백.
+    IQR 사분위(75/25)는 규칙의 임계값이 아니라 척도 '정의'다. 임의 임계·리터럴 비교 없음."""
+    v = v[~np.isnan(v)]
+    if len(v):
+        iqr = float(np.subtract(*np.percentile(v, [75, 25])))
+        if iqr > 0:
+            return iqr
+        sd = float(np.nanstd(v))
+        if sd > 0:
+            return sd
+    return 1.0
+
+
+def _zcols(feats, cols):
+    """부문 프로필 열을 스냅샷 표준편차로 표준화한 행렬(결측행은 NaN)."""
+    if not cols:
+        return None
+    M = np.column_stack([pd.to_numeric(feats[c], errors="coerce").to_numpy(dtype=float)
+                         for c in cols])
+    sd = np.nanstd(M, axis=0)
+    sd = np.where(sd > 0, sd, 1.0)
+    return M / sd
+
+
 def year_arrays(feats, cfg, txt_idx, txt_mat):
     """연도 스냅샷의 성분별 기저 배열을 미리 계산(성분 유사도 정의는 sim_* 참조)."""
     scfg = cfg["similarity"]
@@ -67,8 +94,18 @@ def year_arrays(feats, cfg, txt_idx, txt_mat):
             j = txt_idx.get(str(c))
             if j is not None:
                 tmat[r] = txt_mat[j]
+    # 성장률(1D, 데이터유도 스케일로 정규화 → 커널폭 공정)
+    gcol = scfg.get("growth_feature")
+    if gcol and gcol in feats.columns:
+        g = pd.to_numeric(feats[gcol], errors="coerce").to_numpy(dtype=float)
+        gnorm = g / _robust_scale(g)
+    else:
+        gnorm = np.full(len(codes), np.nan)
+    # 부문 집중도 프로필(표준화; 결측행 NaN → sim 0)
+    scols = [c for c in scfg.get("segment_features", []) if c in feats.columns]
+    smat = _zcols(feats, scols)
     return {"codes": codes, "induty": induty, "keys": keys, "prefixes": prefixes,
-            "logs": logs, "mklog": mklog, "tmat": tmat}
+            "logs": logs, "mklog": mklog, "tmat": tmat, "gnorm": gnorm, "smat": smat}
 
 
 def sim_industry(A, i):
@@ -99,7 +136,23 @@ def sim_text(A, i):
     return tmat @ tmat[i] if tmat.shape[1] else np.zeros(len(A["codes"]))
 
 
-SIMS = {"industry": sim_industry, "scale": sim_scale, "mktcap": sim_mktcap, "text": sim_text}
+def sim_growth(A, i):
+    gn = A["gnorm"]
+    s = np.exp(-np.abs(gn - gn[i]))
+    return np.where(np.isnan(s), 0.0, s)
+
+
+def sim_segment(A, i):
+    smat = A["smat"]
+    if smat is None:
+        return np.zeros(len(A["codes"]))
+    d = np.sqrt(np.sum((smat - smat[i]) ** 2, axis=1))
+    s = np.exp(-d)
+    return np.where(np.isnan(s), 0.0, s)
+
+
+SIMS = {"industry": sim_industry, "scale": sim_scale, "mktcap": sim_mktcap,
+        "text": sim_text, "growth": sim_growth, "segment": sim_segment}
 
 
 def rank(feats, cfg, weights, txt_idx, txt_mat, k, target_idx=None):

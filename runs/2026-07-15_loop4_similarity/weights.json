@@ -1,0 +1,26 @@
+{
+  "weights": [
+    0.2143,
+    0.2857,
+    0.1429,
+    0.2857,
+    0.0714
+  ],
+  "order": [
+    "industry",
+    "scale",
+    "mktcap",
+    "text",
+    "growth"
+  ],
+  "search": "dev grid(벡터화; canonical 검증), holdout 미사용",
+  "subsample_APE_median": 0.4838,
+  "grid": [
+    0.0,
+    0.25,
+    0.5,
+    0.75,
+    1.0
+  ],
+  "n_combos": 2851
+}

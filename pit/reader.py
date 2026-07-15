@@ -76,6 +76,8 @@ def as_of(date, with_targets=False):
     scale = _read_parquet(PIT / "features" / "scale" / f"scale_{y}.parquet")
     industry = _read_parquet(PIT / "features" / "industry" / f"industry_{y}.parquet")
     mktcap = _read_parquet(PIT / "features" / "mktcap" / f"mktcap_{y}.parquet")
+    growth = _read_parquet(PIT / "features" / "growth" / f"growth_{y}.parquet")
+    segment = _read_parquet(PIT / "features" / "segment" / f"segment_{y}.parquet")
 
     # features = scale + industry (+ 시총) (채점 계정 없음 = 정보 차단벽).
     if len(scale) and len(industry):
@@ -87,6 +89,16 @@ def as_of(date, with_targets=False):
     # 시가총액(as_of 시점 <=T 시장가로 빌드; 룩어헤드 0). 결측은 결측(임의대체 0).
     if len(features) and len(mktcap) and "시가총액" in mktcap.columns:
         features = features.merge(mktcap[["corp_code", "시가총액"]], on="corp_code", how="left")
+
+    # 매출성장률(T 이전 2개 연차 매출로 계산; 룩어헤드 0). 결측은 결측(Loop 4).
+    if len(features) and len(growth) and "매출성장률" in growth.columns:
+        features = features.merge(growth[["corp_code", "매출성장률"]], on="corp_code", how="left")
+
+    # 부문 집중도 프로필(사업보고서 부문별 매출 → HHI·최대비중·부문수; 룩어헤드 0). 결측은 결측(Loop 4).
+    if len(features) and len(segment):
+        segcols = [c for c in ("seg_hhi", "seg_top_share", "seg_n") if c in segment.columns]
+        if segcols:
+            features = features.merge(segment[["corp_code"] + segcols], on="corp_code", how="left")
 
     # ★ point-in-time 보장: 조회일 이후 제출분 제거(스냅샷 자체가 <=T 지만 방어적으로 한 번 더).
     if len(features):

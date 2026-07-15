@@ -1,0 +1,152 @@
+{
+  "table": {
+    "시장중앙값(A)": {
+      "ape_median": 0.572,
+      "within_10": 0.0915,
+      "within_20": 0.1838,
+      "within_30": 0.273,
+      "coverage": 1.0,
+      "per_ratio": {
+        "매출총이익률": 0.5156,
+        "영업이익률": 0.7597,
+        "재고자산회전율": 0.6524,
+        "매출채권회전율": 0.4007
+      }
+    },
+    "랜덤(B)": {
+      "ape_median": 0.9125,
+      "within_10": 0.0585,
+      "within_20": 0.1163,
+      "within_30": 0.1722,
+      "coverage": 0.7761,
+      "per_ratio": {
+        "매출총이익률": 0.7867,
+        "영업이익률": 1.1172,
+        "재고자산회전율": 0.9999,
+        "매출채권회전율": 0.6228
+      }
+    },
+    "baseline": {
+      "ape_median": 0.5416,
+      "within_10": 0.1055,
+      "within_20": 0.205,
+      "within_30": 0.3024,
+      "coverage": 0.9566,
+      "per_ratio": {
+        "매출총이익률": 0.4171,
+        "영업이익률": 0.8424,
+        "재고자산회전율": 0.5874,
+        "매출채권회전율": 0.4005
+      }
+    },
+    "similarity_L2": {
+      "ape_median": 0.5162,
+      "within_10": 0.1068,
+      "within_20": 0.2098,
+      "within_30": 0.3105,
+      "coverage": 0.9865,
+      "per_ratio": {
+        "매출총이익률": 0.4059,
+        "영업이익률": 0.7841,
+        "재고자산회전율": 0.576,
+        "매출채권회전율": 0.3933
+      }
+    },
+    "similarity_L3": {
+      "ape_median": 0.5011,
+      "within_10": 0.1085,
+      "within_20": 0.2154,
+      "within_30": 0.3173,
+      "coverage": 0.9836,
+      "per_ratio": {
+        "매출총이익률": 0.3923,
+        "영업이익률": 0.7486,
+        "재고자산회전율": 0.5605,
+        "매출채권회전율": 0.3879
+      }
+    },
+    "similarity_L4": {
+      "ape_median": 0.4965,
+      "within_10": 0.1083,
+      "within_20": 0.2168,
+      "within_30": 0.3203,
+      "coverage": 0.9849,
+      "per_ratio": {
+        "매출총이익률": 0.3885,
+        "영업이익률": 0.729,
+        "재고자산회전율": 0.5579,
+        "매출채권회전율": 0.3891
+      }
+    }
+  },
+  "L4_weights": {
+    "order": [
+      "industry",
+      "scale",
+      "mktcap",
+      "text",
+      "growth"
+    ],
+    "weights": [
+      0.2143,
+      0.2857,
+      0.1429,
+      0.2857,
+      0.0714
+    ]
+  },
+  "active_axes": [
+    "industry",
+    "scale",
+    "mktcap",
+    "text",
+    "growth"
+  ],
+  "segment_status": "데이터 없음(020 블록) — 제외",
+  "growth_ablation": {
+    "growth_weight": 0.0714,
+    "ape_median_growth_off": 0.5012
+  },
+  "win_condition": 0.433,
+  "win_met": false,
+  "L4_vs_L3_pct": -0.92,
+  "L4_vs_baseline_pct": -8.33,
+  "bootstrap": {
+    "L4_vs_L3_paired": {
+      "n_pairs": 43300,
+      "point_diff": -0.0047,
+      "ci95": [
+        -0.0085,
+        -0.0014
+      ],
+      "significant": true
+    },
+    "L4_vs_baseline_paired": {
+      "n_pairs": 43300,
+      "point_diff": -0.0452,
+      "ci95": [
+        -0.0511,
+        -0.0385
+      ],
+      "significant": true
+    },
+    "L4_vs_L3_clustered": {
+      "n_corps": 2326,
+      "point_diff": -0.0047,
+      "ci95": [
+        -0.0085,
+        -0.0015
+      ],
+      "significant": true
+    },
+    "L4_vs_baseline_clustered": {
+      "n_corps": 2326,
+      "point_diff": -0.0452,
+      "ci95": [
+        -0.0531,
+        -0.0361
+      ],
+      "significant": true
+    }
+  }
+}
