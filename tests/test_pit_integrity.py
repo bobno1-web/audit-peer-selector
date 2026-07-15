@@ -55,7 +55,7 @@ class TestPITIntegrity(unittest.TestCase):
         for _ in range(100):
             y = rnd.choice(EVAL_YEARS)
             date = f"{y}-{rnd.randint(1, 12):02d}-{rnd.randint(1, 28):02d}"
-            snap = as_of(date)
+            snap = as_of(date, with_targets=True)
             for df, label in ((snap.features, "features"), (snap.targets, "targets")):
                 if len(df):
                     self.assertEqual(len(pit_violations(df, date)), 0,
@@ -64,7 +64,7 @@ class TestPITIntegrity(unittest.TestCase):
     def test_universe_membership(self):
         """features/targets 의 기업은 그 시점 universe 안에 있어야 한다."""
         for y in self.years:
-            snap = as_of(f"{y}{SNAP}")
+            snap = as_of(f"{y}{SNAP}", with_targets=True)
             if not len(snap.universe):
                 continue
             uset = set(snap.universe["corp_code"].astype(str))
@@ -78,7 +78,7 @@ class TestPITIntegrity(unittest.TestCase):
         """★ D-2: 미래 데이터 주입 시 반드시 FAIL(탐지)이 나야 한다."""
         y = self.years[0]
         asof = f"{y}{SNAP}"
-        snap = as_of(asof)
+        snap = as_of(asof, with_targets=True)
         base = snap.targets if len(snap.targets) else snap.features
         self.assertTrue(len(base) > 0, "주입 테스트용 실데이터가 없음")
         # 주입 전: 실데이터엔 위반이 없어야 한다.

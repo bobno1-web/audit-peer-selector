@@ -108,7 +108,21 @@ def _cmp(v, op, t):
     return {"<=": v <= t, "<": v < t, ">=": v >= t, ">": v > t, "==": v == t}.get(op, False)
 
 
-def judge(gid, recompute_fns=None, decided_at="0000-00-00", tol=0.05):
+def _reconcile_decimals():
+    """재집계 대조 반올림 자리수(config). tol 매직상수 대체(LOOP_1 0-1)."""
+    cfg = ROOT / "config" / "default.yaml"
+    if cfg.exists():
+        for line in cfg.read_text(encoding="utf-8").splitlines():
+            s = line.split("#", 1)[0].strip()
+            if s.startswith("reconcile_decimals:"):
+                try:
+                    return int(s.split(":", 1)[1].strip())
+                except ValueError:
+                    break
+    return 2
+
+
+def judge(gid, recompute_fns=None, decided_at="0000-00-00"):
     """★ 코드 판정 (LOOP_0H/0I). 사람 손 approve 아님 — 사람의 승인은 criteria 확정으로 갈음.
 
     ★★ LOOP_0I: **에이전트가 써넣은 measured 를 믿지 않는다.** 각 check 의 measurement_provenance 를
@@ -122,6 +136,7 @@ def judge(gid, recompute_fns=None, decided_at="0000-00-00", tol=0.05):
     checks = criteria.get("checks", [])
     prov = criteria.get("measurement_provenance", {})
     measured = g.get("measured", {})
+    dec = _reconcile_decimals()
     results, reconciled = [], True
     for c in checks:
         metric = c.get("metric")
@@ -139,7 +154,7 @@ def judge(gid, recompute_fns=None, decided_at="0000-00-00", tol=0.05):
                 recon = f"raw_error:{type(e).__name__}"
             else:
                 recon = ("ok" if stated is not None
-                         and abs(float(stated) - float(recomputed)) <= tol
+                         and round(float(stated), dec) == round(float(recomputed), dec)
                          else "measured_mismatch")
         if recon != "ok":
             reconciled = False

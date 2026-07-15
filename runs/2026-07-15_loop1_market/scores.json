@@ -1,0 +1,58 @@
+{
+  "run_id": "2026-07-15_loop1_market",
+  "engine": "control_A_market",
+  "as_of": [
+    "2016-05-15",
+    "2017-05-15",
+    "2018-05-15",
+    "2019-05-15",
+    "2020-05-15",
+    "2021-05-15",
+    "2022-05-15"
+  ],
+  "k": 5,
+  "ratios": [
+    "매출총이익률",
+    "영업이익률",
+    "재고자산회전율",
+    "매출채권회전율"
+  ],
+  "split": "dev",
+  "n_cases_total": 43300,
+  "overall": {
+    "ape_median": 0.572,
+    "within_10pct": 0.0915,
+    "within_20pct": 0.1838,
+    "within_30pct": 0.273,
+    "coverage": 1.0
+  },
+  "per_ratio": {
+    "매출총이익률": {
+      "ape_median": 0.5156,
+      "n": 10563
+    },
+    "영업이익률": {
+      "ape_median": 0.7597,
+      "n": 11398
+    },
+    "재고자산회전율": {
+      "ape_median": 0.6524,
+      "n": 10136
+    },
+    "매출채권회전율": {
+      "ape_median": 0.4007,
+      "n": 11203
+    }
+  },
+  "params": {
+    "penalty_ape": 2.0263,
+    "penalty_from": "dev control-A upper tail"
+  },
+  "ratio_count_distribution_pct": {
+    "0": 29.8,
+    "1": 1.2,
+    "2": 3.5,
+    "3": 7.2,
+    "4": 58.3
+  }
+}

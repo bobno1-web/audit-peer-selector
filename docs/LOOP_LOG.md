@@ -173,3 +173,26 @@
 | judge가 measured 그대로 신뢰(위조 구멍) | 기계강제 | `gate.py judge` 원자료 재집계·대조 + `gate_metrics`(독립) + `measurement_provenance` + `test_gate_measurement_integrity` | ✅ |
 | 측정값 통제자=판정 통제자 | 규칙 | `gates-are-binding.md`(I8) | ✅ |
 | 사전등록 타임스탬프 미강제 | 설계+한계 | `gate.py` `timestamp_order` + `DECISIONS` D-018(한계 명시) | ✅ |
+
+## Loop 1 — Baseline 엔진 + 첫 점수 (엔진 시대 시작)
+- **무엇을 했나**: (0) 인프라 — gate.py tol 매직상수 제거(config), 무한후퇴 인정+검증방 정박
+  규칙(D-019), `as_of(with_targets=False)` 물리 차단. (1) **baseline 엔진**(engines/baseline):
+  산업분류 tier + 규모 로그거리로 전 유니버스 랭킹→상위5 peer(필터 아님). (2) **채점기**
+  (scoring/oracle): ORACLE 코드화 — 타겟별 정의된 비율만, peer 중앙값 예측, APE, FAIL 페널티
+  dev 유도. (3) 세 대조군 채점 + BASELINE_SCORE.md.
+- **점수**: **baseline APE 중앙값 = 0.5416** (dev 2016~2022, 43,300 케이스). vs 시장중앙값 0.5720
+  (−5.3%), vs 랜덤 0.9125 (−40.6%). ★ 앞으로 모든 엔진이 넘어야 할 자(尺).
+- **이전 대비 변화**: Loop 0(인프라) 종료, **첫 엔진·첫 점수.** baseline이 두 무식한 대조군을 이김.
+- **비개발자용 한 줄 요약**: 처음으로 "비슷한 회사 5곳"을 뽑는 엔진을 만들고 점수를 냈다.
+  무식한 방법(같은 업종+비슷한 규모)이 "그냥 시장 평균 쓰기"를 5%, "아무거나 찍기"를 41% 이겼다.
+  이 점수가 앞으로 더 똑똑한 엔진이 넘어야 할 기준선이다. 특히 **영업이익률은 이 방법이 시장
+  평균보다도 못해서** 다음 엔진이 개선할 여지가 크다. holdout(최종 시험지)은 열지 않았다.
+
+### PART Z — 발견 → 반영 라우팅 (Loop 1). 미반영 0건.
+| 발견 | 성격 | 반영 위치 | 완료 |
+|---|---|---|:--:|
+| gate.py tol 매직상수 (0-I 검증 #3) | 기계 | `config` reconcile_decimals + `gate.py` | ✅ |
+| 무한후퇴 → 검증방 정박 (0-I 검증 #1,#2,#4) | 규칙 | `rules/verification-is-final-defense.md` + `DECISIONS` D-019 | ✅ |
+| 엔진의 targets 접근 물리 차단 강화 | 기계 | `pit.as_of(with_targets=False)` fail-closed | ✅ |
+| baseline 첫 점수 = 자(尺) | 데이터사실 | `docs/BASELINE_SCORE.md` (0.5416) | ✅ |
+| 영업이익률서 baseline<시장(개선지점) | 데이터사실 | `BASELINE_SCORE.md` (Loop 2 주제) | ✅ |

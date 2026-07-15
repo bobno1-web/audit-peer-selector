@@ -81,9 +81,9 @@
       }
     ],
     "reconciled": true,
-    "timestamp_order": "criteria_before_judge"
+    "timestamp_order": "WARNING_judged_before_criteria"
   },
   "decided_by": "gate_criteria_auto",
-  "decided_at": "2026-07-15",
-  "sig": "f5b22889685d10e1c319bc1435d0cbb3e7301bd1bcf081e311a332184a57fafe"
+  "decided_at": "0000-00-00",
+  "sig": "e078157947b4a8a8f74a3f12726a6cb5139b4a46ab784fc7dd481c99b6e65427"
 }

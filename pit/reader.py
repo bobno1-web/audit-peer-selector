@@ -61,8 +61,12 @@ def pit_violations(df, as_of_date):
     return df[df["rcept_dt"].astype(str) > as_of_date]
 
 
-def as_of(date):
-    """date('YYYY-MM-DD') 시점 스냅샷. rcept_dt <= date 인 행만 담긴다(미래 차단)."""
+def as_of(date, with_targets=False):
+    """date('YYYY-MM-DD') 시점 스냅샷. rcept_dt <= date 인 행만 담긴다(미래 차단).
+
+    ★ 정보 차단벽(fail-closed): **기본은 targets 를 로드하지 않는다.** 엔진은 as_of(T) 로 features·
+      universe 만 받는다(snap.targets 는 빈 DataFrame). 채점기만 as_of(T, with_targets=True) 로
+      targets 를 받는다. 엔진이 실수로 snap.targets 를 봐도 비어 있어 물리적으로 차단된다."""
     y = _snapshot_year(date)
     if y is None:
         empty = pd.DataFrame()
@@ -71,9 +75,8 @@ def as_of(date):
     universe = _read_universe(y)
     scale = _read_parquet(PIT / "features" / "scale" / f"scale_{y}.parquet")
     industry = _read_parquet(PIT / "features" / "industry" / f"industry_{y}.parquet")
-    targets = _read_parquet(PIT / "targets" / "ratios" / f"ratios_{y}.parquet")
 
-    # features = scale + industry (채점 계정 없음 = 정보 차단벽). business 는 있으면 별도 접근.
+    # features = scale + industry (채점 계정 없음 = 정보 차단벽).
     if len(scale) and len(industry):
         keep = [c for c in ("corp_code", "induty_code") if c in industry.columns]
         features = scale.merge(industry[keep], on="corp_code", how="left")
@@ -83,7 +86,11 @@ def as_of(date):
     # ★ point-in-time 보장: 조회일 이후 제출분 제거(스냅샷 자체가 <=T 지만 방어적으로 한 번 더).
     if len(features):
         features = features[features["rcept_dt"].astype(str) <= date].reset_index(drop=True)
-    if len(targets):
-        targets = targets[targets["rcept_dt"].astype(str) <= date].reset_index(drop=True)
+
+    targets = pd.DataFrame()
+    if with_targets:                                     # ★ 채점기만
+        targets = _read_parquet(PIT / "targets" / "ratios" / f"ratios_{y}.parquet")
+        if len(targets):
+            targets = targets[targets["rcept_dt"].astype(str) <= date].reset_index(drop=True)
 
     return Snapshot(f"{y}{SNAP_MMDD}", universe, features, targets)
