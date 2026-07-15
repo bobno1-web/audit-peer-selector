@@ -1,6 +1,12 @@
 #!/usr/bin/env python3
 """Loop 2 가중치 탐색 + similarity 최종 채점.
 
+★ 동결(SUPERSEDED): engines/similarity/run.py 는 Loop 3에서 4축(시총·섹션텍스트)으로 진화했다.
+  이 드라이버는 L2-시대(3축·전문TF-IDF) 엔진에 묶여 있으며, L2 결과는
+  runs/2026-07-15_loop2_similarity/scores.json(커밋됨)에 보존된다. L2 재현은 그 커밋에서.
+  현행 학습은 scripts/loop3_search.py 다. (이 파일은 진화한 엔진과 호환되지 않을 수 있다.)
+
+
 dev 에서 (산업·규모·텍스트) 가중치를 격자 탐색(홀드아웃 미사용). 속도를 위해 시점별 타겟
 표본으로 component 유사도를 한 번 precompute 후 각 가중치 조합을 조합·랭킹·채점.
 best 가중치 → runs/…similarity/weights.json → 전량 재실행 + 채점(baseline과 동일 채점기·페널티·상수).

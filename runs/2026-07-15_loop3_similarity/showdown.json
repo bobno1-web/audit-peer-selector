@@ -1,0 +1,112 @@
+{
+  "table": {
+    "시장중앙값(A)": {
+      "ape_median": 0.572,
+      "within_10": 0.0915,
+      "within_20": 0.1838,
+      "within_30": 0.273,
+      "coverage": 1.0,
+      "per_ratio": {
+        "매출총이익률": 0.5156,
+        "영업이익률": 0.7597,
+        "재고자산회전율": 0.6524,
+        "매출채권회전율": 0.4007
+      }
+    },
+    "랜덤(B)": {
+      "ape_median": 0.9125,
+      "within_10": 0.0585,
+      "within_20": 0.1163,
+      "within_30": 0.1722,
+      "coverage": 0.7761,
+      "per_ratio": {
+        "매출총이익률": 0.7867,
+        "영업이익률": 1.1172,
+        "재고자산회전율": 0.9999,
+        "매출채권회전율": 0.6228
+      }
+    },
+    "baseline": {
+      "ape_median": 0.5416,
+      "within_10": 0.1055,
+      "within_20": 0.205,
+      "within_30": 0.3024,
+      "coverage": 0.9566,
+      "per_ratio": {
+        "매출총이익률": 0.4171,
+        "영업이익률": 0.8424,
+        "재고자산회전율": 0.5874,
+        "매출채권회전율": 0.4005
+      }
+    },
+    "similarity_L2": {
+      "ape_median": 0.5162,
+      "within_10": 0.1068,
+      "within_20": 0.2098,
+      "within_30": 0.3105,
+      "coverage": 0.9865,
+      "per_ratio": {
+        "매출총이익률": 0.4059,
+        "영업이익률": 0.7841,
+        "재고자산회전율": 0.576,
+        "매출채권회전율": 0.3933
+      }
+    },
+    "similarity_L3": {
+      "ape_median": 0.5011,
+      "within_10": 0.1085,
+      "within_20": 0.2154,
+      "within_30": 0.3173,
+      "coverage": 0.9836,
+      "per_ratio": {
+        "매출총이익률": 0.3923,
+        "영업이익률": 0.7486,
+        "재고자산회전율": 0.5605,
+        "매출채권회전율": 0.3879
+      }
+    }
+  },
+  "L3_weights": {
+    "order": [
+      "industry",
+      "scale",
+      "mktcap",
+      "text"
+    ],
+    "weights": [
+      0.2308,
+      0.3077,
+      0.1538,
+      0.3077
+    ]
+  },
+  "text_weight_nonzero": true,
+  "mktcap_weight": 0.1538,
+  "mktcap_scale_corr": {
+    "corr_log_시총_매출": 0.588,
+    "corr_log_시총_자산": 0.741
+  },
+  "win_condition": 0.433,
+  "win_met": false,
+  "L3_vs_baseline_pct": -7.5,
+  "bootstrap": {
+    "L3_vs_baseline": {
+      "n_pairs": 43300,
+      "point_diff": -0.0405,
+      "ci95": [
+        -0.0462,
+        -0.0341
+      ],
+      "significant": true
+    },
+    "L3_vs_L2": {
+      "n_pairs": 43300,
+      "point_diff": -0.015,
+      "ci95": [
+        -0.0203,
+        -0.0095
+      ],
+      "significant": true
+    }
+  }
+}

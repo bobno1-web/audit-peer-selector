@@ -75,13 +75,18 @@ def as_of(date, with_targets=False):
     universe = _read_universe(y)
     scale = _read_parquet(PIT / "features" / "scale" / f"scale_{y}.parquet")
     industry = _read_parquet(PIT / "features" / "industry" / f"industry_{y}.parquet")
+    mktcap = _read_parquet(PIT / "features" / "mktcap" / f"mktcap_{y}.parquet")
 
-    # features = scale + industry (채점 계정 없음 = 정보 차단벽).
+    # features = scale + industry (+ 시총) (채점 계정 없음 = 정보 차단벽).
     if len(scale) and len(industry):
         keep = [c for c in ("corp_code", "induty_code") if c in industry.columns]
         features = scale.merge(industry[keep], on="corp_code", how="left")
     else:
         features = scale if len(scale) else industry
+
+    # 시가총액(as_of 시점 <=T 시장가로 빌드; 룩어헤드 0). 결측은 결측(임의대체 0).
+    if len(features) and len(mktcap) and "시가총액" in mktcap.columns:
+        features = features.merge(mktcap[["corp_code", "시가총액"]], on="corp_code", how="left")
 
     # ★ point-in-time 보장: 조회일 이후 제출분 제거(스냅샷 자체가 <=T 지만 방어적으로 한 번 더).
     if len(features):

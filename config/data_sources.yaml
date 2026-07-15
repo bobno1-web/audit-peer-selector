@@ -11,6 +11,13 @@ apis:
   - document.xml
   - fnlttXbrl.xml
 
-# 실재하지 않는 소스 (참고: 게이트 기준이 이것에 의존하면 안 된다).
+# 시장 데이터 소스 (Loop 3에서 실측 확인). ★ point-in-time 시총 = as_of <=T 마지막 거래일.
+market_data:
+  - marcap            # FinanceData/marcap: 연도별 전종목 일별 시총·상장주식수(parquet, GitHub). 실측 OK.
+  - FinanceDataReader # Naver 기반 과거 시세(종가). 실측 OK. (marcap 미가용 시 대체 경로)
+
+# 실재하지 않는/차단된 소스 (참고: 게이트 기준이 이것에 의존하면 안 된다).
 # - KRX 상폐일/상장폐지 목록: 자동 확보 실패(0-E, 0-G). getJsonData HTTP 400, OTP→CSV 0행.
-#   → 아래 apis 에 없음. 이 소스에 의존하는 기준은 측정 불가로 폐기해야 한다.
+#   → apis 에 없음. 이 소스에 의존하는 기준은 측정 불가로 폐기해야 한다.
+# - KRX data 포털(data.krx.co.kr) 직접 조회: Loop 3 재확인 결과 여전히 차단(응답 "LOGOUT", WAF).
+#   pykrx 도 KRX 로그인 자격증명 요구로 실패. → 시총은 KRX 포털이 아니라 marcap 데이터셋에서 확보.
