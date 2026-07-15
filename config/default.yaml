@@ -43,6 +43,14 @@ baseline:
   industry_tier_prefixes: [999, 2]    # 우선순위: 완전일치(999=전체) > 2자리 > 그외(★배제 아님)
   missing_scale: rank_last            # 규모 결측 기업은 scale 거리 최대(뒤로) — 배제/대체 아님
 
+# similarity 엔진(산업·규모·텍스트 가중합). 구조 파라미터만 config; 가중치·커널폭은 dev 탐색(runs 기록).
+similarity:
+  scale_features: [매출액, 총자산]
+  industry_prefixes: [999, 2]         # 산업 유사도 tier 접두(완전/2자리)
+  text_ngram: 3                       # 문자 n-gram(한국어 형태 근사)
+  text_vocab_size: 3000               # 상위 df 어휘 크기
+  weight_grid: [0.0, 0.25, 0.5, 0.75, 1.0]  # dev 가중치 탐색 격자(합=1 정규화)
+
 # 오차 이내 비율 보고 기준(%) — 임계값을 고정하지 않고 셋 다 보고.
 within: [10, 20, 30]
 

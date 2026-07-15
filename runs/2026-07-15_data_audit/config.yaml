@@ -1,0 +1,6 @@
+# data_audit 설정
+seed: 20260715
+n_sample: 40
+dev_years: [2016, 2017, 2018, 2019, 2020, 2021, 2022]
+source: DART fnlttSinglAcntAll 재취득 vs targets parquet
+method: 독립 추출(fresh code) + account_nm 기록으로 매핑 육안검사

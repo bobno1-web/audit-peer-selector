@@ -1,0 +1,53 @@
+{
+  "gate_id": "data_layer",
+  "loop": "2",
+  "status": "PASS",
+  "criteria": {
+    "loop": "2",
+    "spec_ref": "DECISIONS D-020",
+    "criteria_confirmed_at": "2026-07-15",
+    "checks": [
+      {
+        "name": "data_fidelity",
+        "metric": "data_mismatch_pct",
+        "op": "<=",
+        "threshold": 5,
+        "measurement_source": [
+          {
+            "kind": "file",
+            "ref": "runs/2026-07-15_data_audit/cases.csv"
+          }
+        ]
+      }
+    ],
+    "measurement_provenance": {
+      "data_mismatch_pct": {
+        "recompute": "data_mismatch",
+        "raw": [
+          "runs/2026-07-15_data_audit/cases.csv"
+        ]
+      }
+    },
+    "scoring_data_requirements": []
+  },
+  "measured": {
+    "data_mismatch_pct": 0.0,
+    "judge_results": [
+      {
+        "name": "data_fidelity",
+        "metric": "data_mismatch_pct",
+        "op": "<=",
+        "threshold": 5,
+        "stated": 0.0,
+        "recomputed": 0.0,
+        "reconcile": "ok",
+        "pass": true
+      }
+    ],
+    "reconciled": true,
+    "timestamp_order": "criteria_before_judge"
+  },
+  "decided_by": "gate_criteria_auto",
+  "decided_at": "2026-07-15",
+  "sig": "671e5daba25e7c7e9281c3305d88ebd4beb6de2f7a1fdbe9d9e0802411a62eb3"
+}

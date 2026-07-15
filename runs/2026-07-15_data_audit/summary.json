@@ -1,0 +1,87 @@
+{
+  "meta": {
+    "seed": 20260715,
+    "n_companies": 40,
+    "accounts": [
+      "매출액",
+      "매출원가",
+      "매출총이익",
+      "영업이익",
+      "재고자산",
+      "매출채권"
+    ],
+    "source": "DART fnlttSinglAcntAll 재취득 vs data/pit/targets parquet"
+  },
+  "value_match_rate_pct": 100.0,
+  "value_mismatch_rate_pct": 0.0,
+  "timestamp_match_rate_pct": 100.0,
+  "per_account": {
+    "매출액": {
+      "n": 40,
+      "match": 40,
+      "mismatch": 0,
+      "match_rate_pct": 100.0,
+      "account_nm_used": {
+        "수익(매출액)": 13,
+        "매출액": 24,
+        "영업수익": 2
+      },
+      "mismatch_examples": []
+    },
+    "매출원가": {
+      "n": 40,
+      "match": 40,
+      "mismatch": 0,
+      "match_rate_pct": 100.0,
+      "account_nm_used": {
+        "매출원가": 37,
+        "영업비용": 2
+      },
+      "mismatch_examples": []
+    },
+    "매출총이익": {
+      "n": 40,
+      "match": 40,
+      "mismatch": 0,
+      "match_rate_pct": 100.0,
+      "account_nm_used": {
+        "매출총이익": 36
+      },
+      "mismatch_examples": []
+    },
+    "영업이익": {
+      "n": 40,
+      "match": 40,
+      "mismatch": 0,
+      "match_rate_pct": 100.0,
+      "account_nm_used": {
+        "영업이익(손실)": 28,
+        "영업이익": 11
+      },
+      "mismatch_examples": []
+    },
+    "재고자산": {
+      "n": 40,
+      "match": 40,
+      "mismatch": 0,
+      "match_rate_pct": 100.0,
+      "account_nm_used": {
+        "재고자산": 35
+      },
+      "mismatch_examples": []
+    },
+    "매출채권": {
+      "n": 40,
+      "match": 40,
+      "mismatch": 0,
+      "match_rate_pct": 100.0,
+      "account_nm_used": {
+        "매출채권": 13,
+        "매출채권 및 기타유동채권": 16,
+        "매출채권 및 기타채권": 7,
+        "매출채권및기타채권": 3
+      },
+      "mismatch_examples": []
+    }
+  }
+}

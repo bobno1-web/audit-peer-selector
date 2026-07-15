@@ -103,10 +103,21 @@ def _require(path):
         raise FileNotFoundError(str(path))
 
 
+def recompute_data_mismatch_pct():
+    """데이터 감사: parquet vs DART 값 불일치율%. cases.csv 에서 독립 재집계(Loop 2 D-020)."""
+    p = ROOT / "runs" / "2026-07-15_data_audit" / "cases.csv"
+    _require(p)
+    rows = list(csv.DictReader(open(p, encoding="utf-8-sig")))
+    n = len(rows)
+    mism = sum(1 for r in rows if r.get("match") == "0")
+    return round(100 * mism / n, 2) if n else 0.0
+
+
 RECOMPUTE = {
     "missing_survivor": lambda: (_require(UNIV) or recompute_missing_survivor(load_universes())),
     "concentration": lambda: (_require(UNIV) or _require(IND)
                               or recompute_top1_concentration(load_universes(), load_induty2())),
+    "data_mismatch": recompute_data_mismatch_pct,
 }
 
 
