@@ -147,3 +147,29 @@
 | 병렬 실행 미프로토콜화 | 반복절차 | `LOOP_PROTOCOL.md` 병렬 프로토콜 | ✅ |
 | **실패 후 기준 깎기(자기기만 패턴)** | 반복절차+기계 | `gate_design` 자기기만 섹션 + 4검사 + code judge | ✅ |
 | pit_build_full 중복 API 호출(2배) | 기계 | `fetch_fin_or_limit` 단일경로 | ✅ |
+
+## Loop 0-I — 게이트 인프라 보안 패치 (재판정 없음)
+- **무엇을 했나**: 게이트 판정 '장치'의 구멍 2개를 코드로 막음. (1) **항진명제 차단** — gate_design
+  5번째 검사 [비자명성] + `test_gate_necessity` 항진명제 기계 탐지(`is_tautological`). D-016 ①
+  (잔존율)이 상수 0으로 탐지돼 게이트 checks 에서 제거(D-017, 결과 PASS 불변 — ②가 독립 지탱).
+  (2) **judge 측정값 검산** — `gate.py judge` 가 `gate_metrics`(측정과 독립 구현)로 원자료에서
+  재집계·대조, 위조 measured·원자료부재 시 판정 거부. `measurement_provenance` 필수화,
+  `test_gate_measurement_integrity`. (3) 사전등록 타임스탬프(가능 범위+한계 D-018).
+- **점수**: N/A(엔진 없음). 실증: 항진명제 탐지(D-016① FAIL), 위조 measured(2.9%) 차단,
+  게이트 PASS 유지(②만: 0.25%<3%, 19.4%<50%). 53 테스트 green.
+- **이전 대비 변화**: 게이트가 **항진명제**(실패 불가능한 가짜 기준)와 **측정값 위조**(에이전트가
+  계기판 숫자 직접 쓰기)를 코드로 막게 됨. 판정 결과·데이터·엔진 불변.
+- **비개발자용 한 줄 요약**: 정지선 판정기의 구멍 둘을 막았다 — (1) "죽은 회사가 명단에 남나?"는
+  정의상 늘 0이라 아무것도 검사 못 하는 **가짜 검사**였는데, 이런 실패 불가능한 검사를 자동으로
+  걸러내게 했고, (2) 판정기가 에이전트가 적어낸 숫자를 그냥 믿던 걸, 이제 **원본에서 다시 계산해
+  대조**해 조작을 잡는다. 정지선 결과(통과)는 그대로 — 진짜 검사(산 회사가 명단에서 빠지나? 0.25%)가
+  홀로 지탱한다.
+
+### PART Z — 발견 → 반영 라우팅 (0-I). 미반영 0건.
+| 발견 | 성격 | 반영 위치 | 완료 |
+|---|---|---|:--:|
+| **D-016① 항진명제(여섯 번째 실수)** | 기계강제 | `gate_design` [비자명성] + `test_gate_necessity` `is_tautological` + `DECISIONS` D-017 | ✅ |
+| ★ 0-H 4방어(4검사·코드판정·소스실재·자기기만)가 항진명제 못 잡음 | 기계강제 | `gate_design` **5번째 검사**가 그 구멍을 메움(`gate_metrics.is_tautological`) | ✅ |
+| judge가 measured 그대로 신뢰(위조 구멍) | 기계강제 | `gate.py judge` 원자료 재집계·대조 + `gate_metrics`(독립) + `measurement_provenance` + `test_gate_measurement_integrity` | ✅ |
+| 측정값 통제자=판정 통제자 | 규칙 | `gates-are-binding.md`(I8) | ✅ |
+| 사전등록 타임스탬프 미강제 | 설계+한계 | `gate.py` `timestamp_order` + `DECISIONS` D-018(한계 명시) | ✅ |

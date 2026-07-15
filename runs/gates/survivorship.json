@@ -4,24 +4,8 @@
   "status": "PASS",
   "criteria": {
     "loop": "0-H",
-    "spec_ref": "DECISIONS D-016",
+    "spec_ref": "DECISIONS D-016 ② (D-017: ① dead_retention 항진명제 제외)",
     "checks": [
-      {
-        "name": "dead_retention",
-        "metric": "dead_retention_pct",
-        "op": "<=",
-        "threshold": 1,
-        "measurement_source": [
-          {
-            "kind": "api",
-            "ref": "company.json"
-          },
-          {
-            "kind": "file",
-            "ref": "data/pit/universe"
-          }
-        ]
-      },
       {
         "name": "missing_survivor",
         "metric": "missing_survivor_pct",
@@ -41,41 +25,48 @@
         "threshold": 50,
         "measurement_source": [
           {
-            "kind": "api",
-            "ref": "company.json"
+            "kind": "file",
+            "ref": "data/pit/universe"
           },
           {
             "kind": "file",
-            "ref": "data/pit/universe"
+            "ref": "data/pit/features/industry"
           }
         ]
       }
     ],
-    "scoring_data_requirements": []
+    "measurement_provenance": {
+      "missing_survivor_pct": {
+        "recompute": "missing_survivor",
+        "raw": [
+          "data/pit/universe/universe_*.csv"
+        ]
+      },
+      "top1_concentration_pct": {
+        "recompute": "concentration",
+        "raw": [
+          "data/pit/universe/universe_*.csv",
+          "data/pit/features/industry/industry_*.parquet"
+        ]
+      }
+    },
+    "scoring_data_requirements": [],
+    "criteria_confirmed_at": "2026-07-15"
   },
   "measured": {
-    "dead_retention_pct": 0.0,
-    "confirmed_departed_n": 35,
-    "survived_scares_n": 29,
-    "retained_in_universe2025_n": 0,
     "missing_survivor_pct": 0.25,
     "top1_concentration_pct": 19.4,
-    "sources": "①=0-G 상폐표본+universe CSV, ②=0-G summary(재집계)",
+    "dead_retention_pct_TAUTOLOGY_excluded": 0.0,
+    "note": "① dead_retention 는 항진명제(D-017)로 checks 에서 제외. ②만으로 판정.",
     "judge_results": [
-      {
-        "name": "dead_retention",
-        "metric": "dead_retention_pct",
-        "op": "<=",
-        "threshold": 1,
-        "value": 0.0,
-        "pass": true
-      },
       {
         "name": "missing_survivor",
         "metric": "missing_survivor_pct",
         "op": "<",
         "threshold": 3,
-        "value": 0.25,
+        "stated": 0.25,
+        "recomputed": 0.25,
+        "reconcile": "ok",
         "pass": true
       },
       {
@@ -83,12 +74,16 @@
         "metric": "top1_concentration_pct",
         "op": "<",
         "threshold": 50,
-        "value": 19.4,
+        "stated": 19.4,
+        "recomputed": 19.4,
+        "reconcile": "ok",
         "pass": true
       }
-    ]
+    ],
+    "reconciled": true,
+    "timestamp_order": "criteria_before_judge"
   },
   "decided_by": "gate_criteria_auto",
   "decided_at": "2026-07-15",
-  "sig": "da4d2e8ca64fee584a3c92d9b680eeae2ee14fd6fe50516e1d1f14232587f9f7"
+  "sig": "f5b22889685d10e1c319bc1435d0cbb3e7301bd1bcf081e311a332184a57fafe"
 }

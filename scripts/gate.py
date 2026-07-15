@@ -108,24 +108,54 @@ def _cmp(v, op, t):
     return {"<=": v <= t, "<": v < t, ">=": v >= t, ">": v > t, "==": v == t}.get(op, False)
 
 
-def judge(gid, decided_at="0000-00-00"):
-    """★ 코드 판정 (LOOP_0H): criteria.checks 를 measured 에 기계적으로 적용해 PASS/FAIL 을 정한다.
-    사람이 손으로 approve 하지 않는다 — 사람의 승인은 criteria(D-016) 를 확정한 것으로 갈음한다.
-    측정값(measured)은 원자료(runs/)로 재집계 가능해야 하고, threshold 는 criteria 에 고정돼 있다."""
+def judge(gid, recompute_fns=None, decided_at="0000-00-00", tol=0.05):
+    """★ 코드 판정 (LOOP_0H/0I). 사람 손 approve 아님 — 사람의 승인은 criteria 확정으로 갈음.
+
+    ★★ LOOP_0I: **에이전트가 써넣은 measured 를 믿지 않는다.** 각 check 의 measurement_provenance 를
+    따라 recompute_fns 로 **원자료에서 독립 재집계**하고, (1) gate 파일 measured 와 대조(불일치=위조
+    → 거부), (2) threshold 는 **재집계값**에 적용한다. provenance·재집계 소스가 없으면 판정 거부.
+    측정값을 통제하는 자가 판정을 통제하지 못하게 한다."""
     g = read_gate(gid)
     if g is None:
         raise FileNotFoundError(f"gate {gid} 없음")
-    checks = (g.get("criteria") or {}).get("checks", [])
+    criteria = g.get("criteria") or {}
+    checks = criteria.get("checks", [])
+    prov = criteria.get("measurement_provenance", {})
     measured = g.get("measured", {})
-    results = []
+    results, reconciled = [], True
     for c in checks:
-        v = measured.get(c.get("metric"))
-        ok = _cmp(v, c.get("op"), c.get("threshold"))
-        results.append({"name": c.get("name"), "metric": c.get("metric"), "op": c.get("op"),
-                        "threshold": c.get("threshold"), "value": v, "pass": bool(ok)})
-    passed = len(results) > 0 and all(r["pass"] for r in results)
-    return _set(gid, g.get("loop"), "PASS" if passed else "FAIL", g.get("criteria", {}),
-                {**measured, "judge_results": results}, "gate_criteria_auto", decided_at)
+        metric = c.get("metric")
+        stated = measured.get(metric)
+        p = prov.get(metric)
+        recomputed, recon = None, None
+        if not p:
+            recon = "no_provenance"
+        elif recompute_fns is None or p.get("recompute") not in recompute_fns:
+            recon = "no_recompute_fn"
+        else:
+            try:
+                recomputed = recompute_fns[p["recompute"]]()
+            except Exception as e:  # noqa: BLE001  (원자료 부재 등)
+                recon = f"raw_error:{type(e).__name__}"
+            else:
+                recon = ("ok" if stated is not None
+                         and abs(float(stated) - float(recomputed)) <= tol
+                         else "measured_mismatch")
+        if recon != "ok":
+            reconciled = False
+        ok = _cmp(recomputed, c.get("op"), c.get("threshold")) if recomputed is not None else False
+        results.append({"name": c.get("name"), "metric": metric, "op": c.get("op"),
+                        "threshold": c.get("threshold"), "stated": stated,
+                        "recomputed": recomputed, "reconcile": recon, "pass": bool(ok)})
+    # PART 3(0-I): 사전등록 타임스탬프 순서 기록·검증(한계는 DECISIONS D-018).
+    crit_at = criteria.get("criteria_confirmed_at")
+    ts_order = ("no_timestamp" if not crit_at
+                else "criteria_before_judge" if crit_at <= decided_at
+                else "WARNING_judged_before_criteria")
+    passed = reconciled and len(results) > 0 and all(r["pass"] for r in results)
+    return _set(gid, g.get("loop"), "PASS" if passed else "FAIL", criteria,
+                {**measured, "judge_results": results, "reconciled": reconciled,
+                 "timestamp_order": ts_order}, "gate_criteria_auto", decided_at)
 
 
 def verify(gid):
@@ -183,11 +213,17 @@ def _cli():
         print(f"{a.gid}: PASS (사람 승인). 서명 갱신.")
         return 0
     if a.cmd == "judge":
-        g = judge(a.gid, a.at)
-        print(f"{a.gid}: {g['status']} (코드 판정, decided_by={g['decided_by']})")
+        try:
+            import gate_metrics
+            recompute = gate_metrics.RECOMPUTE
+        except Exception:  # noqa: BLE001
+            recompute = None
+        g = judge(a.gid, recompute, a.at)
+        print(f"{a.gid}: {g['status']} (코드 판정+원자료 재집계, decided_by={g['decided_by']}, "
+              f"reconciled={g['measured'].get('reconciled')})")
         for r in g["measured"].get("judge_results", []):
-            print(f"    {r['name']}: {r['value']} {r['op']} {r['threshold']} -> "
-                  f"{'PASS' if r['pass'] else 'FAIL'}")
+            print(f"    {r['name']}: stated={r['stated']} recomputed={r['recomputed']} "
+                  f"[{r['reconcile']}] {r['op']}{r['threshold']} -> {'PASS' if r['pass'] else 'FAIL'}")
         return 0 if g["status"] == "PASS" else 1
     return 2
 

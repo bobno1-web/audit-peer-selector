@@ -56,33 +56,54 @@ class TestPassPathOnly(GateTestBase):
 
 
 class TestCodeJudge(GateTestBase):
-    """LOOP_0H: gate.judge — 기준이 데이터로 충족되면 코드가 PASS(사람 손 approve 아님)."""
+    """LOOP_0H/0I: gate.judge — 코드 판정 + 원자료 재집계 대조(위조 measured 차단)."""
     CRIT = {"loop": "0-H", "checks": [
         {"name": "a", "metric": "m_a", "op": "<=", "threshold": 1},
-        {"name": "b", "metric": "m_b", "op": "<", "threshold": 3}]}
+        {"name": "b", "metric": "m_b", "op": "<", "threshold": 3}],
+        "measurement_provenance": {"m_a": {"recompute": "ra", "raw": ["x"]},
+                                   "m_b": {"recompute": "rb", "raw": ["y"]}}}
+    OK = {"ra": lambda: 0.0, "rb": lambda: 0.25}          # 원자료 재집계값(참값)
 
-    def test_judge_passes_when_criteria_met(self):
+    def test_judge_passes_when_reconciled_and_met(self):
         g = self.gate
         g.create("s", "0-H", self.CRIT)
         g.measure("s", {"m_a": 0.0, "m_b": 0.25}, "PENDING")
-        res = g.judge("s")
+        res = g.judge("s", self.OK)
         self.assertEqual(res["status"], "PASS")
-        self.assertEqual(res["decided_by"], "gate_criteria_auto")   # 사람 아님
+        self.assertEqual(res["decided_by"], "gate_criteria_auto")
+        self.assertTrue(res["measured"]["reconciled"])
         self.assertTrue(g.verify("s"))
 
-    def test_judge_fails_when_criteria_unmet(self):
+    def test_judge_fails_when_recomputed_unmet(self):
         g = self.gate
         g.create("s", "0-H", self.CRIT)
-        g.measure("s", {"m_a": 5.0, "m_b": 0.25}, "PENDING")        # m_a=5 > 1 → 미달
-        res = g.judge("s")
-        self.assertEqual(res["status"], "FAIL")
-        self.assertFalse(g.verify("s"))
+        g.measure("s", {"m_a": 5.0, "m_b": 0.25}, "PENDING")
+        # 임계는 재집계값에 적용: ra=5 > 1 → FAIL
+        self.assertEqual(g.judge("s", {"ra": lambda: 5.0, "rb": lambda: 0.25})["status"], "FAIL")
 
-    def test_judge_fails_on_missing_metric(self):
+    def test_judge_rejects_forged_measured(self):
+        """★ 위조: measured 를 통과값으로 써넣어도 원자료 재집계와 불일치 → 거부."""
         g = self.gate
         g.create("s", "0-H", self.CRIT)
-        g.measure("s", {"m_a": 0.0}, "PENDING")                    # m_b 없음 → 미달
-        self.assertEqual(g.judge("s")["status"], "FAIL")
+        g.measure("s", {"m_a": 0.0, "m_b": 0.25}, "PENDING")     # 통과처럼 보이는 값
+        res = g.judge("s", {"ra": lambda: 9.9, "rb": lambda: 0.25})  # 원자료는 9.9
+        self.assertEqual(res["status"], "FAIL")
+        self.assertFalse(res["measured"]["reconciled"])          # 대조 불일치
+
+    def test_judge_rejects_missing_provenance(self):
+        g = self.gate
+        g.create("s", "0-H", {"loop": "x", "checks": [
+            {"name": "a", "metric": "m_a", "op": "<=", "threshold": 1}]})   # provenance 없음
+        g.measure("s", {"m_a": 0.0}, "PENDING")
+        self.assertEqual(g.judge("s", self.OK)["status"], "FAIL")
+
+    def test_judge_rejects_when_raw_unavailable(self):
+        g = self.gate
+        g.create("s", "0-H", self.CRIT)
+        g.measure("s", {"m_a": 0.0, "m_b": 0.25}, "PENDING")
+        def boom():
+            raise FileNotFoundError("raw 없음")
+        self.assertEqual(g.judge("s", {"ra": boom, "rb": lambda: 0.25})["status"], "FAIL")
 
 
 class TestTamperDetection(GateTestBase):

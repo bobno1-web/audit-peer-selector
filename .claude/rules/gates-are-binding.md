@@ -25,6 +25,16 @@
 - 후속 스크립트는 `gate.require_pass(gate_id)` 로 확인 → 미통과면 `exit 1`.
 - 검사: `tests/test_gate_enforcement.py`.
 
+## ★ 측정값을 통제하는 자가 판정을 통제해선 안 된다 (LOOP_0I)
+`gate.py judge` 는 **에이전트가 gate 파일에 써넣은 measured 를 믿지 않는다.**
+- 각 check 의 `measurement_provenance` 를 따라 **원자료에서 독립적으로 재집계**(`gate_metrics`,
+  측정 스크립트와 별개 구현)하고, gate 파일 값과 **대조**한다. 불일치(위조) → 판정 거부.
+- 임계 비교는 **재집계값**에 적용한다(에이전트가 쓴 값이 아니라).
+- provenance 가 없거나 원자료가 없어 재집계 불가면 → 판정 거부.
+- 기계 강제: `tests/test_gate_measurement_integrity.py`(위조·원자료부재 차단 실증).
+근거: 0-H에서 "사람 approve 제거 → 코드 판정"이 오히려 **에이전트가 계기판 숫자를 직접 쓰는**
+새 구멍을 열었다. 측정 통제와 판정 통제를 분리해 그 구멍을 막는다.
+
 ## 위협 모델 (정직히)
 에이전트는 FS 접근권이 있어 `.gatekey` 를 읽어 서명을 위조하거나 `gate.py` 자체를 고칠 수도
 있다. 그것은 **의도적 위·변조**로, "합리화에 의한 통과"(0-F)와는 다른 종류의 명백한 위반이며

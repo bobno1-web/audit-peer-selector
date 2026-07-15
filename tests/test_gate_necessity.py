@@ -134,6 +134,34 @@ class TestGateNecessity(unittest.TestCase):
                                                    {"kind": "file", "ref": "data/pit/universe"}]}]}
         self.assertEqual(unmeasurable_checks(crit), [])
 
+    # --- [비자명성] 항진명제 탐지 (LOOP_0I 1-2) ---
+    def test_d016_dead_retention_is_tautological(self):
+        """★ I2: D-016 ①(잔존율)을 항진명제 탐지에 넣으면 FAIL(=상수) 나야 한다."""
+        import random
+        import gate_metrics as gm
+        sample = [{"corp_code": f"c{i}"} for i in range(50)]
+
+        def make_univ(seed):
+            rnd = random.Random(seed)
+            return {2024: {f"c{i}" for i in range(50) if rnd.random() < 0.5},
+                    2025: {f"c{i}" for i in range(50) if rnd.random() < 0.5}}
+        inputs = [(sample, make_univ(s)) for s in range(10)]
+        fn = lambda inp: gm.recompute_dead_retention(inp[0], inp[1])   # noqa: E731
+        self.assertTrue(gm.is_tautological(fn, inputs),
+                        "dead_retention 이 항진명제로 탐지되지 않음(잔존은 정의상 공집합=상수 0)")
+
+    def test_missing_survivor_is_not_tautological(self):
+        import random
+        import gate_metrics as gm
+
+        def make_univ(seed):
+            rnd = random.Random(seed)
+            return {y: {f"c{i}" for i in range(300) if rnd.random() < 0.7}
+                    for y in range(2015, 2026)}
+        inputs = [make_univ(s) for s in range(10)]
+        self.assertFalse(gm.is_tautological(gm.recompute_missing_survivor, inputs),
+                         "미제출-생존은 입력에 따라 변해야 함(항진명제 아님)")
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
