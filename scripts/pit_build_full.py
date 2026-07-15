@@ -64,6 +64,20 @@ def append_row(y, row):
         f.write(json.dumps(row, ensure_ascii=False) + "\n")
 
 
+def fetch_fin_or_limit(cc, fy):
+    """단일 경로 재무 수집 + 한도(020) 감지. 중복 호출 없음."""
+    for fs in pb.FS_ORDER:
+        res = ap.get_json("fnlttSinglAcntAll.json",
+                          {"corp_code": cc, "bsns_year": fy,
+                           "reprt_code": pb.REPRT_ANNUAL, "fs_div": fs})
+        st = res.get("status")
+        if st == "020":
+            return "LIMIT", None
+        if st == "000" and res.get("list"):
+            return res["list"], fs
+    return None, None
+
+
 def build_year(y, induty_cache):
     """유니버스 전량 corp 의 재무를 수집. 이미 처리한 corp 는 건너뜀(resume)."""
     fy = str(y - 1)
@@ -78,12 +92,8 @@ def build_year(y, induty_cache):
         if cc in have:
             continue
         uni_dt = pb.iso(rec["rcept_dt"])
-        lst, fs = pb.fetch_financials(cc, fy)
-        # 한도초과(020) 감지: fetch_financials 는 status 를 삼키므로 직접 한 번 더 확인
-        probe = ap.get_json("fnlttSinglAcntAll.json",
-                            {"corp_code": cc, "bsns_year": fy, "reprt_code": pb.REPRT_ANNUAL,
-                             "fs_div": "OFS"})
-        if probe.get("status") == "020":
+        lst, fs = fetch_fin_or_limit(cc, fy)
+        if lst == "LIMIT":
             log("  [LIMIT] status=020 한도초과 — 진행 저장 후 중단(내일 이어받기).")
             return "limit"
         vals = {a: None for a in pb.FETCH}

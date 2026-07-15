@@ -1,0 +1,16 @@
+# 프로젝트에 실재하는 데이터 소스 (게이트 measurement_source 실재 검사용).
+# ★ 게이트 기준이 여기 없는 소스에 의존하면 [측정가능성] 실패 → test_gate_necessity FAIL.
+# 근거: 0-G "제거율 95%"는 KRX 상폐일에 의존했으나 그 소스가 실재하지 않아 측정 불가였다.
+
+# 실재하는 DART API 엔드포인트 (audit_parser 로 호출 가능, 실측 확인됨).
+apis:
+  - corpCode.xml
+  - company.json
+  - list.json
+  - fnlttSinglAcntAll.json
+  - document.xml
+  - fnlttXbrl.xml
+
+# 실재하지 않는 소스 (참고: 게이트 기준이 이것에 의존하면 안 된다).
+# - KRX 상폐일/상장폐지 목록: 자동 확보 실패(0-E, 0-G). getJsonData HTTP 400, OTP→CSV 0행.
+#   → 아래 apis 에 없음. 이 소스에 의존하는 기준은 측정 불가로 폐기해야 한다.

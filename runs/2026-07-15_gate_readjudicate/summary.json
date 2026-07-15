@@ -1,0 +1,16 @@
+{
+  "meta": {
+    "criteria_ref": "DECISIONS D-016",
+    "no_new_api": true,
+    "note": "① 잔존율은 실제이탈(2년 연속 부재)만 분자 후보 → 생존 스캐어 자동 배제(오염 없음)."
+  },
+  "measured": {
+    "dead_retention_pct": 0.0,
+    "confirmed_departed_n": 35,
+    "survived_scares_n": 29,
+    "retained_in_universe2025_n": 0,
+    "missing_survivor_pct": 0.25,
+    "top1_concentration_pct": 19.4,
+    "sources": "①=0-G 상폐표본+universe CSV, ②=0-G summary(재집계)"
+  }
+}

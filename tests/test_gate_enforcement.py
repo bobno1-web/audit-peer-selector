@@ -55,6 +55,36 @@ class TestPassPathOnly(GateTestBase):
         self.assertEqual(g.read_gate("x")["decided_by"], "human")
 
 
+class TestCodeJudge(GateTestBase):
+    """LOOP_0H: gate.judge — 기준이 데이터로 충족되면 코드가 PASS(사람 손 approve 아님)."""
+    CRIT = {"loop": "0-H", "checks": [
+        {"name": "a", "metric": "m_a", "op": "<=", "threshold": 1},
+        {"name": "b", "metric": "m_b", "op": "<", "threshold": 3}]}
+
+    def test_judge_passes_when_criteria_met(self):
+        g = self.gate
+        g.create("s", "0-H", self.CRIT)
+        g.measure("s", {"m_a": 0.0, "m_b": 0.25}, "PENDING")
+        res = g.judge("s")
+        self.assertEqual(res["status"], "PASS")
+        self.assertEqual(res["decided_by"], "gate_criteria_auto")   # 사람 아님
+        self.assertTrue(g.verify("s"))
+
+    def test_judge_fails_when_criteria_unmet(self):
+        g = self.gate
+        g.create("s", "0-H", self.CRIT)
+        g.measure("s", {"m_a": 5.0, "m_b": 0.25}, "PENDING")        # m_a=5 > 1 → 미달
+        res = g.judge("s")
+        self.assertEqual(res["status"], "FAIL")
+        self.assertFalse(g.verify("s"))
+
+    def test_judge_fails_on_missing_metric(self):
+        g = self.gate
+        g.create("s", "0-H", self.CRIT)
+        g.measure("s", {"m_a": 0.0}, "PENDING")                    # m_b 없음 → 미달
+        self.assertEqual(g.judge("s")["status"], "FAIL")
+
+
 class TestTamperDetection(GateTestBase):
     def test_hand_edited_pass_is_rejected(self):
         g = self.gate

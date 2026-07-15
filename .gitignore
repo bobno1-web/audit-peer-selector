@@ -5,6 +5,8 @@ __pycache__/
 !.env.example
 # 게이트 서명 키 — 커밋 금지(키가 공개되면 PASS 위조 가능). 게이트 json 은 커밋한다.
 runs/gates/.gatekey
+# PIT 전량 빌드의 임시 체크포인트(대용량·live 기록·재생성 가능) — 커밋 안 함.
+runs/pit_full/
 data/raw/**
 data/pit/**
 out/**

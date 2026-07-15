@@ -102,6 +102,32 @@ def approve(gid, human_approval, decided_at="0000-00-00"):
                 "human", decided_at)
 
 
+def _cmp(v, op, t):
+    if v is None:
+        return False
+    return {"<=": v <= t, "<": v < t, ">=": v >= t, ">": v > t, "==": v == t}.get(op, False)
+
+
+def judge(gid, decided_at="0000-00-00"):
+    """★ 코드 판정 (LOOP_0H): criteria.checks 를 measured 에 기계적으로 적용해 PASS/FAIL 을 정한다.
+    사람이 손으로 approve 하지 않는다 — 사람의 승인은 criteria(D-016) 를 확정한 것으로 갈음한다.
+    측정값(measured)은 원자료(runs/)로 재집계 가능해야 하고, threshold 는 criteria 에 고정돼 있다."""
+    g = read_gate(gid)
+    if g is None:
+        raise FileNotFoundError(f"gate {gid} 없음")
+    checks = (g.get("criteria") or {}).get("checks", [])
+    measured = g.get("measured", {})
+    results = []
+    for c in checks:
+        v = measured.get(c.get("metric"))
+        ok = _cmp(v, c.get("op"), c.get("threshold"))
+        results.append({"name": c.get("name"), "metric": c.get("metric"), "op": c.get("op"),
+                        "threshold": c.get("threshold"), "value": v, "pass": bool(ok)})
+    passed = len(results) > 0 and all(r["pass"] for r in results)
+    return _set(gid, g.get("loop"), "PASS" if passed else "FAIL", g.get("criteria", {}),
+                {**measured, "judge_results": results}, "gate_criteria_auto", decided_at)
+
+
 def verify(gid):
     """status==PASS 이고 서명이 유효한가. (손편집·위조 탐지.)"""
     g = read_gate(gid)
@@ -132,6 +158,7 @@ def _cli():
     p = sub.add_parser("approve")
     p.add_argument("gid"); p.add_argument("--human-approval", dest="ha", default="")
     p.add_argument("--at", default="0000-00-00")
+    p = sub.add_parser("judge"); p.add_argument("gid"); p.add_argument("--at", default="0000-00-00")
     a = ap.parse_args()
 
     if a.cmd == "check":
@@ -155,6 +182,13 @@ def _cli():
             return 1
         print(f"{a.gid}: PASS (사람 승인). 서명 갱신.")
         return 0
+    if a.cmd == "judge":
+        g = judge(a.gid, a.at)
+        print(f"{a.gid}: {g['status']} (코드 판정, decided_by={g['decided_by']})")
+        for r in g["measured"].get("judge_results", []):
+            print(f"    {r['name']}: {r['value']} {r['op']} {r['threshold']} -> "
+                  f"{'PASS' if r['pass'] else 'FAIL'}")
+        return 0 if g["status"] == "PASS" else 1
     return 2
 
 

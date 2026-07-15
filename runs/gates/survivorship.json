@@ -1,25 +1,94 @@
 {
   "gate_id": "survivorship",
-  "loop": "0-G",
-  "status": "FAIL",
+  "loop": "0-H",
+  "status": "PASS",
   "criteria": {
-    "loop": "0-G",
-    "source": "DART 거래소공시(I) 상장폐지 + corp_cls=E 교차확인 (사업보고서와 독립)",
-    "condition_1": "독립 표본 n>=50 중 >=95% 상폐전 존재/상폐후 부재",
-    "condition_2": "미제출-생존 기업 <3% OR 특성 비쏠림",
-    "independent_sample_min": 50,
-    "removal_rate_min_pct": 95,
-    "missing_survivor_max_pct": 3,
+    "loop": "0-H",
+    "spec_ref": "DECISIONS D-016",
+    "checks": [
+      {
+        "name": "dead_retention",
+        "metric": "dead_retention_pct",
+        "op": "<=",
+        "threshold": 1,
+        "measurement_source": [
+          {
+            "kind": "api",
+            "ref": "company.json"
+          },
+          {
+            "kind": "file",
+            "ref": "data/pit/universe"
+          }
+        ]
+      },
+      {
+        "name": "missing_survivor",
+        "metric": "missing_survivor_pct",
+        "op": "<",
+        "threshold": 3,
+        "measurement_source": [
+          {
+            "kind": "file",
+            "ref": "data/pit/universe"
+          }
+        ]
+      },
+      {
+        "name": "not_concentrated",
+        "metric": "top1_concentration_pct",
+        "op": "<",
+        "threshold": 50,
+        "measurement_source": [
+          {
+            "kind": "api",
+            "ref": "company.json"
+          },
+          {
+            "kind": "file",
+            "ref": "data/pit/universe"
+          }
+        ]
+      }
+    ],
     "scoring_data_requirements": []
   },
   "measured": {
-    "D1_removal_rate_pct": 55.4,
-    "D1_n": 65,
-    "D2_missing_survivor_avg_pct": 0.25,
-    "D2_top1_industry_share_pct": 19.4,
-    "verdict_measured": "FAIL"
+    "dead_retention_pct": 0.0,
+    "confirmed_departed_n": 35,
+    "survived_scares_n": 29,
+    "retained_in_universe2025_n": 0,
+    "missing_survivor_pct": 0.25,
+    "top1_concentration_pct": 19.4,
+    "sources": "①=0-G 상폐표본+universe CSV, ②=0-G summary(재집계)",
+    "judge_results": [
+      {
+        "name": "dead_retention",
+        "metric": "dead_retention_pct",
+        "op": "<=",
+        "threshold": 1,
+        "value": 0.0,
+        "pass": true
+      },
+      {
+        "name": "missing_survivor",
+        "metric": "missing_survivor_pct",
+        "op": "<",
+        "threshold": 3,
+        "value": 0.25,
+        "pass": true
+      },
+      {
+        "name": "not_concentrated",
+        "metric": "top1_concentration_pct",
+        "op": "<",
+        "threshold": 50,
+        "value": 19.4,
+        "pass": true
+      }
+    ]
   },
-  "decided_by": "script",
+  "decided_by": "gate_criteria_auto",
   "decided_at": "2026-07-15",
-  "sig": "4402b4a97bea6a8fe02481f487b62e0b30035ddc72bbae5684919608c911a636"
+  "sig": "da4d2e8ca64fee584a3c92d9b680eeae2ee14fd6fe50516e1d1f14232587f9f7"
 }

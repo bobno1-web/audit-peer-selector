@@ -116,3 +116,34 @@
 | ② 미제출-생존 0.25%(통과) | 데이터사실 | `SURVIVORSHIP.md` + `DECISIONS` D-014 + `runs/…gate_survivorship` | ✅ |
 | 0-F PART C/D 산출물 미검증 | 계획 | `DATA_CARD.md` 배너(A-3) | ✅ |
 | 게이트 v2 FAIL → 멈춤(사람 판단) | 규칙 | `DECISIONS` D-014 (PART E 미시작, 에스컬레이션) | ✅ |
+
+## Loop 0-H — 게이트 재조준(측정가능성) + 코드 판정 + PIT 전량 착수
+- **무엇을 했나**: (1) **다섯 번째 실수 수리** — 게이트 4번째 검사 **[측정가능성]** 추가
+  (오염 없이 측정할 소스가 없는 기준은 못 씀), `test_gate_necessity` 에 measurement_source 필수화 +
+  실재 검사(`config/data_sources.yaml`). (2) **게이트 재조준** — 측정불가 ①(제거율) 폐기(D-015),
+  4검사 통과 직접기준 D-016(①죽은기업 잔존 ②산기업 누락)으로 교체, **`gate.py judge`(코드 판정)**
+  경로 신설. (3) 하네스: VERIFY 규칙9(게이트-종속=미실행 정당), LOOP_PROTOCOL 병렬 프로토콜.
+  (4) **PIT 전량 착수**(게이트 PASS 후 background, resume). (Z) 라우팅 + 자기기만 패턴 기록.
+- **점수**: N/A(엔진 없음). 실측: ① 잔존율 **0.0%**(≤1%), ② 미제출-생존 **0.25%**(<3%, 비쏠림 19.4%)
+  → **gate.py judge = PASS**(decided_by=gate_criteria_auto, 사람 손 approve 아님). 46 테스트 green.
+- **이전 대비 변화**: 게이트가 **다섯 번째 실수(측정불가 기준)**를 코드로 막게 됨. ★ **게이트를
+  올바른 기준으로 교체해 PASS** — 0-F(FAIL 기준을 판단으로 넘음, 위반)와 근본적으로 다름. PIT 전량
+  구축 착수(수시간, resume).
+- **비개발자용 한 줄 요약**: 지난 다섯 번, 정지선이 걸릴 때마다 "이 정지선이 잘못됐다"며 고치려는
+  유혹이 반복됐다. 이번엔 그 유혹을 **코드로** 막았다 — 정지선은 4가지 자가검사를 통과해야만 서고,
+  한번 서면 사람이 못 흔들고 컴퓨터가 데이터만 보고 통과/실패를 정한다. 그렇게 만든 새 기준(죽은
+  회사가 명단에 남나 / 산 회사가 명단에서 빠지나)에 데이터를 넣으니 통과했고, 이번 통과는 사람이
+  넘긴 게 아니라 **컴퓨터가 판정**한 것이다.
+
+### PART Z — 발견 → 반영 라우팅 (0-H). 미반영 0건.
+| 발견 | 성격 | 반영 위치 | 완료 |
+|---|---|---|:--:|
+| ① 제거율 = **측정 불가능**(새 결함류) | 기계강제 | `gate_design` 4번째검사[측정가능] + `test_gate_necessity` measurement_source + `config/data_sources.yaml` | ✅ |
+| "정책 발명"(6계정전부류) 미탐지 | 기계강제 | `test_gate_necessity` measurement_source 필수화 | ✅ |
+| 게이트가 사람 손 approve로만 열림(0-G 한계) | 설계 | `scripts/gate.py judge`(코드 판정) + `DECISIONS` D-016 | ✅ |
+| ① 폐기(측정불가·결과무관하게 참) | 설계 | `DECISIONS` D-015 | ✅ |
+| 새 직접·측정가능 기준 ①② | 설계 | `DECISIONS` D-016 + gate `criteria.checks` | ✅ |
+| 게이트-종속 조건 검증 오판 소지 | 검증절차 | `VERIFY.md` 규칙9 | ✅ |
+| 병렬 실행 미프로토콜화 | 반복절차 | `LOOP_PROTOCOL.md` 병렬 프로토콜 | ✅ |
+| **실패 후 기준 깎기(자기기만 패턴)** | 반복절차+기계 | `gate_design` 자기기만 섹션 + 4검사 + code judge | ✅ |
+| pit_build_full 중복 API 호출(2배) | 기계 | `fetch_fin_or_limit` 단일경로 | ✅ |

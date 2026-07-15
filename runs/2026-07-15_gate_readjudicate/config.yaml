@@ -1,0 +1,5 @@
+# gate_readjudicate 설정
+criteria: DECISIONS D-016
+dead_retention: 실제이탈(2024·2025 연속 부재) 중 2025 유니버스 잔존 비율
+source: runs/2026-07-15_gate_survivorship (0-G 원자료) + data/pit/universe
+no_new_api_calls: true
