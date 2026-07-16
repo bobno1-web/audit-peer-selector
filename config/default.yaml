@@ -55,11 +55,10 @@ similarity:
   text_ngram: 3                       # 문자 n-gram(한국어 형태 근사)
   text_vocab_size: 3000               # 상위 df 어휘 크기
   text_section_title: "사업의 내용"    # 섹션 추출 구조 앵커(규제 서식의 표준 섹션명; 회사명·코드 아님)
-  # Loop 4: 구성 요소(순서=가중치 순서). 각 요소는 유사도 성분, dev 격자로 가중.
-  # ★ 활성 축 = 데이터가 있는 축만. 부문(segment)은 엔진/설정 준비완료지만 raw 테이블
-  #   재취득(document.xml)이 020 일한도로 블록 → 이번 루프 데이터 없음(SEGMENT_EXTRACTION.md).
-  #   segment 데이터가 생기면 components 에 segment 추가 후 재탐색하면 자동 반영된다.
-  components: [industry, scale, mktcap, text, growth]
+  # 구성 요소(순서=가중치 순서). 각 요소는 유사도 성분, dev 격자로 가중.
+  # ★ Loop 5: 부문(segment) 데이터 확보(성공률 85.7%, SEGMENT_EXTRACTION.md) → 활성화. 6축.
+  #   활성 축 = 산업·규모·시총·텍스트·성장·부문. 결측 기업은 sim_segment=0(임의대체 0).
+  components: [industry, scale, mktcap, text, growth, segment]
   mktcap_feature: 시가총액             # 시총 규모 유사도(로그 거리) — as_of 시점 KRX
   growth_feature: 매출성장률           # Loop 4: 매출성장률 유사도(데이터유도 스케일 거리) — T 이전 매출만
   segment_features: [seg_hhi, seg_top_share, seg_n]  # Loop 4: 부문 집중도 프로필(준비완료; 데이터 대기)

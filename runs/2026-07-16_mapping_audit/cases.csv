@@ -1,0 +1,241 @@
+﻿corp_code,year,account,our_pick_nm,our_pick_id,our_pick_value,n_candidates,verdict,note
+00862853,2020,매출액,영업수익,ifrs-full_Revenue,38572319649,1,OK,표준 id 일치(ifrs-full_Revenue)
+00862853,2020,매출원가,영업비용,dart_OperatingExpenses,29769370732,1,DEFINITIONAL,매출원가 미보고 → 영업비용 대체(서비스업 관행)
+00862853,2020,매출총이익,,,,0,NA,개념 후보 없음(정의 안 됨)
+00862853,2020,영업이익,영업이익,dart_OperatingIncomeLoss,8802948917,1,OK,표준 id 일치(dart_OperatingIncomeLoss)
+00862853,2020,재고자산,,,,0,NA,개념 후보 없음(정의 안 됨)
+00862853,2020,매출채권,매출채권,dart_ShortTermTradeReceivable,9339720119,1,OK,매출채권류
+00151298,2018,매출액,매출액,ifrs_Revenue,177545209650,1,OK,표준 id 일치(ifrs_Revenue)
+00151298,2018,매출원가,매출원가,ifrs_CostOfSales,160016824949,1,OK,매출원가 직접
+00151298,2018,매출총이익,매출총이익,ifrs_GrossProfit,17528384701,1,OK,표준 id 일치(ifrs_GrossProfit)
+00151298,2018,영업이익,영업이익(손실),dart_OperatingIncomeLoss,2478368395,2,OK,표준 id 일치(dart_OperatingIncomeLoss)
+00151298,2018,재고자산,재고자산,ifrs_Inventories,29640737739,1,OK,표준 id 일치(ifrs_Inventories)
+00151298,2018,매출채권,매출채권 및 기타채권,ifrs_TradeAndOtherCurrentReceivables,45896099054,1,DISCLOSURE,"합산선만 공시(순수 매출채권 미공시 — 공시 현실, 허용)"
+00124726,2017,매출액,매출액,ifrs_Revenue,804139944761,1,OK,표준 id 일치(ifrs_Revenue)
+00124726,2017,매출원가,매출원가,ifrs_CostOfSales,561290382596,1,OK,매출원가 직접
+00124726,2017,매출총이익,매출총이익,ifrs_GrossProfit,242849562165,1,OK,표준 id 일치(ifrs_GrossProfit)
+00124726,2017,영업이익,영업이익,dart_OperatingIncomeLoss,35616853375,1,OK,표준 id 일치(dart_OperatingIncomeLoss)
+00124726,2017,재고자산,재고자산,ifrs_Inventories,33575416345,1,OK,표준 id 일치(ifrs_Inventories)
+00124726,2017,매출채권,매출채권,-표준계정코드 미사용-,68956662535,1,OK,순수 매출채권
+00478900,2019,매출액,수익(매출액),ifrs_Revenue,77604083499,3,OK,표준 id 일치(ifrs_Revenue)
+00478900,2019,매출원가,매출원가,ifrs_CostOfSales,56866273254,4,OK,매출원가 직접
+00478900,2019,매출총이익,매출총이익,ifrs_GrossProfit,20737810245,1,OK,표준 id 일치(ifrs_GrossProfit)
+00478900,2019,영업이익,영업이익(손실),dart_OperatingIncomeLoss,11987040622,1,OK,표준 id 일치(dart_OperatingIncomeLoss)
+00478900,2019,재고자산,재고자산,ifrs_Inventories,24963874996,1,OK,표준 id 일치(ifrs_Inventories)
+00478900,2019,매출채권,매출채권 및 기타유동채권,ifrs_TradeAndOtherCurrentReceivables,14672099727,1,DISCLOSURE,"합산선만 공시(순수 매출채권 미공시 — 공시 현실, 허용)"
+00149354,2022,매출액,매출액,ifrs-full_Revenue,35239252765,1,OK,표준 id 일치(ifrs-full_Revenue)
+00149354,2022,매출원가,매출원가,ifrs-full_CostOfSales,1063827604,1,OK,매출원가 직접
+00149354,2022,매출총이익,매출총이익,ifrs-full_GrossProfit,34175425161,1,OK,표준 id 일치(ifrs-full_GrossProfit)
+00149354,2022,영업이익,영업이익,dart_OperatingIncomeLoss,24599740328,1,OK,표준 id 일치(dart_OperatingIncomeLoss)
+00149354,2022,재고자산,재고자산,ifrs-full_Inventories,0,1,OK,표준 id 일치(ifrs-full_Inventories)
+00149354,2022,매출채권,매출채권,dart_ShortTermTradeReceivable,1642876400,1,OK,매출채권류
+00113492,2017,매출액,매출,ifrs_Revenue,700578127895,0,OK,표준 id 일치(ifrs_Revenue)
+00113492,2017,매출원가,매출원가,ifrs_CostOfSales,571602606319,1,OK,매출원가 직접
+00113492,2017,매출총이익,매출총이익,ifrs_GrossProfit,128975521576,1,OK,표준 id 일치(ifrs_GrossProfit)
+00113492,2017,영업이익,영업이익(손실),dart_OperatingIncomeLoss,17761238137,1,OK,표준 id 일치(dart_OperatingIncomeLoss)
+00113492,2017,재고자산,재고자산,ifrs_Inventories,50942249165,1,OK,표준 id 일치(ifrs_Inventories)
+00113492,2017,매출채권,매출채권 및 기타유동채권,ifrs_TradeAndOtherCurrentReceivables,86056076727,1,DISCLOSURE,"합산선만 공시(순수 매출채권 미공시 — 공시 현실, 허용)"
+00959229,2021,매출액,수익(매출액),ifrs-full_Revenue,13993481345,1,OK,표준 id 일치(ifrs-full_Revenue)
+00959229,2021,매출원가,매출원가,ifrs-full_CostOfSales,5558588614,1,OK,매출원가 직접
+00959229,2021,매출총이익,매출총이익,ifrs-full_GrossProfit,8434892731,1,OK,표준 id 일치(ifrs-full_GrossProfit)
+00959229,2021,영업이익,영업이익(손실),dart_OperatingIncomeLoss,1086759065,1,OK,표준 id 일치(dart_OperatingIncomeLoss)
+00959229,2021,재고자산,재고자산,ifrs-full_Inventories,2690532065,1,OK,표준 id 일치(ifrs-full_Inventories)
+00959229,2021,매출채권,매출채권 및 기타유동채권,ifrs-full_TradeAndOtherCurrentReceivables,2357874450,1,DISCLOSURE,"합산선만 공시(순수 매출채권 미공시 — 공시 현실, 허용)"
+00442561,2019,매출액,매출액,ifrs_Revenue,24525642776,1,OK,표준 id 일치(ifrs_Revenue)
+00442561,2019,매출원가,매출원가,ifrs_CostOfSales,19903171479,1,OK,매출원가 직접
+00442561,2019,매출총이익,매출총이익,ifrs_GrossProfit,4622471297,1,OK,표준 id 일치(ifrs_GrossProfit)
+00442561,2019,영업이익,영업이익(손실),dart_OperatingIncomeLoss,-1392682576,1,OK,표준 id 일치(dart_OperatingIncomeLoss)
+00442561,2019,재고자산,재고자산,ifrs_Inventories,1805652930,1,OK,표준 id 일치(ifrs_Inventories)
+00442561,2019,매출채권,매출채권 및 기타유동채권,ifrs_TradeAndOtherCurrentReceivables,3938031897,1,DISCLOSURE,"합산선만 공시(순수 매출채권 미공시 — 공시 현실, 허용)"
+01259418,2019,매출액,수익(매출액),ifrs_Revenue,20620188221,3,OK,표준 id 일치(ifrs_Revenue)
+01259418,2019,매출원가,매출원가,ifrs_CostOfSales,13197338921,3,OK,매출원가 직접
+01259418,2019,매출총이익,매출총이익,ifrs_GrossProfit,7422849300,1,OK,표준 id 일치(ifrs_GrossProfit)
+01259418,2019,영업이익,영업이익(손실),dart_OperatingIncomeLoss,4202719408,1,OK,표준 id 일치(dart_OperatingIncomeLoss)
+01259418,2019,재고자산,재고자산,ifrs_Inventories,4940475478,1,OK,표준 id 일치(ifrs_Inventories)
+01259418,2019,매출채권,매출채권 및 기타유동채권,ifrs_TradeAndOtherCurrentReceivables,2895915419,2,DISCLOSURE,"합산선만 공시(순수 매출채권 미공시 — 공시 현실, 허용)"
+00357430,2021,매출액,수익(매출액),ifrs-full_Revenue,42743207585,1,OK,표준 id 일치(ifrs-full_Revenue)
+00357430,2021,매출원가,매출원가,ifrs-full_CostOfSales,10898232512,1,OK,매출원가 직접
+00357430,2021,매출총이익,매출총이익,ifrs-full_GrossProfit,31844975073,1,OK,표준 id 일치(ifrs-full_GrossProfit)
+00357430,2021,영업이익,영업이익(손실),dart_OperatingIncomeLoss,3564939132,1,OK,표준 id 일치(dart_OperatingIncomeLoss)
+00357430,2021,재고자산,재고자산,ifrs-full_Inventories,3118072118,1,OK,표준 id 일치(ifrs-full_Inventories)
+00357430,2021,매출채권,매출채권 및 기타유동채권,ifrs-full_TradeAndOtherCurrentReceivables,7479948204,1,DISCLOSURE,"합산선만 공시(순수 매출채권 미공시 — 공시 현실, 허용)"
+00144818,2020,매출액,수익(매출액),ifrs-full_Revenue,78957803088,1,OK,표준 id 일치(ifrs-full_Revenue)
+00144818,2020,매출원가,매출원가,ifrs-full_CostOfSales,35496235892,1,OK,매출원가 직접
+00144818,2020,매출총이익,매출총이익,ifrs-full_GrossProfit,43461567196,1,OK,표준 id 일치(ifrs-full_GrossProfit)
+00144818,2020,영업이익,영업이익(손실),dart_OperatingIncomeLoss,6112885949,1,OK,표준 id 일치(dart_OperatingIncomeLoss)
+00144818,2020,재고자산,재고자산,ifrs-full_Inventories,16325518056,1,OK,표준 id 일치(ifrs-full_Inventories)
+00144818,2020,매출채권,매출채권 및 기타유동채권,ifrs-full_TradeAndOtherCurrentReceivables,18835677581,1,DISCLOSURE,"합산선만 공시(순수 매출채권 미공시 — 공시 현실, 허용)"
+00151368,2018,매출액,수익(매출액),ifrs_Revenue,476310232968,1,OK,표준 id 일치(ifrs_Revenue)
+00151368,2018,매출원가,매출원가,ifrs_CostOfSales,447324651493,1,OK,매출원가 직접
+00151368,2018,매출총이익,매출총이익,ifrs_GrossProfit,28985581475,1,OK,표준 id 일치(ifrs_GrossProfit)
+00151368,2018,영업이익,영업이익(손실),dart_OperatingIncomeLoss,11594850855,2,OK,표준 id 일치(dart_OperatingIncomeLoss)
+00151368,2018,재고자산,재고자산,ifrs_Inventories,1478423485,1,OK,표준 id 일치(ifrs_Inventories)
+00151368,2018,매출채권,매출채권,dart_ShortTermTradeReceivable,119285441559,3,OK,매출채권류
+00102760,2017,매출액,매출액,ifrs_Revenue,1274565797672,1,OK,표준 id 일치(ifrs_Revenue)
+00102760,2017,매출원가,매출원가,ifrs_CostOfSales,1161224864823,1,OK,매출원가 직접
+00102760,2017,매출총이익,매출총이익,ifrs_GrossProfit,113340932849,1,OK,표준 id 일치(ifrs_GrossProfit)
+00102760,2017,영업이익,영업이익(손실),dart_OperatingIncomeLoss,12804686143,7,OK,표준 id 일치(dart_OperatingIncomeLoss)
+00102760,2017,재고자산,재고자산,-표준계정코드 미사용-,45103859785,1,OK,비표준 id 지만 계정명 정상(재고자산)
+00102760,2017,매출채권,매출채권,-표준계정코드 미사용-,363271717854,1,OK,순수 매출채권
+00667425,2021,매출액,수익(매출액),ifrs-full_Revenue,49630031668,1,OK,표준 id 일치(ifrs-full_Revenue)
+00667425,2021,매출원가,매출원가,ifrs-full_CostOfSales,39690549470,1,OK,매출원가 직접
+00667425,2021,매출총이익,매출총이익,ifrs-full_GrossProfit,9939482198,1,OK,표준 id 일치(ifrs-full_GrossProfit)
+00667425,2021,영업이익,영업이익(손실),dart_OperatingIncomeLoss,6544712114,1,OK,표준 id 일치(dart_OperatingIncomeLoss)
+00667425,2021,재고자산,,,,0,NA,개념 후보 없음(정의 안 됨)
+00667425,2021,매출채권,매출채권 및 기타유동채권,ifrs-full_TradeAndOtherCurrentReceivables,1319767515,1,DISCLOSURE,"합산선만 공시(순수 매출채권 미공시 — 공시 현실, 허용)"
+00133663,2021,매출액,수익(매출액),ifrs-full_Revenue,109841713136,1,OK,표준 id 일치(ifrs-full_Revenue)
+00133663,2021,매출원가,매출원가,ifrs-full_CostOfSales,102008059556,1,OK,매출원가 직접
+00133663,2021,매출총이익,매출총이익,ifrs-full_GrossProfit,7833653580,1,OK,표준 id 일치(ifrs-full_GrossProfit)
+00133663,2021,영업이익,영업이익(손실),dart_OperatingIncomeLoss,-271946800,1,OK,표준 id 일치(dart_OperatingIncomeLoss)
+00133663,2021,재고자산,재고자산,ifrs-full_Inventories,5630138146,1,OK,표준 id 일치(ifrs-full_Inventories)
+00133663,2021,매출채권,매출채권 및 기타유동채권,ifrs-full_TradeAndOtherCurrentReceivables,9462208894,1,DISCLOSURE,"합산선만 공시(순수 매출채권 미공시 — 공시 현실, 허용)"
+00129235,2017,매출액,매출액,ifrs_Revenue,101631216938,1,OK,표준 id 일치(ifrs_Revenue)
+00129235,2017,매출원가,매출원가,ifrs_CostOfSales,78233860532,1,OK,매출원가 직접
+00129235,2017,매출총이익,매출총이익,ifrs_GrossProfit,23397356406,1,OK,표준 id 일치(ifrs_GrossProfit)
+00129235,2017,영업이익,영업이익,dart_OperatingIncomeLoss,13517611853,1,OK,표준 id 일치(dart_OperatingIncomeLoss)
+00129235,2017,재고자산,재고자산,ifrs_Inventories,8814159498,1,OK,표준 id 일치(ifrs_Inventories)
+00129235,2017,매출채권,매출채권,ifrs_TradeAndOtherCurrentReceivables,18176693817,2,DISCLOSURE,"합산선만 공시(순수 매출채권 미공시 — 공시 현실, 허용)"
+00139889,2021,매출액,매출액,ifrs-full_Revenue,556765066380,1,OK,표준 id 일치(ifrs-full_Revenue)
+00139889,2021,매출원가,매출원가,ifrs-full_CostOfSales,431162475913,1,OK,매출원가 직접
+00139889,2021,매출총이익,매출총이익,ifrs-full_GrossProfit,125602590467,1,OK,표준 id 일치(ifrs-full_GrossProfit)
+00139889,2021,영업이익,영업이익(손실),dart_OperatingIncomeLoss,12935174018,1,OK,표준 id 일치(dart_OperatingIncomeLoss)
+00139889,2021,재고자산,재고자산,ifrs-full_Inventories,74398571096,1,OK,표준 id 일치(ifrs-full_Inventories)
+00139889,2021,매출채권,매출채권,dart_ShortTermTradeReceivable,86264152187,1,OK,매출채권류
+00486097,2020,매출액,영업수익,ifrs-full_Revenue,78372578576,1,OK,표준 id 일치(ifrs-full_Revenue)
+00486097,2020,매출원가,영업비용,dart_OperatingExpenses,54983527449,1,DEFINITIONAL,매출원가 미보고 → 영업비용 대체(서비스업 관행)
+00486097,2020,매출총이익,,,,0,NA,개념 후보 없음(정의 안 됨)
+00486097,2020,영업이익,영업이익(손실),dart_OperatingIncomeLoss,23389051127,1,OK,표준 id 일치(dart_OperatingIncomeLoss)
+00486097,2020,재고자산,,,,0,NA,개념 후보 없음(정의 안 됨)
+00486097,2020,매출채권,매출채권 및 기타유동채권,ifrs-full_TradeAndOtherCurrentReceivables,161664558183,1,DISCLOSURE,"합산선만 공시(순수 매출채권 미공시 — 공시 현실, 허용)"
+00458562,2021,매출액,매출액,ifrs-full_Revenue,126968144548,1,OK,표준 id 일치(ifrs-full_Revenue)
+00458562,2021,매출원가,매출원가,-표준계정코드 미사용-,118533470806,1,OK,매출원가 직접
+00458562,2021,매출총이익,매출총이익,-표준계정코드 미사용-,8434673742,1,OK,비표준 id 지만 계정명 정상(매출총이익)
+00458562,2021,영업이익,영업이익(손실),dart_OperatingIncomeLoss,-7126123674,1,OK,표준 id 일치(dart_OperatingIncomeLoss)
+00458562,2021,재고자산,재고자산,ifrs-full_Inventories,7000313217,1,OK,표준 id 일치(ifrs-full_Inventories)
+00458562,2021,매출채권,매출채권,dart_ShortTermTradeReceivable,5645953411,1,OK,매출채권류
+00258421,2021,매출액,수익(매출액),ifrs-full_Revenue,26787022009,1,OK,표준 id 일치(ifrs-full_Revenue)
+00258421,2021,매출원가,매출원가,ifrs-full_CostOfSales,22232641962,1,OK,매출원가 직접
+00258421,2021,매출총이익,매출총이익,ifrs-full_GrossProfit,4554380047,1,OK,표준 id 일치(ifrs-full_GrossProfit)
+00258421,2021,영업이익,영업이익(손실),dart_OperatingIncomeLoss,-1163778314,1,OK,표준 id 일치(dart_OperatingIncomeLoss)
+00258421,2021,재고자산,재고자산,ifrs-full_Inventories,2086885549,1,OK,표준 id 일치(ifrs-full_Inventories)
+00258421,2021,매출채권,매출채권 및 기타유동채권,ifrs-full_TradeAndOtherCurrentReceivables,9960362723,1,DISCLOSURE,"합산선만 공시(순수 매출채권 미공시 — 공시 현실, 허용)"
+00476498,2021,매출액,수익(매출액),ifrs-full_Revenue,503003046233,1,OK,표준 id 일치(ifrs-full_Revenue)
+00476498,2021,매출원가,매출원가,ifrs-full_CostOfSales,88846402051,1,OK,매출원가 직접
+00476498,2021,매출총이익,매출총이익,ifrs-full_GrossProfit,414156644182,1,OK,표준 id 일치(ifrs-full_GrossProfit)
+00476498,2021,영업이익,영업이익(손실),dart_OperatingIncomeLoss,121557178348,1,OK,표준 id 일치(dart_OperatingIncomeLoss)
+00476498,2021,재고자산,,,,0,NA,개념 후보 없음(정의 안 됨)
+00476498,2021,매출채권,매출채권,dart_ShortTermTradeReceivable,52542050059,1,OK,매출채권류
+01108442,2022,매출액,매출,ifrs-full_Revenue,166940141262,0,OK,표준 id 일치(ifrs-full_Revenue)
+01108442,2022,매출원가,매출원가,ifrs-full_CostOfSales,128517453640,1,OK,매출원가 직접
+01108442,2022,매출총이익,매출총이익(손실),ifrs-full_GrossProfit,38422687622,1,OK,표준 id 일치(ifrs-full_GrossProfit)
+01108442,2022,영업이익,영업이익(손실),dart_OperatingIncomeLoss,12890178992,1,OK,표준 id 일치(dart_OperatingIncomeLoss)
+01108442,2022,재고자산,재고자산,ifrs-full_Inventories,14431789627,1,OK,표준 id 일치(ifrs-full_Inventories)
+01108442,2022,매출채권,매출채권,dart_ShortTermTradeReceivable,51002518866,1,OK,매출채권류
+00562245,2020,매출액,매출액,ifrs-full_Revenue,273971524285,2,OK,표준 id 일치(ifrs-full_Revenue)
+00562245,2020,매출원가,매출원가,ifrs-full_CostOfSales,240289816228,1,OK,매출원가 직접
+00562245,2020,매출총이익,매출총이익,ifrs-full_GrossProfit,33681708057,1,OK,표준 id 일치(ifrs-full_GrossProfit)
+00562245,2020,영업이익,영업이익(손실),dart_OperatingIncomeLoss,13989061065,1,OK,표준 id 일치(dart_OperatingIncomeLoss)
+00562245,2020,재고자산,,,,0,NA,개념 후보 없음(정의 안 됨)
+00562245,2020,매출채권,매출채권,dart_ShortTermTradeReceivable,29584833965,1,OK,매출채권류
+01199727,2022,매출액,수익(매출액),ifrs-full_Revenue,47572154757,1,OK,표준 id 일치(ifrs-full_Revenue)
+01199727,2022,매출원가,매출원가,ifrs-full_CostOfSales,24503292595,1,OK,매출원가 직접
+01199727,2022,매출총이익,매출총이익,ifrs-full_GrossProfit,23068862162,1,OK,표준 id 일치(ifrs-full_GrossProfit)
+01199727,2022,영업이익,영업이익(손실),dart_OperatingIncomeLoss,13627082000,1,OK,표준 id 일치(dart_OperatingIncomeLoss)
+01199727,2022,재고자산,재고자산,ifrs-full_Inventories,3018817894,1,OK,표준 id 일치(ifrs-full_Inventories)
+01199727,2022,매출채권,매출채권,dart_ShortTermTradeReceivable,3745421900,1,OK,매출채권류
+00545734,2021,매출액,매출액,ifrs-full_Revenue,33982591549,1,OK,표준 id 일치(ifrs-full_Revenue)
+00545734,2021,매출원가,매출원가,ifrs-full_CostOfSales,19573072447,1,OK,매출원가 직접
+00545734,2021,매출총이익,매출총이익,ifrs-full_GrossProfit,14409519102,1,OK,표준 id 일치(ifrs-full_GrossProfit)
+00545734,2021,영업이익,영업이익,dart_OperatingIncomeLoss,941258666,1,OK,표준 id 일치(dart_OperatingIncomeLoss)
+00545734,2021,재고자산,재고자산,ifrs-full_Inventories,10425547685,1,OK,표준 id 일치(ifrs-full_Inventories)
+00545734,2021,매출채권,매출채권 및 기타유동채권,ifrs-full_TradeAndOtherCurrentReceivables,13030614410,1,DISCLOSURE,"합산선만 공시(순수 매출채권 미공시 — 공시 현실, 허용)"
+00617998,2019,매출액,수익(매출액),ifrs_Revenue,57189709206,1,OK,표준 id 일치(ifrs_Revenue)
+00617998,2019,매출원가,매출원가,ifrs_CostOfSales,50184393911,1,OK,매출원가 직접
+00617998,2019,매출총이익,매출총이익,ifrs_GrossProfit,7005315295,1,OK,표준 id 일치(ifrs_GrossProfit)
+00617998,2019,영업이익,영업이익(손실),dart_OperatingIncomeLoss,1064216375,3,OK,표준 id 일치(dart_OperatingIncomeLoss)
+00617998,2019,재고자산,재고자산,ifrs_Inventories,3348636065,1,OK,표준 id 일치(ifrs_Inventories)
+00617998,2019,매출채권,매출채권,dart_ShortTermTradeReceivable,16645334608,1,OK,매출채권류
+00572905,2019,매출액,매출액,ifrs_Revenue,101879554015,1,OK,표준 id 일치(ifrs_Revenue)
+00572905,2019,매출원가,매출원가,ifrs_CostOfSales,71345647932,1,OK,매출원가 직접
+00572905,2019,매출총이익,매출총이익,ifrs_GrossProfit,30533906083,1,OK,표준 id 일치(ifrs_GrossProfit)
+00572905,2019,영업이익,영업이익,dart_OperatingIncomeLoss,13108189842,1,OK,표준 id 일치(dart_OperatingIncomeLoss)
+00572905,2019,재고자산,재고자산,ifrs_Inventories,7743811940,1,OK,표준 id 일치(ifrs_Inventories)
+00572905,2019,매출채권,,,,1,NO_PICK,후보 있으나 별칭 미스
+00497631,2022,매출액,매출액,ifrs-full_Revenue,189544183775,1,OK,표준 id 일치(ifrs-full_Revenue)
+00497631,2022,매출원가,매출원가,ifrs-full_CostOfSales,166513155036,1,OK,매출원가 직접
+00497631,2022,매출총이익,매출총이익,ifrs-full_GrossProfit,23031028739,1,OK,표준 id 일치(ifrs-full_GrossProfit)
+00497631,2022,영업이익,영업이익(손실),dart_OperatingIncomeLoss,16821458054,1,OK,표준 id 일치(dart_OperatingIncomeLoss)
+00497631,2022,재고자산,재고자산,ifrs-full_Inventories,33203971546,1,OK,표준 id 일치(ifrs-full_Inventories)
+00497631,2022,매출채권,매출채권 및 기타채권,ifrs-full_TradeAndOtherCurrentReceivables,45306221637,1,DISCLOSURE,"합산선만 공시(순수 매출채권 미공시 — 공시 현실, 허용)"
+00108241,2020,매출액,매출액,ifrs-full_Revenue,1905694049103,2,OK,표준 id 일치(ifrs-full_Revenue)
+00108241,2020,매출원가,매출원가,ifrs-full_CostOfSales,1409083926164,1,OK,매출원가 직접
+00108241,2020,매출총이익,매출총이익,ifrs-full_GrossProfit,496610122939,1,OK,표준 id 일치(ifrs-full_GrossProfit)
+00108241,2020,영업이익,영업이익,dart_OperatingIncomeLoss,49347259096,1,OK,표준 id 일치(dart_OperatingIncomeLoss)
+00108241,2020,재고자산,재고자산,ifrs-full_Inventories,148859665370,1,OK,표준 id 일치(ifrs-full_Inventories)
+00108241,2020,매출채권,매출채권,dart_ShortTermTradeReceivable,163835961062,1,OK,매출채권류
+01061558,2020,매출액,매출액,ifrs-full_Revenue,97873417668,1,OK,표준 id 일치(ifrs-full_Revenue)
+01061558,2020,매출원가,매출원가,ifrs-full_CostOfSales,64608288589,1,OK,매출원가 직접
+01061558,2020,매출총이익,매출총이익,ifrs-full_GrossProfit,33265129079,1,OK,표준 id 일치(ifrs-full_GrossProfit)
+01061558,2020,영업이익,영업이익,dart_OperatingIncomeLoss,20761496950,1,OK,표준 id 일치(dart_OperatingIncomeLoss)
+01061558,2020,재고자산,재고자산,ifrs-full_Inventories,23211884389,1,OK,표준 id 일치(ifrs-full_Inventories)
+01061558,2020,매출채권,매출채권,dart_ShortTermTradeReceivable,10698174309,2,OK,매출채권류
+00557933,2019,매출액,매출액,ifrs_Revenue,120062514171,1,OK,표준 id 일치(ifrs_Revenue)
+00557933,2019,매출원가,매출원가,ifrs_CostOfSales,66878834067,1,OK,매출원가 직접
+00557933,2019,매출총이익,매출총이익,ifrs_GrossProfit,53183680104,1,OK,표준 id 일치(ifrs_GrossProfit)
+00557933,2019,영업이익,영업이익(손실),dart_OperatingIncomeLoss,7342620335,1,OK,표준 id 일치(dart_OperatingIncomeLoss)
+00557933,2019,재고자산,재고자산,ifrs_Inventories,73195611134,1,OK,표준 id 일치(ifrs_Inventories)
+00557933,2019,매출채권,매출채권,dart_ShortTermTradeReceivable,16748425961,1,OK,매출채권류
+00186799,2022,매출액,매출액,ifrs-full_Revenue,322331646673,1,OK,표준 id 일치(ifrs-full_Revenue)
+00186799,2022,매출원가,매출원가,ifrs-full_CostOfSales,293015893520,1,OK,매출원가 직접
+00186799,2022,매출총이익,매출총이익,ifrs-full_GrossProfit,29315753153,1,OK,표준 id 일치(ifrs-full_GrossProfit)
+00186799,2022,영업이익,영업이익(손실),dart_OperatingIncomeLoss,5077214615,1,OK,표준 id 일치(dart_OperatingIncomeLoss)
+00186799,2022,재고자산,재고자산,ifrs-full_Inventories,113367585016,1,OK,표준 id 일치(ifrs-full_Inventories)
+00186799,2022,매출채권,매출채권 및 기타채권,ifrs-full_TradeAndOtherCurrentReceivables,147594373781,1,DISCLOSURE,"합산선만 공시(순수 매출채권 미공시 — 공시 현실, 허용)"
+00198378,2017,매출액,매출액,ifrs_Revenue,11908636959,1,OK,표준 id 일치(ifrs_Revenue)
+00198378,2017,매출원가,매출원가,ifrs_CostOfSales,7034017350,2,OK,매출원가 직접
+00198378,2017,매출총이익,매출총이익,ifrs_GrossProfit,4874619609,1,OK,표준 id 일치(ifrs_GrossProfit)
+00198378,2017,영업이익,영업이익(손실),dart_OperatingIncomeLoss,1679011406,3,OK,표준 id 일치(dart_OperatingIncomeLoss)
+00198378,2017,재고자산,재고자산,ifrs_Inventories,670882379,1,OK,표준 id 일치(ifrs_Inventories)
+00198378,2017,매출채권,매출채권 및 기타유동채권,ifrs_TradeAndOtherCurrentReceivables,1332154608,1,DISCLOSURE,"합산선만 공시(순수 매출채권 미공시 — 공시 현실, 허용)"
+00201742,2022,매출액,매출액,ifrs-full_Revenue,178913757521,1,OK,표준 id 일치(ifrs-full_Revenue)
+00201742,2022,매출원가,매출원가,ifrs-full_CostOfSales,167584861228,1,OK,매출원가 직접
+00201742,2022,매출총이익,매출총이익,ifrs-full_GrossProfit,11328896293,1,OK,표준 id 일치(ifrs-full_GrossProfit)
+00201742,2022,영업이익,영업이익(손실),dart_OperatingIncomeLoss,1208404078,1,OK,표준 id 일치(dart_OperatingIncomeLoss)
+00201742,2022,재고자산,재고자산,ifrs-full_Inventories,14308998878,1,OK,표준 id 일치(ifrs-full_Inventories)
+00201742,2022,매출채권,매출채권,dart_ShortTermTradeReceivable,19066891256,1,OK,매출채권류
+00125488,2017,매출액,매출액,ifrs_Revenue,40646307987,4,OK,표준 id 일치(ifrs_Revenue)
+00125488,2017,매출원가,매출원가,ifrs_CostOfSales,33491823087,3,OK,매출원가 직접
+00125488,2017,매출총이익,매출총이익,ifrs_GrossProfit,7154484900,1,OK,표준 id 일치(ifrs_GrossProfit)
+00125488,2017,영업이익,영업이익(손실),dart_OperatingIncomeLoss,5147342625,1,OK,표준 id 일치(dart_OperatingIncomeLoss)
+00125488,2017,재고자산,재고자산,ifrs_Inventories,3514294378,1,OK,표준 id 일치(ifrs_Inventories)
+00125488,2017,매출채권,매출채권,-표준계정코드 미사용-,7160141170,1,OK,순수 매출채권
+00133858,2018,매출액,매출액,ifrs_Revenue,1108228132369,3,OK,표준 id 일치(ifrs_Revenue)
+00133858,2018,매출원가,매출원가,ifrs_CostOfSales,940133094365,4,OK,매출원가 직접
+00133858,2018,매출총이익,매출총이익,ifrs_GrossProfit,168095038004,1,OK,표준 id 일치(ifrs_GrossProfit)
+00133858,2018,영업이익,영업이익(손실),dart_OperatingIncomeLoss,69021895876,3,OK,표준 id 일치(dart_OperatingIncomeLoss)
+00133858,2018,재고자산,재고자산,ifrs_Inventories,148391094959,1,OK,표준 id 일치(ifrs_Inventories)
+00133858,2018,매출채권,매출채권 및 기타유동채권,ifrs_TradeAndOtherCurrentReceivables,232997585055,1,DISCLOSURE,"합산선만 공시(순수 매출채권 미공시 — 공시 현실, 허용)"
+00185505,2021,매출액,수익(매출액),ifrs-full_Revenue,18999122711,1,OK,표준 id 일치(ifrs-full_Revenue)
+00185505,2021,매출원가,매출원가,ifrs-full_CostOfSales,15212043493,1,OK,매출원가 직접
+00185505,2021,매출총이익,매출총이익,ifrs-full_GrossProfit,3787079218,1,OK,표준 id 일치(ifrs-full_GrossProfit)
+00185505,2021,영업이익,영업이익(손실),dart_OperatingIncomeLoss,-487622711,1,OK,표준 id 일치(dart_OperatingIncomeLoss)
+00185505,2021,재고자산,재고자산,ifrs-full_Inventories,5369203667,1,OK,표준 id 일치(ifrs-full_Inventories)
+00185505,2021,매출채권,매출채권,dart_ShortTermTradeReceivable,3841355264,1,OK,매출채권류
+00267979,2019,매출액,수익(매출액),ifrs_Revenue,117025131894,1,OK,표준 id 일치(ifrs_Revenue)
+00267979,2019,매출원가,매출원가,ifrs_CostOfSales,108606321577,1,OK,매출원가 직접
+00267979,2019,매출총이익,매출총이익,ifrs_GrossProfit,8418810317,1,OK,표준 id 일치(ifrs_GrossProfit)
+00267979,2019,영업이익,영업이익(손실),dart_OperatingIncomeLoss,4087518966,2,OK,표준 id 일치(dart_OperatingIncomeLoss)
+00267979,2019,재고자산,재고자산,ifrs_Inventories,19197899945,1,OK,표준 id 일치(ifrs_Inventories)
+00267979,2019,매출채권,매출채권,dart_ShortTermTradeReceivable,13599748199,2,OK,매출채권류
+00141389,2021,매출액,수익(매출액),ifrs-full_Revenue,90841011973,4,OK,표준 id 일치(ifrs-full_Revenue)
+00141389,2021,매출원가,매출원가,ifrs-full_CostOfSales,68281071213,4,OK,매출원가 직접
+00141389,2021,매출총이익,매출총이익,ifrs-full_GrossProfit,22559940760,1,OK,표준 id 일치(ifrs-full_GrossProfit)
+00141389,2021,영업이익,영업이익(손실),dart_OperatingIncomeLoss,10335417988,1,OK,표준 id 일치(dart_OperatingIncomeLoss)
+00141389,2021,재고자산,재고자산,ifrs-full_Inventories,19623042769,1,OK,표준 id 일치(ifrs-full_Inventories)
+00141389,2021,매출채권,매출채권 및 기타유동채권,ifrs-full_TradeAndOtherCurrentReceivables,17969941653,2,DISCLOSURE,"합산선만 공시(순수 매출채권 미공시 — 공시 현실, 허용)"
+00128555,2017,매출액,매출액,ifrs_Revenue,2384712962090,3,OK,표준 id 일치(ifrs_Revenue)
+00128555,2017,매출원가,매출원가,ifrs_CostOfSales,2105520708028,4,OK,매출원가 직접
+00128555,2017,매출총이익,매출총이익,ifrs_GrossProfit,279192254062,1,OK,표준 id 일치(ifrs_GrossProfit)
+00128555,2017,영업이익,영업이익,dart_OperatingIncomeLoss,60343277111,1,OK,표준 id 일치(dart_OperatingIncomeLoss)
+00128555,2017,재고자산,재고자산,ifrs_Inventories,2667896695,1,OK,표준 id 일치(ifrs_Inventories)
+00128555,2017,매출채권,매출채권,-표준계정코드 미사용-,359765386667,1,OK,순수 매출채권

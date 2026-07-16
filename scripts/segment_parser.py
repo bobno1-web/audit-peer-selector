@@ -50,6 +50,13 @@ def _section_span(raw, section_title):
     return raw[start:end]
 
 
+def raw_section_span(raw, section_title):
+    """'사업의 내용' 섹션의 **raw span**(<TABLE> 구조 보존) 반환. 없으면 None.
+    Loop 5 raw 섹션 캐시 저장용 — flatten 하지 않아 부문표 구조가 살아 있다.
+    이 span 을 다시 segment_shares 에 넣으면 (span 시작이 그 섹션 <TITLE>) 동일 결과."""
+    return _section_span(raw, section_title)
+
+
 def _row_cells(tr):
     return [_clean(c) for c in _CELL_RE.findall(tr)]
 

@@ -1,0 +1,134 @@
+{
+  "meta": {
+    "seed": 20260716,
+    "n_companies": 40,
+    "accounts": [
+      "매출액",
+      "매출원가",
+      "매출총이익",
+      "영업이익",
+      "재고자산",
+      "매출채권"
+    ],
+    "source": "DART fnlttSinglAcntAll (독립 표본, XBRL account_id + 개념 키워드 이중 오라클)",
+    "independence": "별칭 목록 미신뢰 — account_id(표준 택소노미)와 broad 키워드로 재유도"
+  },
+  "overall_clear_mismap": 1,
+  "overall_clear_mismap_rate_pct": 0.43,
+  "per_account": {
+    "매출액": {
+      "n": 40,
+      "n_evaluable": 40,
+      "verdicts": {
+        "OK": 40
+      },
+      "clear_mismap": 0,
+      "clear_mismap_rate_pct": 0.0,
+      "account_nm_used": {
+        "매출액": 21,
+        "수익(매출액)": 15,
+        "영업수익": 2,
+        "매출": 2
+      },
+      "account_id_used": {
+        "ifrsfullrevenue": 23,
+        "ifrsrevenue": 17
+      }
+    },
+    "매출원가": {
+      "n": 40,
+      "n_evaluable": 40,
+      "verdicts": {
+        "DEFINITIONAL": 2,
+        "OK": 38
+      },
+      "clear_mismap": 0,
+      "clear_mismap_rate_pct": 0.0,
+      "account_nm_used": {
+        "매출원가": 38,
+        "영업비용": 2
+      },
+      "account_id_used": {
+        "ifrsfullcostofsales": 20,
+        "ifrscostofsales": 17,
+        "dartoperatingexpenses": 2,
+        "(비표준)": 1
+      }
+    },
+    "매출총이익": {
+      "n": 40,
+      "n_evaluable": 38,
+      "verdicts": {
+        "NA": 2,
+        "OK": 38
+      },
+      "clear_mismap": 0,
+      "clear_mismap_rate_pct": 0.0,
+      "account_nm_used": {
+        "매출총이익": 37,
+        "매출총이익(손실)": 1
+      },
+      "account_id_used": {
+        "ifrsfullgrossprofit": 20,
+        "ifrsgrossprofit": 17,
+        "(비표준)": 1
+      }
+    },
+    "영업이익": {
+      "n": 40,
+      "n_evaluable": 40,
+      "verdicts": {
+        "OK": 40
+      },
+      "clear_mismap": 0,
+      "clear_mismap_rate_pct": 0.0,
+      "account_nm_used": {
+        "영업이익(손실)": 31,
+        "영업이익": 9
+      },
+      "account_id_used": {
+        "dartoperatingincomeloss": 40
+      }
+    },
+    "재고자산": {
+      "n": 40,
+      "n_evaluable": 35,
+      "verdicts": {
+        "NA": 5,
+        "OK": 35
+      },
+      "clear_mismap": 0,
+      "clear_mismap_rate_pct": 0.0,
+      "account_nm_used": {
+        "재고자산": 35
+      },
+      "account_id_used": {
+        "ifrsfullinventories": 18,
+        "ifrsinventories": 16,
+        "(비표준)": 1
+      }
+    },
+    "매출채권": {
+      "n": 40,
+      "n_evaluable": 40,
+      "verdicts": {
+        "OK": 20,
+        "DISCLOSURE": 19,
+        "NO_PICK": 1
+      },
+      "clear_mismap": 1,
+      "clear_mismap_rate_pct": 2.5,
+      "account_nm_used": {
+        "매출채권": 21,
+        "매출채권 및 기타유동채권": 15,
+        "매출채권 및 기타채권": 3
+      },
+      "account_id_used": {
+        "dartshorttermtradereceivable": 16,
+        "ifrsfulltradeandothercurrentreceivables": 11,
+        "ifrstradeandothercurrentreceivables": 8,
+        "(비표준)": 4
+      }
+    }
+  }
+}

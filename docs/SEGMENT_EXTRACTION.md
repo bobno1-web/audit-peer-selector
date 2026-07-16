@@ -1,15 +1,30 @@
-# SEGMENT_EXTRACTION — 부문별 매출 집중도 프로필 (Loop 4 PART 1)
+# SEGMENT_EXTRACTION — 부문별 매출 집중도 프로필 (Loop 4 준비 → Loop 5 완결)
 
-파서: `scripts/segment_parser.py` (순수·검증됨). 수집: `scripts/collect_segment.py` (재개·캐시·예산로그).
-검증: `tests/test_segment_parser.py` (6건 통과).
+파서: `scripts/segment_parser.py` (순수·검증됨). 수집: `scripts/collect_segment.py` (재개·raw섹션캐시·예산로그).
+검증: `tests/test_segment_parser.py` (6건) + `tests/test_raw_section_cache.py` (7건).
 
-## 상태 요약 — ★ 데이터 미생성 (API 020 일한도 블록)
+## 상태 요약 — ★ Loop 5 데이터 수집 완료
 | 항목 | 상태 |
 |---|---|
-| 파싱 논리 | ✅ 검증됨 (합성 DART 서식 표 6케이스 통과) |
-| 라이브 취득(document.xml) | ⛔ **020 일한도 초과** — 이번 세션 취득 0건 |
-| 캐시 텍스트 폴백 | ❌ 비가용 실증 (아래) |
-| 결과 | 부문 축 **데이터 없음** → L4 활성 축에서 제외(엔진/설정/테스트는 준비완료) |
+| 파싱 논리 | ✅ 검증됨 (합성 DART 서식 표 6케이스) |
+| 라이브 취득(document.xml) | ✅ **2,841건 신규 취득**(020 리셋 후, api-budget 로그) |
+| raw 섹션 캐시 | ✅ **도입**(raw_section_cache) — 다음 020 리셋부터 재취득 0 |
+| 결과 | 부문 축 **활성화**(config.components 에 segment 추가, 6축) |
+
+## ★ 수집 성공률 (P4, 실측)
+- dev 채점 기업 **2,852개** 중 부문별 매출표 확보 = **2,443개 = 85.7%**(`ok`).
+- 상태 분포: `ok`=2443 · `no_table`=335(부문표 없음, 주로 단일사업/미보고) · `no_rows`=54 ·
+  `no_section`=9 · `fetch_error`=11. **결측은 전부 결측(임의대체 0, P7).**
+- 연도별 유니버스 커버리지: 2016 **89.5%** · 2019 **89.4%** · 2022 **87.4%** (universe corp 대비).
+- ★ Loop 4 는 020 블록으로 취득 0 이었다 → Loop 5 에서 **0 → 85.7%** 로 완결(무료 축 상환).
+
+## ★ 품질 표본 (ok 프로필 분포)
+| 지표 | Q1 | 중앙값 | Q3 |
+|---|--:|--:|--:|
+| seg_top_share (주력 집중도) | 0.404 | 0.511 | 0.769 |
+| seg_hhi (허핀달) | 0.287 | 0.409 | 0.629 |
+- 단일부문(top_share≈1) **172개**, 분산형(hhi<0.3) **679개** — 집중형↔분산형이 넓게 분포(축이 정보량 있음).
+- seg_n 분포: 1~5부문이 다수(1:172·2:358·3:403·4:365·5:314), 다각화 대기업은 10~60부문까지 꼬리.
 
 ## 추출 방법 (구조적 — 회사 하드코딩 0)
 1. 원문에서 '사업의 내용' 섹션 span 을 로마숫자 `<TITLE>` 앵커로 잘라낸다(section_parser 와 동일 구조).
@@ -19,7 +34,7 @@
    퍼센트(비율)는 콤마그룹/4자리+ 규칙에 안 걸려 매출로 오인되지 않는다(테스트로 실증).
 4. 부문 매출 → 비중 → **집중도 프로필**.
 
-## ★ 공통 축 정규화 방법 (O7) — 택소노미-불요 스칼라
+## ★ 공통 축 정규화 방법 (P5) — 택소노미-불요 스칼라
 기업마다 부문 분류 체계가 달라(반도체/가전 vs 건설/유통 …) **부문명 공통 택소노미는 못 맞춘다**
 (임의 매핑은 하드코딩 위반). 그래서 부문 share 를 **택소노미가 필요 없는 스칼라**로 환원한다:
 
@@ -29,24 +44,26 @@
 | `seg_top_share` | 최대 부문 매출 비중 | 주력 집중도 |
 | `seg_hhi` | Σ(부문 비중)² | 허핀달 집중도(0=분산, 1=단일) |
 
-→ 전 기업이 같은 3-스칼라 공간에 놓여 **집중형 vs 분산형**으로 직접 비교된다. 엔진은 이 프로필을
-스냅샷 표준편차로 표준화한 유클리드 거리 → `exp(-d)` 유사도로 쓴다(결측→0). **부문 '이익률'은 절대
-만들지 않는다**(채점비율 누출 차단; test_no_leakage + test_segment_parser 로 강제).
+→ 전 기업이 같은 3-스칼라 공간에 놓여 **집중형 vs 분산형**으로 직접 비교된다. 엔진(sim_segment)은 이
+프로필을 스냅샷 표준편차로 표준화한 유클리드 거리 → `exp(-d)` 유사도로 쓴다(결측→0).
 
-## ★ 캐시 텍스트 폴백이 비가용인 이유 (실증)
-raw 취득을 피하려 **이미 캐시된 flatten 섹션 텍스트**에서 부문 share 를 복원하려 했으나:
-- 표 구조가 flatten 으로 파괴됨 → 열 정렬 소실.
-- "value(비율)" 패턴을 전역 추출하면 **마진·가동률·지분율·전년대비 등 온갖 퍼센트가 섞여** 잡음.
-  실측: 코퍼스 전체에서 ≥2 share 추출 corp 이 56%지만 값이 `[1.0,1.0,2.0]`·`[100,100,19.5,94.9]` 등 잡음.
-- 헤더('매출액(비율)') 앵커로 제한해도 spacing 변동으로 **매칭 7.8%**, 그마저 다기간 열이 섞여 sum=199/263.
-→ **flatten 텍스트로는 신뢰할 부문 프로필을 못 만든다.** 부문표는 **raw `<TABLE>` 구조가 필수**이며,
-  그 raw 는 document.xml 재취득(020 대상)으로만 얻는다. (api-budget: 1회 취득분을 flatten 만 캐시해
-  구조를 버린 대가 — Loop 5부터는 raw 섹션도 캐시 권장. PART Z 로 라우팅.)
+## ★ 정보 차단벽 (P6) — 매출 '비중'만, '이익률' 없음
+부문 '이익률'은 절대 만들지 않는다(채점비율 누출 차단). 프로필 키는 `{seg_n, seg_top_share, seg_hhi}`
+세 개뿐 — 전부 매출 비중 파생. `tests/test_segment_parser.py::test_profile_has_no_profit_field` +
+`tests/test_no_leakage.py`(config 의 seg_* 가 채점 4비율 분자/분모가 아님)로 **기계 강제**. 통과.
 
-## 재개 방법 (quota 리셋 후)
+## ★ raw 섹션 캐시 (P2, 검증방 Loop4 지적 #2 상환)
+Loop 3/4 는 '사업의 내용' 섹션을 **flatten 텍스트로만** 캐시해 <TABLE> 구조를 버렸다 → 부문표 복원
+불가(아래 실증). Loop 5 는 `raw_section_cache` 로 섹션의 **raw span(표 구조 보존)** 을 gzip 캐시한다
+(`data/pit/features/business/raw_sections/`, 2,841파일 72MB). 캐시 키=(corp, rcept_no, 섹션, 추출기버전).
+→ **다음 020 리셋부터 재취득 0**(계약: `tests/test_raw_section_cache.py` 7건 + 라이브 2-pass 실증).
+
+### (이력) flatten 텍스트 폴백이 비가용인 이유
+raw 취득을 피하려 캐시된 flatten 섹션 텍스트에서 부문 share 를 복원하려 했으나 표 구조가 파괴돼
+매칭 7.8%·값 잡음(`[1.0,1.0,2.0]` 등). → 부문표는 raw `<TABLE>` 구조 필수. Loop 5 의 raw 캐시가 이를 해결.
+
+## 재개 방법 (완료 — 참고)
 ```
-python scripts/collect_segment.py     # ledger 재사용, cache_miss만 취득, 020시 저장 후 중단(재개 가능)
-# → data/pit/features/segment/segment_{y}.parquet 생성 → config.components 에 segment 추가 → loop4_search 재실행
+python scripts/collect_segment.py     # PROFILES·raw캐시 재사용, cache_miss만 취득, 020시 저장 후 중단
 ```
-프로필이 생기면 pit/reader 가 자동 병합하고, `components: [...]+segment` 로 재탐색하면 반영된다.
-성공률·품질 표본은 실제 취득 후 이 문서에 채운다(현재: **취득 0, 성공률 미측정**).
+현재 2,852 전량 처리 완료(fetch_error 11 은 결측). fan_out 은 **dev 연도만** 생성(holdout 격리, Z-2).

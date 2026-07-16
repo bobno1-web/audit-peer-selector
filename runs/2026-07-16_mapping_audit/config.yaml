@@ -1,0 +1,7 @@
+# mapping_audit 설정
+seed: 20260716
+n_sample: 40
+dev_years: [2016, 2017, 2018, 2019, 2020, 2021, 2022]
+source: DART fnlttSinglAcntAll 독립 표본
+method: XBRL account_id(표준 택소노미) + 개념 키워드 broad 검색으로 별칭 선택을 독립 대조
+note: data_audit(seed 20260715)와 다른 표본 — 매핑 정확성(값 아님) 독립 재유도
