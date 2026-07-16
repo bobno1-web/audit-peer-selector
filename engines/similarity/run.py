@@ -155,7 +155,9 @@ SIMS = {"industry": sim_industry, "scale": sim_scale, "mktcap": sim_mktcap,
         "text": sim_text, "growth": sim_growth, "segment": sim_segment}
 
 
-def rank(feats, cfg, weights, txt_idx, txt_mat, k, target_idx=None):
+def rank(feats, cfg, weights, txt_idx, txt_mat, k, target_idx=None, with_sim=False):
+    """{타겟: [peer_code,...]} (기본, 하위호환). with_sim=True → [(peer_code, 유사도점수),...].
+    유사도점수 = 가중합 total(엔진 허용 피처만; 타겟 비율 미접근 → 누출 아님). 예측방식 B(가중)용."""
     comps = list(cfg["similarity"]["components"])
     A = year_arrays(feats, cfg, txt_idx, txt_mat)
     codes = A["codes"]
@@ -169,7 +171,8 @@ def rank(feats, cfg, weights, txt_idx, txt_mat, k, target_idx=None):
             total = total + w[c] * SIMS[comp](A, i)
         total[i] = -np.inf
         order = np.argsort(total)[::-1][:k]
-        out[codes[i]] = [codes[j] for j in order]
+        out[codes[i]] = ([(codes[j], float(total[j])) for j in order] if with_sim
+                         else [codes[j] for j in order])
     return out
 
 
@@ -185,10 +188,11 @@ def run(years, weights, run_dir, guard=True):
         feats = as_of(T).features                        # with_targets=False
         if not len(feats):
             continue
-        peers = rank(feats, cfg, weights, txt_idx, txt_mat, k)
+        peers = rank(feats, cfg, weights, txt_idx, txt_mat, k, with_sim=True)
         for target, plist in peers.items():
-            for r, p in enumerate(plist, 1):
-                rows.append({"corp_code": target, "as_of": T, "rank": r, "peer_code": p})
+            for r, (p, s) in enumerate(plist, 1):
+                rows.append({"corp_code": target, "as_of": T, "rank": r,
+                             "peer_code": p, "sim": s})
         print(f"  {T}: {len(feats)} 타겟 랭킹", file=sys.stderr, flush=True)
     run_dir = Path(run_dir)
     run_dir.mkdir(parents=True, exist_ok=True)

@@ -64,6 +64,21 @@ similarity:
   segment_features: [seg_hhi, seg_top_share, seg_n]  # Loop 4: 부문 집중도 프로필(준비완료; 데이터 대기)
   weight_grid: [0.0, 0.25, 0.5, 0.75, 1.0]  # dev 가중치 탐색 격자(합=1 정규화)
 
+# 예측 방식(Loop 6 PART 1, B) — 고른 peer 를 점 예측치로 집계하는 방법.
+# ORACLE 동결 기본 = median(대조군 a). 변형은 dev 에서만 비교(holdout 미사용, D-028). 최선값을 확정.
+# ★ 정보 차단벽 불변: 예측은 peer 의 '채점비율 값'과 '엔진 유사도 점수'만 쓴다(타겟 비율 미접근).
+prediction:
+  method: median          # ★ dev 선택(D-028): 집계 함수는 median 유지(가중·절사 도움 안 됨/해로움)
+  k: 10                   # ★ dev 선택(D-028): 집계 peer 수 = dev-argmin(격자 {3,5,7,10}). k↑가 개선의 원천
+  methods_grid: [median, weighted_mean, weighted_median, trimmed_mean]
+  k_grid: [3, 5, 7, 10]
+
+# 예측불가(ill-conditioned) 기업 분리(Loop 6 PART 2, C) — 구조적 재무 기반, dev 유도(D-027).
+# s = |비율_분자계정| / 총자산 이 그 비율 dev 분포의 하위 분위수 미만이면 '구조적 예측불가' 플래그.
+# ★ 타겟 채점비율 실제값 미사용(정답 훔쳐보기 금지) — 원천 재무구조(분자 near-zero)만.
+separation:
+  numerator_over_assets_quantile: 0.10   # τ_r = s 의 dev 하위 분위수(값은 dev 유도, penalty q=0.9 와 대칭)
+
 # 오차 이내 비율 보고 기준(%) — 임계값을 고정하지 않고 셋 다 보고.
 within: [10, 20, 30]
 

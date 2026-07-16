@@ -112,21 +112,21 @@
       "n": 40,
       "n_evaluable": 40,
       "verdicts": {
-        "OK": 20,
-        "DISCLOSURE": 19,
+        "OK": 22,
+        "DISCLOSURE": 17,
         "NO_PICK": 1
       },
       "clear_mismap": 1,
       "clear_mismap_rate_pct": 2.5,
       "account_nm_used": {
-        "매출채권": 21,
-        "매출채권 및 기타유동채권": 15,
+        "매출채권": 23,
+        "매출채권 및 기타유동채권": 13,
         "매출채권 및 기타채권": 3
       },
       "account_id_used": {
-        "dartshorttermtradereceivable": 16,
-        "ifrsfulltradeandothercurrentreceivables": 11,
-        "ifrstradeandothercurrentreceivables": 8,
+        "dartshorttermtradereceivable": 18,
+        "ifrsfulltradeandothercurrentreceivables": 10,
+        "ifrstradeandothercurrentreceivables": 7,
         "(비표준)": 4
       }
     }

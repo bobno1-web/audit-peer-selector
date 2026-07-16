@@ -1,0 +1,117 @@
+{
+  "dev_years": [
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022
+  ],
+  "penalty": 2.0224,
+  "k": 5,
+  "selection_mismatch_vs_committed_L4": 0,
+  "verify_median_eq_canonical": {
+    "canonical": 0.497657,
+    "mine": 0.497657,
+    "ok": true
+  },
+  "B_methods_k5": {
+    "median": {
+      "ape_median": 0.4977,
+      "per_ratio": {
+        "매출총이익률": 0.3885,
+        "영업이익률": 0.729,
+        "재고자산회전율": 0.5577,
+        "매출채권회전율": 0.3905
+      }
+    },
+    "weighted_mean": {
+      "ape_median": 0.5578,
+      "per_ratio": {
+        "매출총이익률": 0.3861,
+        "영업이익률": 0.7661,
+        "재고자산회전율": 0.7599,
+        "매출채권회전율": 0.4542
+      }
+    },
+    "weighted_median": {
+      "ape_median": 0.499,
+      "per_ratio": {
+        "매출총이익률": 0.3889,
+        "영업이익률": 0.735,
+        "재고자산회전율": 0.5564,
+        "매출채권회전율": 0.3905
+      }
+    },
+    "trimmed_mean": {
+      "ape_median": 0.5002,
+      "per_ratio": {
+        "매출총이익률": 0.3786,
+        "영업이익률": 0.7312,
+        "재고자산회전율": 0.5833,
+        "매출채권회전율": 0.3934
+      }
+    }
+  },
+  "B_k_median": {
+    "3": 0.5724,
+    "5": 0.4977,
+    "7": 0.4849,
+    "10": 0.4794
+  },
+  "B_all_combos": {
+    "median@k3": 0.5724,
+    "median@k5": 0.4977,
+    "median@k7": 0.4849,
+    "median@k10": 0.4794,
+    "weighted_mean@k3": 0.6128,
+    "weighted_mean@k5": 0.5578,
+    "weighted_mean@k7": 0.5603,
+    "weighted_mean@k10": 0.5703,
+    "weighted_median@k3": 0.5724,
+    "weighted_median@k5": 0.499,
+    "weighted_median@k7": 0.4859,
+    "weighted_median@k10": 0.4781,
+    "trimmed_mean@k3": 0.5724,
+    "trimmed_mean@k5": 0.5002,
+    "trimmed_mean@k7": 0.4943,
+    "trimmed_mean@k10": 0.5026
+  },
+  "B_best": {
+    "method": "weighted_median",
+    "k": 10,
+    "ape_median": 0.4781
+  },
+  "C_separation": {
+    "tau_by_ratio": {
+      "매출총이익률": 0.034229,
+      "영업이익률": 0.008338,
+      "재고자산회전율": 0.171224,
+      "매출채권회전율": 0.189435
+    },
+    "q_sep": 0.1,
+    "n_flagged_cases": 4329,
+    "market": {
+      "overall_median": 0.572449404769221,
+      "stable_median": 0.5378047251472067,
+      "excl_rate": 0.0993,
+      "n_total": 43298,
+      "n_excluded": 4300
+    },
+    "L4_median": {
+      "overall_median": 0.4976570487381964,
+      "stable_median": 0.4627128781672082,
+      "excl_rate": 0.0993,
+      "n_total": 43298,
+      "n_excluded": 4300
+    },
+    "best_variant": {
+      "overall_median": 0.47814236931971027,
+      "stable_median": 0.4435686244691851,
+      "excl_rate": 0.0993,
+      "n_total": 43298,
+      "n_excluded": 4300
+    }
+  }
+}

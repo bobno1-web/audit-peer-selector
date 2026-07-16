@@ -79,18 +79,28 @@ def fetch_financials(cc, fy):
 
 
 def extract(lst):
-    """재무행 목록 → {account: amount|None}. sj_div(재무제표 구분) + 별칭 정확일치."""
+    """재무행 목록 → {account: amount|None}. sj_div(재무제표 구분) 준수 + 별칭 '우선순위 순서' 매칭.
+    ★ Loop6 PART0(검증방 Loop5 발견): 행 순서가 아니라 '별칭 리스트 순서'로 결정한다.
+      별칭은 더 구체적인 것(순수 매출채권)이 앞, 합산(매출채권및기타채권)이 뒤 → 첫 별칭이 매칭되면
+      채택하므로 순수>합산 우선순위가 강제된다. 이전 로직은 응답 행 순서상 합산이 먼저 오면 합산을
+      골랐다(00141389/2020: 합산 12.84B 가 순수 11.70B 앞 → 합산 오취득). 별칭순서=specificity,
+      계정별 예외분기 없음(하드코딩 금지 준수)."""
     out = {a: None for a in FETCH}
-    for r in lst:
-        nm = (r.get("account_nm") or "").replace(" ", "")
-        nmb = PAREN_TAIL.sub("", nm)              # '영업이익(손실)' → '영업이익'
-        div = r.get("sj_div")
-        for a in FETCH:
-            al = ALIASES.get(a, [])
-            if out[a] is None and div in STMT.get(a, []) and (nm in al or nmb in al):
-                v = parse_amount(r.get("thstrm_amount"))
-                if v is not None:
-                    out[a] = v
+    for a in FETCH:
+        divs = STMT.get(a, [])
+        for alias in ALIASES.get(a, []):          # 별칭 우선순위 순서(순수 → 합산)
+            for r in lst:
+                if r.get("sj_div") not in divs:
+                    continue
+                nm = (r.get("account_nm") or "").replace(" ", "")
+                nmb = PAREN_TAIL.sub("", nm)       # '영업이익(손실)' → '영업이익'
+                if nm == alias or nmb == alias:
+                    v = parse_amount(r.get("thstrm_amount"))
+                    if v is not None:
+                        out[a] = v
+                        break
+            if out[a] is not None:
+                break
     return out
 
 

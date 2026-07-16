@@ -1,0 +1,287 @@
+﻿corp_code,year,account,cand_nm,cand_id,cand_value,is_pick
+00862853,2020,매출액,영업수익,ifrs-full_Revenue,38572319649,1
+00862853,2020,매출원가,영업비용,dart_OperatingExpenses,29769370732,1
+00862853,2020,영업이익,영업이익,dart_OperatingIncomeLoss,8802948917,1
+00862853,2020,매출채권,매출채권,dart_ShortTermTradeReceivable,9339720119,1
+00151298,2018,매출액,매출액,ifrs_Revenue,177545209650,1
+00151298,2018,매출원가,매출원가,ifrs_CostOfSales,160016824949,1
+00151298,2018,매출총이익,매출총이익,ifrs_GrossProfit,17528384701,1
+00151298,2018,영업이익,영업이익(손실),dart_OperatingIncomeLoss,2478368395,1
+00151298,2018,영업이익,계속영업이익(손실),ifrs_ProfitLossFromContinuingOperations,5015163845,0
+00151298,2018,재고자산,재고자산,ifrs_Inventories,29640737739,1
+00151298,2018,매출채권,매출채권 및 기타채권,ifrs_TradeAndOtherCurrentReceivables,45896099054,1
+00124726,2017,매출액,매출액,ifrs_Revenue,804139944761,1
+00124726,2017,매출원가,매출원가,ifrs_CostOfSales,561290382596,1
+00124726,2017,매출총이익,매출총이익,ifrs_GrossProfit,242849562165,1
+00124726,2017,영업이익,영업이익,dart_OperatingIncomeLoss,35616853375,1
+00124726,2017,재고자산,재고자산,ifrs_Inventories,33575416345,1
+00124726,2017,매출채권,매출채권,-표준계정코드 미사용-,68956662535,1
+00478900,2019,매출액,수익(매출액),ifrs_Revenue,77604083499,1
+00478900,2019,매출액,제품매출액,dart_RevenueFromSaleOfGoodsProduct,73841166462,0
+00478900,2019,매출액,용역의 제공으로 인한 수익(매출액),ifrs_RevenueFromRenderingOfServices,2001420169,0
+00478900,2019,매출원가,매출원가,ifrs_CostOfSales,56866273254,1
+00478900,2019,매출원가,재화의 판매로 인한 수익(매출액)에 대한 매출원가,dart_CostOfSalesFromSaleOfGoods,1094160011,0
+00478900,2019,매출원가,제품매출원가,dart_CostOfSalesFromSaleOfGoodsProduct,54273583121,0
+00478900,2019,매출원가,용역의 제공으로 인한 수익(매출액)에 대한 매출원가,dart_CostOfSalesFromRenderingOfServices,1498530122,0
+00478900,2019,매출총이익,매출총이익,ifrs_GrossProfit,20737810245,1
+00478900,2019,영업이익,영업이익(손실),dart_OperatingIncomeLoss,11987040622,1
+00478900,2019,재고자산,재고자산,ifrs_Inventories,24963874996,1
+00478900,2019,매출채권,매출채권 및 기타유동채권,ifrs_TradeAndOtherCurrentReceivables,14672099727,1
+00149354,2022,매출액,매출액,ifrs-full_Revenue,35239252765,1
+00149354,2022,매출원가,매출원가,ifrs-full_CostOfSales,1063827604,1
+00149354,2022,매출총이익,매출총이익,ifrs-full_GrossProfit,34175425161,1
+00149354,2022,영업이익,영업이익,dart_OperatingIncomeLoss,24599740328,1
+00149354,2022,재고자산,재고자산,ifrs-full_Inventories,0,1
+00149354,2022,매출채권,매출채권,dart_ShortTermTradeReceivable,1642876400,1
+00113492,2017,매출원가,매출원가,ifrs_CostOfSales,571602606319,1
+00113492,2017,매출총이익,매출총이익,ifrs_GrossProfit,128975521576,1
+00113492,2017,영업이익,영업이익(손실),dart_OperatingIncomeLoss,17761238137,1
+00113492,2017,재고자산,재고자산,ifrs_Inventories,50942249165,1
+00113492,2017,매출채권,매출채권 및 기타유동채권,ifrs_TradeAndOtherCurrentReceivables,86056076727,1
+00959229,2021,매출액,수익(매출액),ifrs-full_Revenue,13993481345,1
+00959229,2021,매출원가,매출원가,ifrs-full_CostOfSales,5558588614,1
+00959229,2021,매출총이익,매출총이익,ifrs-full_GrossProfit,8434892731,1
+00959229,2021,영업이익,영업이익(손실),dart_OperatingIncomeLoss,1086759065,1
+00959229,2021,재고자산,재고자산,ifrs-full_Inventories,2690532065,1
+00959229,2021,매출채권,매출채권 및 기타유동채권,ifrs-full_TradeAndOtherCurrentReceivables,2357874450,1
+00442561,2019,매출액,매출액,ifrs_Revenue,24525642776,1
+00442561,2019,매출원가,매출원가,ifrs_CostOfSales,19903171479,1
+00442561,2019,매출총이익,매출총이익,ifrs_GrossProfit,4622471297,1
+00442561,2019,영업이익,영업이익(손실),dart_OperatingIncomeLoss,-1392682576,1
+00442561,2019,재고자산,재고자산,ifrs_Inventories,1805652930,1
+00442561,2019,매출채권,매출채권 및 기타유동채권,ifrs_TradeAndOtherCurrentReceivables,3938031897,1
+01259418,2019,매출액,수익(매출액),ifrs_Revenue,20620188221,1
+01259418,2019,매출액,제품매출액,dart_RevenueFromSaleOfGoodsProduct,20620188221,0
+01259418,2019,매출액,이자수익,dart_InterestIncomeFinanceIncome,21051058,0
+01259418,2019,매출원가,매출원가,ifrs_CostOfSales,13197338921,1
+01259418,2019,매출원가,재화의 판매로 인한 수익(매출액)에 대한 매출원가,dart_CostOfSalesFromSaleOfGoods,13197338921,0
+01259418,2019,매출원가,제품매출원가,dart_CostOfSalesFromSaleOfGoodsProduct,13197338921,0
+01259418,2019,매출총이익,매출총이익,ifrs_GrossProfit,7422849300,1
+01259418,2019,영업이익,영업이익(손실),dart_OperatingIncomeLoss,4202719408,1
+01259418,2019,재고자산,재고자산,ifrs_Inventories,4940475478,1
+01259418,2019,매출채권,매출채권 및 기타유동채권,ifrs_TradeAndOtherCurrentReceivables,2895915419,0
+01259418,2019,매출채권,매출채권,dart_ShortTermTradeReceivable,2684581410,1
+00357430,2021,매출액,수익(매출액),ifrs-full_Revenue,42743207585,1
+00357430,2021,매출원가,매출원가,ifrs-full_CostOfSales,10898232512,1
+00357430,2021,매출총이익,매출총이익,ifrs-full_GrossProfit,31844975073,1
+00357430,2021,영업이익,영업이익(손실),dart_OperatingIncomeLoss,3564939132,1
+00357430,2021,재고자산,재고자산,ifrs-full_Inventories,3118072118,1
+00357430,2021,매출채권,매출채권 및 기타유동채권,ifrs-full_TradeAndOtherCurrentReceivables,7479948204,1
+00144818,2020,매출액,수익(매출액),ifrs-full_Revenue,78957803088,1
+00144818,2020,매출원가,매출원가,ifrs-full_CostOfSales,35496235892,1
+00144818,2020,매출총이익,매출총이익,ifrs-full_GrossProfit,43461567196,1
+00144818,2020,영업이익,영업이익(손실),dart_OperatingIncomeLoss,6112885949,1
+00144818,2020,재고자산,재고자산,ifrs-full_Inventories,16325518056,1
+00144818,2020,매출채권,매출채권 및 기타유동채권,ifrs-full_TradeAndOtherCurrentReceivables,18835677581,1
+00151368,2018,매출액,수익(매출액),ifrs_Revenue,476310232968,1
+00151368,2018,매출원가,매출원가,ifrs_CostOfSales,447324651493,1
+00151368,2018,매출총이익,매출총이익,ifrs_GrossProfit,28985581475,1
+00151368,2018,영업이익,영업이익(손실),dart_OperatingIncomeLoss,11594850855,1
+00151368,2018,영업이익,계속영업이익(손실),ifrs_ProfitLossFromContinuingOperations,4736525904,0
+00151368,2018,재고자산,재고자산,ifrs_Inventories,1478423485,1
+00151368,2018,매출채권,매출채권,dart_ShortTermTradeReceivable,119285441559,1
+00151368,2018,매출채권,기타수취채권,dart_ShortTermOtherReceivables,1186340736,0
+00151368,2018,매출채권,기타수취채권,dart_LongTermOtherReceivablesGross,38793577643,0
+00102760,2017,매출액,매출액,ifrs_Revenue,1274565797672,1
+00102760,2017,매출원가,매출원가,ifrs_CostOfSales,1161224864823,1
+00102760,2017,매출총이익,매출총이익,ifrs_GrossProfit,113340932849,1
+00102760,2017,영업이익,영업이익(손실),dart_OperatingIncomeLoss,12804686143,1
+00102760,2017,영업이익,계속영업이익(손실),ifrs_ProfitLossFromContinuingOperations,-252391581212,0
+00102760,2017,영업이익,중단영업이익(손실),ifrs_ProfitLossFromDiscontinuedOperations,-119136438637,0
+00102760,2017,영업이익,계속영업이익(손실),ifrs_BasicEarningsLossPerShareFromContinuingOperations,-4795,0
+00102760,2017,영업이익,중단영업이익(손실),ifrs_BasicEarningsLossPerShareFromDiscontinuedOperations,-2052,0
+00102760,2017,영업이익,계속영업이익(손실),ifrs_DilutedEarningsLossPerShareFromContinuingOperations,-4795,0
+00102760,2017,영업이익,중단영업이익(손실),ifrs_DilutedEarningsLossPerShareFromDiscontinuedOperations,-2052,0
+00102760,2017,재고자산,재고자산,-표준계정코드 미사용-,45103859785,1
+00102760,2017,매출채권,매출채권,-표준계정코드 미사용-,363271717854,1
+00667425,2021,매출액,수익(매출액),ifrs-full_Revenue,49630031668,1
+00667425,2021,매출원가,매출원가,ifrs-full_CostOfSales,39690549470,1
+00667425,2021,매출총이익,매출총이익,ifrs-full_GrossProfit,9939482198,1
+00667425,2021,영업이익,영업이익(손실),dart_OperatingIncomeLoss,6544712114,1
+00667425,2021,매출채권,매출채권 및 기타유동채권,ifrs-full_TradeAndOtherCurrentReceivables,1319767515,1
+00133663,2021,매출액,수익(매출액),ifrs-full_Revenue,109841713136,1
+00133663,2021,매출원가,매출원가,ifrs-full_CostOfSales,102008059556,1
+00133663,2021,매출총이익,매출총이익,ifrs-full_GrossProfit,7833653580,1
+00133663,2021,영업이익,영업이익(손실),dart_OperatingIncomeLoss,-271946800,1
+00133663,2021,재고자산,재고자산,ifrs-full_Inventories,5630138146,1
+00133663,2021,매출채권,매출채권 및 기타유동채권,ifrs-full_TradeAndOtherCurrentReceivables,9462208894,1
+00129235,2017,매출액,매출액,ifrs_Revenue,101631216938,1
+00129235,2017,매출원가,매출원가,ifrs_CostOfSales,78233860532,1
+00129235,2017,매출총이익,매출총이익,ifrs_GrossProfit,23397356406,1
+00129235,2017,영업이익,영업이익,dart_OperatingIncomeLoss,13517611853,1
+00129235,2017,재고자산,재고자산,ifrs_Inventories,8814159498,1
+00129235,2017,매출채권,매출채권,ifrs_TradeAndOtherCurrentReceivables,18176693817,1
+00129235,2017,매출채권,기타수취채권,-표준계정코드 미사용-,115478551,0
+00139889,2021,매출액,매출액,ifrs-full_Revenue,556765066380,1
+00139889,2021,매출원가,매출원가,ifrs-full_CostOfSales,431162475913,1
+00139889,2021,매출총이익,매출총이익,ifrs-full_GrossProfit,125602590467,1
+00139889,2021,영업이익,영업이익(손실),dart_OperatingIncomeLoss,12935174018,1
+00139889,2021,재고자산,재고자산,ifrs-full_Inventories,74398571096,1
+00139889,2021,매출채권,매출채권,dart_ShortTermTradeReceivable,86264152187,1
+00486097,2020,매출액,영업수익,ifrs-full_Revenue,78372578576,1
+00486097,2020,매출원가,영업비용,dart_OperatingExpenses,54983527449,1
+00486097,2020,영업이익,영업이익(손실),dart_OperatingIncomeLoss,23389051127,1
+00486097,2020,매출채권,매출채권 및 기타유동채권,ifrs-full_TradeAndOtherCurrentReceivables,161664558183,1
+00458562,2021,매출액,매출액,ifrs-full_Revenue,126968144548,1
+00458562,2021,매출원가,매출원가,-표준계정코드 미사용-,118533470806,1
+00458562,2021,매출총이익,매출총이익,-표준계정코드 미사용-,8434673742,1
+00458562,2021,영업이익,영업이익(손실),dart_OperatingIncomeLoss,-7126123674,1
+00458562,2021,재고자산,재고자산,ifrs-full_Inventories,7000313217,1
+00458562,2021,매출채권,매출채권,dart_ShortTermTradeReceivable,5645953411,1
+00258421,2021,매출액,수익(매출액),ifrs-full_Revenue,26787022009,1
+00258421,2021,매출원가,매출원가,ifrs-full_CostOfSales,22232641962,1
+00258421,2021,매출총이익,매출총이익,ifrs-full_GrossProfit,4554380047,1
+00258421,2021,영업이익,영업이익(손실),dart_OperatingIncomeLoss,-1163778314,1
+00258421,2021,재고자산,재고자산,ifrs-full_Inventories,2086885549,1
+00258421,2021,매출채권,매출채권 및 기타유동채권,ifrs-full_TradeAndOtherCurrentReceivables,9960362723,1
+00476498,2021,매출액,수익(매출액),ifrs-full_Revenue,503003046233,1
+00476498,2021,매출원가,매출원가,ifrs-full_CostOfSales,88846402051,1
+00476498,2021,매출총이익,매출총이익,ifrs-full_GrossProfit,414156644182,1
+00476498,2021,영업이익,영업이익(손실),dart_OperatingIncomeLoss,121557178348,1
+00476498,2021,매출채권,매출채권,dart_ShortTermTradeReceivable,52542050059,1
+01108442,2022,매출원가,매출원가,ifrs-full_CostOfSales,128517453640,1
+01108442,2022,매출총이익,매출총이익(손실),ifrs-full_GrossProfit,38422687622,1
+01108442,2022,영업이익,영업이익(손실),dart_OperatingIncomeLoss,12890178992,1
+01108442,2022,재고자산,재고자산,ifrs-full_Inventories,14431789627,1
+01108442,2022,매출채권,매출채권,dart_ShortTermTradeReceivable,51002518866,1
+00562245,2020,매출액,매출액,ifrs-full_Revenue,273971524285,1
+00562245,2020,매출액,이자수익,-표준계정코드 미사용-,90468226,0
+00562245,2020,매출원가,매출원가,ifrs-full_CostOfSales,240289816228,1
+00562245,2020,매출총이익,매출총이익,ifrs-full_GrossProfit,33681708057,1
+00562245,2020,영업이익,영업이익(손실),dart_OperatingIncomeLoss,13989061065,1
+00562245,2020,매출채권,매출채권,dart_ShortTermTradeReceivable,29584833965,1
+01199727,2022,매출액,수익(매출액),ifrs-full_Revenue,47572154757,1
+01199727,2022,매출원가,매출원가,ifrs-full_CostOfSales,24503292595,1
+01199727,2022,매출총이익,매출총이익,ifrs-full_GrossProfit,23068862162,1
+01199727,2022,영업이익,영업이익(손실),dart_OperatingIncomeLoss,13627082000,1
+01199727,2022,재고자산,재고자산,ifrs-full_Inventories,3018817894,1
+01199727,2022,매출채권,매출채권,dart_ShortTermTradeReceivable,3745421900,1
+00545734,2021,매출액,매출액,ifrs-full_Revenue,33982591549,1
+00545734,2021,매출원가,매출원가,ifrs-full_CostOfSales,19573072447,1
+00545734,2021,매출총이익,매출총이익,ifrs-full_GrossProfit,14409519102,1
+00545734,2021,영업이익,영업이익,dart_OperatingIncomeLoss,941258666,1
+00545734,2021,재고자산,재고자산,ifrs-full_Inventories,10425547685,1
+00545734,2021,매출채권,매출채권 및 기타유동채권,ifrs-full_TradeAndOtherCurrentReceivables,13030614410,1
+00617998,2019,매출액,수익(매출액),ifrs_Revenue,57189709206,1
+00617998,2019,매출원가,매출원가,ifrs_CostOfSales,50184393911,1
+00617998,2019,매출총이익,매출총이익,ifrs_GrossProfit,7005315295,1
+00617998,2019,영업이익,영업이익(손실),dart_OperatingIncomeLoss,1064216375,1
+00617998,2019,영업이익,계속영업이익(손실),ifrs_ProfitLossFromContinuingOperations,1289957744,0
+00617998,2019,영업이익,중단영업이익(손실),ifrs_ProfitLossFromDiscontinuedOperations,25000000,0
+00617998,2019,재고자산,재고자산,ifrs_Inventories,3348636065,1
+00617998,2019,매출채권,매출채권,dart_ShortTermTradeReceivable,16645334608,1
+00572905,2019,매출액,매출액,ifrs_Revenue,101879554015,1
+00572905,2019,매출원가,매출원가,ifrs_CostOfSales,71345647932,1
+00572905,2019,매출총이익,매출총이익,ifrs_GrossProfit,30533906083,1
+00572905,2019,영업이익,영업이익,dart_OperatingIncomeLoss,13108189842,1
+00572905,2019,재고자산,재고자산,ifrs_Inventories,7743811940,1
+00572905,2019,매출채권,매출채권 및 상각후원가측정금융자산(유동),ifrs_TradeAndOtherCurrentReceivables,23198340686,0
+00497631,2022,매출액,매출액,ifrs-full_Revenue,189544183775,1
+00497631,2022,매출원가,매출원가,ifrs-full_CostOfSales,166513155036,1
+00497631,2022,매출총이익,매출총이익,ifrs-full_GrossProfit,23031028739,1
+00497631,2022,영업이익,영업이익(손실),dart_OperatingIncomeLoss,16821458054,1
+00497631,2022,재고자산,재고자산,ifrs-full_Inventories,33203971546,1
+00497631,2022,매출채권,매출채권 및 기타채권,ifrs-full_TradeAndOtherCurrentReceivables,45306221637,1
+00108241,2020,매출액,매출액,ifrs-full_Revenue,1905694049103,1
+00108241,2020,매출액,총매출액,-표준계정코드 미사용-,2127569019480,0
+00108241,2020,매출원가,매출원가,ifrs-full_CostOfSales,1409083926164,1
+00108241,2020,매출총이익,매출총이익,ifrs-full_GrossProfit,496610122939,1
+00108241,2020,영업이익,영업이익,dart_OperatingIncomeLoss,49347259096,1
+00108241,2020,재고자산,재고자산,ifrs-full_Inventories,148859665370,1
+00108241,2020,매출채권,매출채권,dart_ShortTermTradeReceivable,163835961062,1
+01061558,2020,매출액,매출액,ifrs-full_Revenue,97873417668,1
+01061558,2020,매출원가,매출원가,ifrs-full_CostOfSales,64608288589,1
+01061558,2020,매출총이익,매출총이익,ifrs-full_GrossProfit,33265129079,1
+01061558,2020,영업이익,영업이익,dart_OperatingIncomeLoss,20761496950,1
+01061558,2020,재고자산,재고자산,ifrs-full_Inventories,23211884389,1
+01061558,2020,매출채권,매출채권,dart_ShortTermTradeReceivable,10698174309,1
+01061558,2020,매출채권,기타유동수취채권,ifrs-full_TradeAndOtherCurrentReceivables,276336277,0
+00557933,2019,매출액,매출액,ifrs_Revenue,120062514171,1
+00557933,2019,매출원가,매출원가,ifrs_CostOfSales,66878834067,1
+00557933,2019,매출총이익,매출총이익,ifrs_GrossProfit,53183680104,1
+00557933,2019,영업이익,영업이익(손실),dart_OperatingIncomeLoss,7342620335,1
+00557933,2019,재고자산,재고자산,ifrs_Inventories,73195611134,1
+00557933,2019,매출채권,매출채권,dart_ShortTermTradeReceivable,16748425961,1
+00186799,2022,매출액,매출액,ifrs-full_Revenue,322331646673,1
+00186799,2022,매출원가,매출원가,ifrs-full_CostOfSales,293015893520,1
+00186799,2022,매출총이익,매출총이익,ifrs-full_GrossProfit,29315753153,1
+00186799,2022,영업이익,영업이익(손실),dart_OperatingIncomeLoss,5077214615,1
+00186799,2022,재고자산,재고자산,ifrs-full_Inventories,113367585016,1
+00186799,2022,매출채권,매출채권 및 기타채권,ifrs-full_TradeAndOtherCurrentReceivables,147594373781,1
+00198378,2017,매출액,매출액,ifrs_Revenue,11908636959,1
+00198378,2017,매출원가,매출원가,ifrs_CostOfSales,7034017350,1
+00198378,2017,매출원가,제품매출원가,-표준계정코드 미사용-,7034017350,0
+00198378,2017,매출총이익,매출총이익,ifrs_GrossProfit,4874619609,1
+00198378,2017,영업이익,영업이익(손실),dart_OperatingIncomeLoss,1679011406,1
+00198378,2017,영업이익,계속영업이익(손실),ifrs_ProfitLossFromContinuingOperations,1333289310,0
+00198378,2017,영업이익,중단영업이익(손실),ifrs_ProfitLossFromDiscontinuedOperations,,0
+00198378,2017,재고자산,재고자산,ifrs_Inventories,670882379,1
+00198378,2017,매출채권,매출채권 및 기타유동채권,ifrs_TradeAndOtherCurrentReceivables,1332154608,1
+00201742,2022,매출액,매출액,ifrs-full_Revenue,178913757521,1
+00201742,2022,매출원가,매출원가,ifrs-full_CostOfSales,167584861228,1
+00201742,2022,매출총이익,매출총이익,ifrs-full_GrossProfit,11328896293,1
+00201742,2022,영업이익,영업이익(손실),dart_OperatingIncomeLoss,1208404078,1
+00201742,2022,재고자산,재고자산,ifrs-full_Inventories,14308998878,1
+00201742,2022,매출채권,매출채권,dart_ShortTermTradeReceivable,19066891256,1
+00125488,2017,매출액,매출액,ifrs_Revenue,40646307987,1
+00125488,2017,매출액,제품매출액,ifrs_RevenueFromSaleOfGoods,37541218249,0
+00125488,2017,매출액,상품매출액,-표준계정코드 미사용-,0,0
+00125488,2017,매출액,임대매출액,-표준계정코드 미사용-,3105089738,0
+00125488,2017,매출원가,매출원가,ifrs_CostOfSales,33491823087,1
+00125488,2017,매출원가,제품매출원가,dart_CostOfSalesFromSaleOfGoods,32731690113,0
+00125488,2017,매출원가,상품매출원가,-표준계정코드 미사용-,0,0
+00125488,2017,매출총이익,매출총이익,ifrs_GrossProfit,7154484900,1
+00125488,2017,영업이익,영업이익(손실),dart_OperatingIncomeLoss,5147342625,1
+00125488,2017,재고자산,재고자산,ifrs_Inventories,3514294378,1
+00125488,2017,매출채권,매출채권,-표준계정코드 미사용-,7160141170,1
+00133858,2018,매출액,매출액,ifrs_Revenue,1108228132369,1
+00133858,2018,매출액,제품매출액,dart_RevenueFromSaleOfGoodsProduct,1091244264411,0
+00133858,2018,매출액,상품매출액,dart_RevenueFromSaleOfGoodsMerchandise,16983867958,0
+00133858,2018,매출원가,매출원가,ifrs_CostOfSales,940133094365,1
+00133858,2018,매출원가,재화의 판매로 인한 매출원가,dart_CostOfSalesFromSaleOfGoods,940133094365,0
+00133858,2018,매출원가,제품매출원가,dart_CostOfSalesFromSaleOfGoodsProduct,925064762030,0
+00133858,2018,매출원가,상품매출원가,dart_CostOfSalesFromSaleOfGoodsMerchandises,15068332335,0
+00133858,2018,매출총이익,매출총이익,ifrs_GrossProfit,168095038004,1
+00133858,2018,영업이익,영업이익(손실),dart_OperatingIncomeLoss,69021895876,1
+00133858,2018,영업이익,계속영업이익(손실),ifrs_ProfitLossFromContinuingOperations,66425641386,0
+00133858,2018,영업이익,중단영업이익(손실),ifrs_ProfitLossFromDiscontinuedOperations,0,0
+00133858,2018,재고자산,재고자산,ifrs_Inventories,148391094959,1
+00133858,2018,매출채권,매출채권 및 기타유동채권,ifrs_TradeAndOtherCurrentReceivables,232997585055,1
+00185505,2021,매출액,수익(매출액),ifrs-full_Revenue,18999122711,1
+00185505,2021,매출원가,매출원가,ifrs-full_CostOfSales,15212043493,1
+00185505,2021,매출총이익,매출총이익,ifrs-full_GrossProfit,3787079218,1
+00185505,2021,영업이익,영업이익(손실),dart_OperatingIncomeLoss,-487622711,1
+00185505,2021,재고자산,재고자산,ifrs-full_Inventories,5369203667,1
+00185505,2021,매출채권,매출채권,dart_ShortTermTradeReceivable,3841355264,1
+00267979,2019,매출액,수익(매출액),ifrs_Revenue,117025131894,1
+00267979,2019,매출원가,매출원가,ifrs_CostOfSales,108606321577,1
+00267979,2019,매출총이익,매출총이익,ifrs_GrossProfit,8418810317,1
+00267979,2019,영업이익,영업이익(손실),dart_OperatingIncomeLoss,4087518966,1
+00267979,2019,영업이익,계속영업이익(손실),ifrs_ProfitLossFromContinuingOperations,1513352984,0
+00267979,2019,재고자산,재고자산,ifrs_Inventories,19197899945,1
+00267979,2019,매출채권,매출채권,dart_ShortTermTradeReceivable,13599748199,1
+00267979,2019,매출채권,기타수취채권,-표준계정코드 미사용-,280711488,0
+00141389,2021,매출액,수익(매출액),ifrs-full_Revenue,90841011973,1
+00141389,2021,매출액,제품매출액,dart_RevenueFromSaleOfGoodsProduct,74662212420,0
+00141389,2021,매출액,상품매출액,dart_RevenueFromSaleOfGoodsMerchandise,15182887020,0
+00141389,2021,매출액,이자수익,dart_InterestIncomeFinanceIncome,555111234,0
+00141389,2021,매출원가,매출원가,ifrs-full_CostOfSales,68281071213,1
+00141389,2021,매출원가,재화의 판매로 인한 수익(매출액)에 대한 매출원가,dart_CostOfSalesFromSaleOfGoods,68281071213,0
+00141389,2021,매출원가,제품매출원가,dart_CostOfSalesFromSaleOfGoodsProduct,58452700933,0
+00141389,2021,매출원가,상품매출원가,dart_CostOfSalesFromSaleOfGoodsMerchandises,9828370280,0
+00141389,2021,매출총이익,매출총이익,ifrs-full_GrossProfit,22559940760,1
+00141389,2021,영업이익,영업이익(손실),dart_OperatingIncomeLoss,10335417988,1
+00141389,2021,재고자산,재고자산,ifrs-full_Inventories,19623042769,1
+00141389,2021,매출채권,매출채권 및 기타유동채권,ifrs-full_TradeAndOtherCurrentReceivables,17969941653,0
+00141389,2021,매출채권,매출채권,dart_ShortTermTradeReceivable,15393732299,1
+00128555,2017,매출액,매출액,ifrs_Revenue,2384712962090,1
+00128555,2017,매출액,상품매출액,ifrs_RevenueFromSaleOfGoods,2349861388071,0
+00128555,2017,매출액,제품매출액,-표준계정코드 미사용-,19927252217,0
+00128555,2017,매출원가,매출원가,ifrs_CostOfSales,2105520708028,1
+00128555,2017,매출원가,상품매출원가,dart_CostOfSalesFromSaleOfGoods,2079012654064,0
+00128555,2017,매출원가,제품매출원가,-표준계정코드 미사용-,24268098458,0
+00128555,2017,매출원가,기타매출원가,dart_OtherCostOfSales,2239955506,0
+00128555,2017,매출총이익,매출총이익,ifrs_GrossProfit,279192254062,1
+00128555,2017,영업이익,영업이익,dart_OperatingIncomeLoss,60343277111,1
+00128555,2017,재고자산,재고자산,ifrs_Inventories,2667896695,1
+00128555,2017,매출채권,매출채권,-표준계정코드 미사용-,359765386667,1

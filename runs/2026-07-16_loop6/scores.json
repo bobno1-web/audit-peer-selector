@@ -1,0 +1,83 @@
+{
+  "run_id": "2026-07-16_loop6",
+  "engine": "similarity_l6",
+  "as_of": [
+    "2016-05-15",
+    "2017-05-15",
+    "2018-05-15",
+    "2019-05-15",
+    "2020-05-15",
+    "2021-05-15",
+    "2022-05-15"
+  ],
+  "k": 10,
+  "weights": [
+    0.2143,
+    0.2857,
+    0.1429,
+    0.2857,
+    0.0714
+  ],
+  "components": [
+    "industry",
+    "scale",
+    "mktcap",
+    "text",
+    "growth"
+  ],
+  "prediction": {
+    "method": "median",
+    "k": 10
+  },
+  "ratios": [
+    "매출총이익률",
+    "영업이익률",
+    "재고자산회전율",
+    "매출채권회전율"
+  ],
+  "split": "dev",
+  "targets": "corrected(PART0 receivable fix)",
+  "n_cases_total": 43298,
+  "overall": {
+    "ape_median": 0.4794,
+    "within_10pct": 0.1126,
+    "within_20pct": 0.2236,
+    "within_30pct": 0.3302,
+    "coverage": 0.9982
+  },
+  "per_ratio": {
+    "매출총이익률": {
+      "ape_median": 0.3683,
+      "n": 10563
+    },
+    "영업이익률": {
+      "ape_median": 0.6981,
+      "n": 11398
+    },
+    "재고자산회전율": {
+      "ape_median": 0.5437,
+      "n": 10136
+    },
+    "매출채권회전율": {
+      "ape_median": 0.37,
+      "n": 11201
+    }
+  },
+  "params": {
+    "penalty_ape": 2.0224
+  },
+  "ratio_count_distribution_pct": {
+    "0": 29.8,
+    "1": 1.2,
+    "2": 3.5,
+    "3": 7.3,
+    "4": 58.3
+  },
+  "separation": {
+    "q_sep": 0.1,
+    "excl_rate": 0.0993,
+    "stable_ape_median": 0.4452,
+    "overall_ape_median": 0.4794
+  },
+  "canonical_eq_median_k10": true
+}

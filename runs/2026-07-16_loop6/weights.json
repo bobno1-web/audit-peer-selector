@@ -1,0 +1,18 @@
+{
+  "weights": [
+    0.2143,
+    0.2857,
+    0.1429,
+    0.2857,
+    0.0714
+  ],
+  "order": [
+    "industry",
+    "scale",
+    "mktcap",
+    "text",
+    "growth"
+  ],
+  "note": "L6 = L4 선정(5축·L4 가중치) 고정 + 예측 median@k=10(dev 선택, D-028). 새 가중치 학습 없음.",
+  "prediction_k": 10
+}

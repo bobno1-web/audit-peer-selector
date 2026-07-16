@@ -1,0 +1,217 @@
+{
+  "targets": "corrected(PART0 receivable fix)",
+  "dev_years": [
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022
+  ],
+  "penalty": 2.0224,
+  "selection_mismatch_vs_committed_L4_k5": 0,
+  "separation": {
+    "q_sep": 0.1,
+    "tau_by_ratio": {
+      "매출총이익률": 0.034229,
+      "영업이익률": 0.008338,
+      "재고자산회전율": 0.171224,
+      "매출채권회전율": 0.189435
+    },
+    "n_flagged": 4329,
+    "defined_by_ratio": {
+      "매출총이익률": 10550,
+      "영업이익률": 11384,
+      "재고자산회전율": 10127,
+      "매출채권회전율": 11215
+    }
+  },
+  "table": {
+    "시장중앙값(A)": {
+      "ape_median_overall": 0.5724,
+      "ape_median_stable": 0.5378,
+      "excl_rate": 0.0993,
+      "coverage": 1.0,
+      "per_ratio_overall": {
+        "매출총이익률": 0.5156,
+        "영업이익률": 0.7597,
+        "재고자산회전율": 0.6526,
+        "매출채권회전율": 0.401
+      }
+    },
+    "baseline": {
+      "ape_median_overall": 0.5427,
+      "ape_median_stable": 0.5016,
+      "excl_rate": 0.0993,
+      "coverage": 0.9566,
+      "per_ratio_overall": {
+        "매출총이익률": 0.4171,
+        "영업이익률": 0.8424,
+        "재고자산회전율": 0.5874,
+        "매출채권회전율": 0.4022
+      }
+    },
+    "similarity_L2": {
+      "ape_median_overall": 0.5174,
+      "ape_median_stable": 0.4797,
+      "excl_rate": 0.0993,
+      "coverage": 0.9865,
+      "per_ratio_overall": {
+        "매출총이익률": 0.4059,
+        "영업이익률": 0.7841,
+        "재고자산회전율": 0.576,
+        "매출채권회전율": 0.3932
+      }
+    },
+    "similarity_L3": {
+      "ape_median_overall": 0.5042,
+      "ape_median_stable": 0.4661,
+      "excl_rate": 0.0993,
+      "coverage": 0.9835,
+      "per_ratio_overall": {
+        "매출총이익률": 0.3923,
+        "영업이익률": 0.7486,
+        "재고자산회전율": 0.5604,
+        "매출채권회전율": 0.3926
+      }
+    },
+    "similarity_L4": {
+      "ape_median_overall": 0.4977,
+      "ape_median_stable": 0.4627,
+      "excl_rate": 0.0993,
+      "coverage": 0.9849,
+      "per_ratio_overall": {
+        "매출총이익률": 0.3885,
+        "영업이익률": 0.729,
+        "재고자산회전율": 0.5577,
+        "매출채권회전율": 0.3905
+      }
+    },
+    "similarity_L5": {
+      "ape_median_overall": 0.501,
+      "ape_median_stable": 0.4643,
+      "excl_rate": 0.0993,
+      "coverage": 0.986,
+      "per_ratio_overall": {
+        "매출총이익률": 0.387,
+        "영업이익률": 0.731,
+        "재고자산회전율": 0.5715,
+        "매출채권회전율": 0.3934
+      }
+    },
+    "랜덤(B)": {
+      "ape_median_overall": 0.9141,
+      "ape_median_stable": 0.8595,
+      "excl_rate": 0.0993,
+      "coverage": 0.7761,
+      "per_ratio_overall": {
+        "매출총이익률": 0.7867,
+        "영업이익률": 1.1172,
+        "재고자산회전율": 0.9997,
+        "매출채권회전율": 0.6286
+      }
+    },
+    "L6(L4+median@k10)": {
+      "ape_median_overall": 0.4794,
+      "ape_median_stable": 0.4452,
+      "excl_rate": 0.0993,
+      "coverage": 0.9982,
+      "per_ratio_overall": {
+        "매출총이익률": 0.3683,
+        "영업이익률": 0.6981,
+        "재고자산회전율": 0.5437,
+        "매출채권회전율": 0.37
+      }
+    }
+  },
+  "B_k_decomposition": {
+    "median@k3": {
+      "overall": 0.5724,
+      "stable": 0.5232,
+      "coverage": 0.9066
+    },
+    "median@k5": {
+      "overall": 0.4977,
+      "stable": 0.4627,
+      "coverage": 0.9849
+    },
+    "median@k7": {
+      "overall": 0.4849,
+      "stable": 0.4493,
+      "coverage": 0.9949
+    },
+    "median@k10": {
+      "overall": 0.4794,
+      "stable": 0.4452,
+      "coverage": 0.9982
+    }
+  },
+  "alt_aggregators_k10": {
+    "median@k10": 0.4794,
+    "weighted_mean@k10": 0.5703,
+    "weighted_median@k10": 0.4781,
+    "trimmed_mean@k10": 0.5026
+  },
+  "win_condition": 0.433,
+  "win_met_overall": false,
+  "win_met_stable": false,
+  "L6_vs_L4_overall_pct": -3.68,
+  "L6_vs_baseline_overall_pct": -11.66,
+  "bootstrap": {
+    "L6_vs_L4_paired_overall": {
+      "n_pairs": 43298,
+      "point_diff": -0.0182,
+      "ci95": [
+        -0.023,
+        -0.0134
+      ],
+      "significant": true
+    },
+    "L6_vs_L4_clustered_overall": {
+      "n_corps": 2326,
+      "point_diff": -0.0182,
+      "ci95": [
+        -0.0242,
+        -0.0131
+      ],
+      "significant": true
+    },
+    "L6_vs_baseline_paired_overall": {
+      "n_pairs": 43298,
+      "point_diff": -0.0632,
+      "ci95": [
+        -0.0688,
+        -0.0569
+      ],
+      "significant": true
+    },
+    "L6_vs_baseline_clustered_overall": {
+      "n_corps": 2326,
+      "point_diff": -0.0632,
+      "ci95": [
+        -0.0717,
+        -0.0537
+      ],
+      "significant": true
+    },
+    "L6_vs_L4_paired_stable": {
+      "n_pairs": 43298,
+      "point_diff": -0.0182,
+      "ci95": [
+        -0.023,
+        -0.0138
+      ],
+      "significant": true
+    },
+    "L6_vs_L4_clustered_stable": {
+      "n_corps": 2326,
+      "point_diff": -0.0182,
+      "ci95": [
+        -0.0236,
+        -0.0133
+      ],
+      "significant": true
+    }
+  }
+}

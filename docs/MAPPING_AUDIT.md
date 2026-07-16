@@ -1,91 +1,77 @@
-# MAPPING_AUDIT — 계정 매핑 독립 검증 (Loop 5 PART 3)
+# MAPPING_AUDIT — 계정 매핑 독립 검증 + 버그 교정 (Loop 5 PART 3 → Loop 6 PART 0)
 
-3루프째 미뤄온 숙제 상환. 지금까지 검증은 **"값이 DART와 같나"**(DATA_AUDIT: 100% 일치)만 봤다.
-이 문서는 처음으로 **"우리 별칭이 그 비율의 올바른 분자·분모 계정을 골랐나"**를 독립 재유도한다.
+## ★ Loop 5 결론 정정 (검증방 Loop 5 발견)
+Loop 5 의 이 문서는 **"매출채권 합산선(및기타채권)은 공시 현실 — 순수 매출채권 미공시, APPROX=0"**
+이라 결론지어 매핑을 '신뢰 가능'으로 판정했다. **검증방이 이 결론을 뒤집는 버그를 발견했다.** 그 결론은
+감사 도구의 **탐지 버그**로 인한 **인공물**이었다 — 순수 매출채권은 다수 기업에서 **실제로 공존**했고,
+생산 resolver 는 그것을 놓치고 **합산을 오취득**하고 있었다. Loop 6 PART 0 에서 두 버그를 교정했다.
 
-- 스크립트: `scripts/mapping_audit.py`. 원자료: `runs/2026-07-16_mapping_audit/{summary.json, cases.csv, candidates.csv, config.yaml}` (검증방 재대조용, P13).
-- 표본: dev 채점 기업 **40개** 무작위 **seed=20260716** — DATA_AUDIT(seed 20260715)와 **다른 독립 표본**.
+### 버그 1 — 감사 도구 탐지 (`mapping_audit._is_pure_receivable`)
+- 순수 매출채권 여부를 id `tradereceivables`(**복수**)로 매칭했다. 그러나 순수 매출채권의 표준 id 는
+  `dart_ShortTermTradeReceivable` → norm `...tradereceivable`(**끝에 s 없음**)이라 **매칭 실패** →
+  순수를 '없음'으로 오판 → 합산선을 'DISCLOSURE(순수 미공시)'로 오분류.
+- 교정: `tradereceivable`(**단수**, 복수형의 부분문자열이라 둘 다 포착) 매칭 + `otherreceivable`/
+  `tradeandother`(기타·합산) 배제.
 
-## ★ 독립성 확보 방법 (개발방 별칭을 신뢰하지 않는다)
-매핑이 틀리면 개발방·검증방이 같은 오류를 공유해 서로 대조해도 못 잡는다. 그래서 우리 config 의
-별칭 목록을 **쓰지 않고**, 두 독립 오라클로 각 계정 개념을 재검색해 별칭의 선택과 대조한다:
-1. **XBRL `account_id`** — DART 표준 택소노미 concept id(`ifrs_Revenue`, `ifrs_CostOfSales`,
-   `ifrs_GrossProfit`, `dart_OperatingIncomeLoss`, `ifrs_Inventories`,
-   `dart_ShortTermTradeReceivable`(순수) vs `ifrs_TradeAndOtherCurrentReceivables`(합산)). 우리와 독립.
-2. **개념 키워드 broad 검색** — raw 재무제표의 모든 후보 행을 나열(별칭 목록과 무관).
-별칭이 고른 계정이 '가장 구체적(올바른)' 후보인지 규칙+증거로 판정한다.
+### 버그 2 — 생산 resolver (`pit_build.extract`)
+- 별칭을 **응답 행 순서**로 매칭해 첫 매칭 별칭을 채택 → 합산행(매출채권및기타채권)이 순수행보다
+  **먼저 오면 합산을 오취득**.
+- 지목 사례 **00141389/2020(OFS)**: 합산 `ifrs-full_TradeAndOtherCurrentReceivables`=12,840,776,999 이
+  순수 `dart_ShortTermTradeReceivable`=11,702,295,937 **앞** → 합산 오취득 확인.
+- 교정: **별칭 우선순위 순서** 매칭(리스트 앞=더 구체적=순수). 매출채권 별칭 `[매출채권, 유동매출채권,
+  매출채권및기타채권, …]` = 순수 먼저 → 순수 존재 시 순수 채택. **계정별 예외분기 없음**(별칭순서=specificity,
+  하드코딩 금지 준수). `mapping_audit.our_pick` 도 동일 로직으로 동기화.
+- ★ **ORACLE 4비율 정의 불변**(매출채권회전율=매출액/매출채권 그대로). **별칭 해석만** 교정. D-026 사전등록.
 
-## 결과 — 계정별 (n=40 기업)
-| 채점계정 | OK | 판정분류 | clear 오매핑 | 대표 account_id |
-|---|--:|---|--:|---|
-| 매출액 | 40 | 전부 OK | **0** | ifrs(-full)_Revenue |
-| 매출원가 | 38 | OK 38 · **DEFINITIONAL 2** | **0** | ifrs(-full)_CostOfSales (2건 dart_OperatingExpenses) |
-| 매출총이익 | 38 | OK 38 · NA 2(미정의) | **0** | ifrs(-full)_GrossProfit |
-| 영업이익 | 40 | 전부 OK | **0** | dart_OperatingIncomeLoss (40/40) |
-| 재고자산 | 35 | OK 35 · NA 5(재고없음=미정의) | **0** | ifrs(-full)_Inventories |
-| 매출채권 | 20 | OK 20(순수) · **DISCLOSURE 19(합산)** · NO_PICK 1 | 1(coverage) | dart_ShortTermTradeReceivable / TradeAndOther |
+## 교정 후 독립 재검증 (n=40, seed=20260716, XBRL id + 키워드 이중 오라클)
+| 채점계정 | 판정 | clear 오매핑 |
+|---|---|--:|
+| 매출액 | OK 40 | 0 |
+| 매출원가 | OK 38 · DEFINITIONAL 2 | 0 |
+| 매출총이익 | OK 38 · NA 2 | 0 |
+| 영업이익 | OK 40 | 0 |
+| 재고자산 | OK 35 · NA 5 | 0 |
+| **매출채권** | **OK 22(순수 채택) · DISCLOSURE 17(합산만 공시) · NO_PICK 1** | 1(coverage) |
 
-**★ 전체 clear 오매핑률 = 0.43% (1 / 233 평가케이스).** 유일한 1건은 '틀린 계정'이 아니라 **coverage
-miss**(아래 3-2). 별칭이 발화한 곳에서 **틀린 계정을 고른 사례(category a) = 0건.**
+- **교정 전(Loop 5, 버그): 순수 20 / DISCLOSURE 19** → **교정 후: OK 22 / DISCLOSURE 17.** 즉 순수 매출채권이
+  **실제로 존재**하는데 생산이 합산을 고르던 사례가 있었고(버그 2), 교정으로 **순수를 채택**한다.
+- 전체 clear 오매핑률 = **0.43%(1/233)** — 유일한 1건은 '틀린 계정'이 아니라 IFRS9 표현
+  ("매출채권 및 상각후원가측정금융자산") **coverage miss**(결측, 오답 아님).
 
-## ★ 검증방 지목 2건 — 독립 검증 결과 (둘 다 오류 아님 확인)
-### (1) 매출원가 ← 영업비용 (5% 우려)
-- 실측 2/40 이 영업비용 대체. **두 건 모두 순수 `매출원가` 행이 raw 에 존재하지 않았다** →
-  분류 **DEFINITIONAL**(매출원가 미보고 서비스업의 정당한 대체). `account_id`도 `dart_OperatingExpenses`.
-- **순수 매출원가가 존재하는데 영업비용을 고른 사례(MISMAP) = 0건.** → D-020/DATA_AUDIT 의 해석
-  ("매출원가 미보고 시 대체")이 독립 표본에서 **재확인**. 오매핑 아님.
+## ★ targets 재생성 + 변경 보고 (P/Q4)
+교정 resolver 로 **dev(2016~2022) targets 재생성**. raw fnlttSinglAcntAll 를 **raw_fin_cache 로 캐시**
+(api-budget; 재생성 재취득 0). 예상 호출 수 로그·020 resume. 스크립트: `regen_targets.py` + `regen_swap.py`.
 
-### (2) 매출채권 "및기타채권" 합산선 (67% 우려)
-- 순수 매출채권 20/40(`dart_ShortTermTradeReceivable`) · 합산 19/40(`ifrs_TradeAndOtherCurrentReceivables`).
-- ★ **결정적 독립 소견: `APPROX`(합산을 골랐는데 순수도 존재) = 0건.** 합산선 19건은 모두 그 기업이
-  **순수 매출채권을 별도 공시하지 않아** 합산선이 **유일한 후보**였다(분류 DISCLOSURE). 즉
-  "및기타채권"은 우선순위 실수가 아니라 **공시 현실**이다 — D-020 논거가 독립 표본에서 **실증**됐다.
-- 매출채권회전율(매출액÷매출채권)에서 합산선은 분모를 약간 키워 **보수적**(회전율 소폭 저평가). 단
-  **모든 엔진에 동일 적용되는 고정 자(尺)** 이므로 baseline↔L2~L5 **상대 비교엔 무영향**(상수).
-
-## 3-2. 불일치 분류 (P10)
-| 유형 | 건수 | 처리 |
+**변경 규모(staged vs 라이브, 실측):**
+| 계정 | 변경된 dev firm-year 수 | 방향 |
 |---|--:|---|
-| (a) 명백한 오매핑(틀린 계정) | **0** | 없음 |
-| (b) 허용 근사(합산 표기 등 실무 관행) | 19(매출채권 합산) + 2(영업비용) | 기록·유지 |
-| (c) 정의 차이 | — | 연결/별도는 fs_div 로 이미 구분(prow.fs_div), 표본 내 개념혼선 0 |
-| coverage miss(별칭 미포함 합산 표현) | 1 | 아래 결정 |
+| **매출채권** | **767** | 합산 → 순수(값 ↓) → 매출채권회전율 ↑ |
+| 매출원가 | 25 | 영업비용 → 매출원가(별칭 우선순위 부수효과) |
+| 매출액·총자산·매출총이익·영업이익·재고자산 | **0** | 불변 |
 
-### coverage miss 1건 (심각 아님)
-- 기업 00572905(FY2019): 매출채권을 **"매출채권 및 상각후원가측정금융자산(유동)"**(id
-  `ifrs_TradeAndOtherCurrentReceivables`)로 공시. 우리 합산 별칭 목록
-  (`매출채권및기타채권/기타유동채권/기타수취채권`)에 **이 IFRS9 표현이 없어** exact-match 실패 → 매출채권 **결측**.
-- ★ **틀린 값이 아니라 '없는 값'**이다: 그 기업의 매출채권회전율이 **미정의(결측)로 제외**될 뿐(ORACLE
-  "정의된 비율만"), **잘못된 숫자를 만들지 않는다.** → category (a) 심각 오매핑 아님.
+- **★ 엔진 허용 입력(매출액·총자산) 0 변경** → 커밋된 엔진 peers(baseline·L2~L5) 는 교정 데이터에서
+  **그대로 유효**(재랭킹 불요). 변경은 **채점 targets 에만**(매출채권회전율 767·재고자산회전율 25).
+- **PIT 격리(정직한 한계):** 재취득 시 `fnlttSinglAcntAll` 가 **T 이후 정정공시**를 반환한 firm-year
+  **2,291건**은 rcept_dt 불일치로 **옛 값 유지**(정정본 사용=룩어헤드이므로 차단). 이들은 원본 filing 을
+  이 API 로 다시 못 얻어 **교정 미적용**(옛 값 불변). 즉 실제 교정 필요분은 767 보다 많을 수 있으나,
+  **PIT-clean 하게 교정 가능한 767 건만** 반영했다(안전·정직).
+- holdout(2023~2025) targets 는 **재생성하지 않음**(미개봉; 개봉 시 함께 재생성).
 
-## 3-3. ★ 판정: 채점 데이터의 매핑을 신뢰할 수 있는가? — **예 (신뢰 가능)**
-- **틀린 계정을 고른 사례 0건.** 5개 계정 모두 XBRL 표준 id 와 일치(또는 비표준 id 라도 계정명 정상).
-- 검증방 지목 2건(매출원가←영업비용, 매출채권 합산선)은 **오류가 아니라 공시 현실/정당한 대체**로
-  독립 재확인. 개발방·검증방이 공유할 "숨은 매핑 오류"는 발견되지 않았다.
-- 유일한 흠은 합산-매출채권 별칭의 **coverage 불완전**(IFRS9 '상각후원가측정금융자산' 표현 누락),
-  ~2.5% 기업에서 매출채권이 **결측**(틀림 아님)이 될 수 있음.
+## ★ 수정 전후 점수 영향 (P12/Q4)
+- **L4(median@k5) dev APE: 0.4965(교정 전) → 0.4977(교정 후).** +0.0012 = **사실상 중립(소폭 악화).**
+- ★ **매핑 교정은 '정확성(올바른 계정)' 문제이지 점수 최적화가 아니다.** 순수 매출채권(더 작은 분모)이
+  매출채권회전율을 키우고 peer 도 같이 커져 APE 는 거의 안 변한다. **좋아지지도 나빠지지도 않음** →
+  D-026 대로 **점수에 맞춰 아무것도 조정하지 않는다.**
+- **상대 순위 불변:** 모든 대조군을 교정 targets 로 재채점(SHOWDOWN_L6) — baseline<L2<L3<L4 순위 유지,
+  엔진 간 우열 뒤집힘 **없음**. **ORACLE 4비율 정의 불변.**
 
-## 3-3. P12 — 별칭 교정 여부 및 점수 영향
-- **심각한 오매핑(category a) = 0건 → 별칭 교정 트리거 미발동.**
-- 따라서 **이번 루프 별칭·ORACLE 4비율 전부 불변**(P20). **수정 없음 → 점수 영향 0.**
-- coverage miss 는 별칭 교정 후보이지만 **이번 루프엔 고치지 않는다** — 근거:
-  1. **하드코딩 위험**: 한 회사의 특정 문자열("…상각후원가측정금융자산")을 별칭에 박는 것은
-     no-hardcoding 위반 소지. 원리적 해법은 **매핑을 account_nm 문자열이 아니라 XBRL concept id
-     (`TradeAndOtherCurrentReceivables`)로 유도**하는 것이며, 이는 파서/pit_build 를 바꿔 targets 를
-     재생성하는 큰 변경(동결된 채점 데이터 파이프라인 접촉) → 별도 루프에서 사전등록 후 진행.
-  2. **1-관측 과적합 위험**: 새 독립 표본의 단 1건으로 별칭을 고치면 그 표본에 과적합. 광범위 측정
-     후 사람이 판단할 사안.
-  3. **안전성**: 미고침의 결과는 '결측'(안전)이지 '오답'이 아니다. 중앙값 편향 없음(임의대체 0,
-     케이스 수만 소폭 감소). → 성능을 위해 데이터를 왜곡하지 않는다는 원칙과 일치.
-- **미고침의 정량 영향**: 표본상 매출채권 coverage = 39/40 포착, 1/40(2.5%) 결측. 결측은 결측이라
-  APE 중앙값을 **편향시키지 않는다**(오답 주입 0). coverage 만 미미하게 낮아질 뿐.
-
-## 3-4. 원자료 커밋 (P13)
-`runs/2026-07-16_mapping_audit/` — `cases.csv`(기업×계정 별칭 선택+판정), `candidates.csv`(개념별 모든
-후보 행: account_id·account_nm·값 — 검증방이 XBRL id 로 독립 재대조 가능), `summary.json`, `config.yaml`.
-(cases.csv 는 git 포함; summary.json·candidates.csv 는 runs/ 규칙에 따라 로컬 — README 경유 재현.)
+## 원자료 커밋 (P13/Q4)
+`runs/2026-07-16_mapping_audit/` — `cases.csv`·**`candidates.csv`**(개념별 모든 후보 행: account_id·nm·값,
+검증방이 XBRL id 로 독립 재대조 가능)·`summary.json`·`config.yaml`. `runs/2026-07-16_regen_targets/`
+— `regen_summary.json`(변경 집계). (candidates.csv 는 gitignore 예외로 커밋.)
 
 ## 발견 라우팅 (PART Z)
-- **[발견-M1] 합산-매출채권 별칭 coverage 불완전** → 제안(만들지 않음): 매출채권 매핑을 account_nm
-  variant 나열이 아니라 **XBRL account_id(`TradeAndOtherCurrentReceivables`/`ShortTermTradeReceivable`)
-  기반으로 유도**. 사전등록 후 별도 루프. 이번 루프 미반영(정당한 근거 위 3-3).
+- **[발견-M1] 합산-매출채권 별칭 coverage 불완전**(IFRS9 '상각후원가측정금융자산') → 제안(만들지 않음):
+  매출채권 매핑을 account_nm variant 나열이 아니라 **XBRL account_id 기반으로 유도**. 사전등록 후 별도 루프.
+- **[발견-M2] 정정공시(amendment) 유입** → 2,291 firm-year 가 T 이후 정정본을 반환. 제안: raw_fin_cache 를
+  **원본(최초) filing 고정 취득**으로 확장(rcept_no 별 이력 API)해 PIT-clean 재생성 완전화. 별도 루프.

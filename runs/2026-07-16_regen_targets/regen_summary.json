@@ -1,0 +1,20 @@
+{
+  "dev_years": [
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022
+  ],
+  "n_firm_years_filed": 14084,
+  "kept_old_filing_changed": 2291,
+  "n_account_changes": 12567,
+  "n_firm_years_changed": 11775,
+  "changes_by_account": {
+    "매출원가": 25,
+    "매출채권": 767,
+    "총자산": 11775
+  }
+}

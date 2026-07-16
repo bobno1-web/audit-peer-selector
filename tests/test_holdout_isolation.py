@@ -45,6 +45,19 @@ class TestHoldoutIsolation(unittest.TestCase):
         leaked = [y for y in self.hold if (SEG / f"segment_{y}.parquet").exists()]
         self.assertEqual(leaked, [], f"★ 부문 holdout 파일 생성됨(격리 실패): {leaked}")
 
+    def test_regen_targets_is_dev_only(self):
+        # ★ Loop6 PART0: targets 재생성(매출채권 교정)은 dev 연도만 순회해야 한다(holdout 미개봉).
+        sys.path.insert(0, str(ROOT / "scripts"))
+        import regen_targets as RG                            # noqa: E402
+        self.assertEqual(set(RG.DEV_YEARS) & self.hold, set(),
+                         "★ regen_targets 가 holdout 연도를 재생성한다(봉인 위반)")
+        # staged 산출물에 holdout 파일이 없어야(빌드 후 유효).
+        staged = RG.RUN / "staged"
+        if staged.exists():
+            leaked = [y for y in self.hold if (staged / f"ratios_{y}.parquet").exists()
+                      or (staged / f"scale_{y}.parquet").exists()]
+            self.assertEqual(leaked, [], f"★ 재생성 holdout staged 파일 생성됨: {leaked}")
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)

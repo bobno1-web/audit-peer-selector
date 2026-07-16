@@ -63,17 +63,22 @@ def parse_amount(s):
 
 
 def our_pick(rows, account, aliases, stmt):
-    """생산 매핑(data_audit 와 동일 로직): sj_div 일치 + 별칭 exact-match 첫 행."""
+    """생산 매핑(pit_build.extract 와 동일 로직) — ★ Loop6 PART0: 별칭 '우선순위 순서' 매칭.
+    행 순서가 아니라 별칭 리스트 순서(더 구체적=순수가 앞)로 결정. 첫 별칭이 매칭되면 채택 →
+    순수 매출채권이 합산(및기타채권)보다 우선한다."""
     al = aliases.get(account, [])
     divs = stmt.get(account, [])
-    for r in rows:
-        nm = (r.get("account_nm") or "").replace(" ", "")
-        nmb = PAREN.sub("", nm)
-        if r.get("sj_div") in divs and (nm in al or nmb in al):
-            v = parse_amount(r.get("thstrm_amount"))
-            if v is not None:
-                return {"nm": r.get("account_nm"), "id": r.get("account_id"),
-                        "id_norm": norm_id(r.get("account_id")), "value": v}
+    for alias in al:
+        for r in rows:
+            if r.get("sj_div") not in divs:
+                continue
+            nm = (r.get("account_nm") or "").replace(" ", "")
+            nmb = PAREN.sub("", nm)
+            if nm == alias or nmb == alias:
+                v = parse_amount(r.get("thstrm_amount"))
+                if v is not None:
+                    return {"nm": r.get("account_nm"), "id": r.get("account_id"),
+                            "id_norm": norm_id(r.get("account_id")), "value": v}
     return None
 
 
@@ -116,11 +121,18 @@ def candidates(rows, account):
 
 
 def _is_pure_receivable(cand):
-    """순수 매출채권 후보인가: id 에 tradereceivables(and-other 아님) 또는 nm 이 '및기타' 없이 매출채권."""
+    """순수 매출채권 후보인가.
+    ★ Loop6 PART0 버그교정(검증방 Loop5 발견): id 는 'tradereceivable'(단수)로 매칭한다 —
+      순수 매출채권의 표준 id 는 dart_ShortTermTradeReceivable → norm '...tradereceivable'(끝에 s 없음)
+      이라 이전의 'tradereceivables'(복수) 매칭은 이를 놓쳤다(순수를 합산으로 오분류).
+      'tradereceivable'(단수)은 복수형의 부분문자열이므로 둘 다 잡고, tradeandother/otherreceivable
+      (합산·기타채권)만 배제한다. 지목 사례 00141389/2020(dart_ShortTermTradeReceivable)로 확인."""
     nm = (cand["nm"] or "").replace(" ", "")
     idn = cand["id_norm"]
     if idn:
-        return "tradereceivables" in idn and "tradeandother" not in idn
+        return ("tradereceivable" in idn
+                and "tradeandother" not in idn
+                and "otherreceivable" not in idn)
     return nm in ("매출채권", "유동매출채권")
 
 
