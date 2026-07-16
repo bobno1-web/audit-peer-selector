@@ -19,6 +19,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 sys.path.insert(0, str(ROOT / "scoring" / "oracle"))
 import score as S                                           # noqa: E402
 import loop6_predict as LP                                  # noqa: E402
+import provenance as PV                                     # noqa: E402
 
 RUN = ROOT / "runs" / "2026-07-16_loop6"
 L4 = ROOT / "runs" / "2026-07-15_loop4_similarity"
@@ -46,6 +47,9 @@ def main():
     peers = pd.DataFrame(rows)
     RUN.mkdir(parents=True, exist_ok=True)
     peers.to_parquet(RUN / "peers.parquet", index=False)
+    # ★ 출처: 라벨 k 가 실제 peer 수와 일치하는지 강제(거짓 라벨 방지, R6/R9)
+    k_actual = PV.peers_k(RUN / "peers.parquet")
+    assert k_actual == KL6, f"[PROVENANCE] 라벨 k={KL6} ≠ 실제 peer 수 {k_actual}(stale k)"
 
     # ★ 동결 canonical 채점기(median over top-KL6) — 이것이 곧 median@k10
     cases = S._cases_from_peers(peers, tables, ratios, penalty, min_peers)
@@ -61,9 +65,11 @@ def main():
     sr = LP.split_report(cases, flag)
 
     obj = {"run_id": RUN.name, "engine": "similarity_l6",
-           "as_of": Ts, "k": KL6, "weights": json.loads((L4 / "weights.json").read_text(encoding="utf-8"))["weights"],
+           "as_of": Ts, "k": KL6, "k_actual": k_actual,
+           "weights": json.loads((L4 / "weights.json").read_text(encoding="utf-8"))["weights"],
            "components": LP.L4_ORDER, "prediction": {"method": "median", "k": KL6},
            "ratios": rnames, "split": "dev", "targets": "corrected(PART0 receivable fix)",
+           "provenance": PV.stamp(ys),                       # ★ 실제 target 데이터 지문(라벨↔실제 결속)
            "n_cases_total": agg["n_cases"], "overall": agg["overall"], "per_ratio": agg["per_ratio"],
            "params": {"penalty_ape": round(penalty, 4)}, "ratio_count_distribution_pct": dist,
            "separation": {"q_sep": float(cfg["separation"]["numerator_over_assets_quantile"]),

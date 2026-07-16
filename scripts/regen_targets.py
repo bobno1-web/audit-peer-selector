@@ -123,8 +123,11 @@ def resolve_and_stage(firms):
             vals = pb.extract(rows)                         # 교정된 resolver
             for a in ACCTS:
                 nv = vals.get(a)
-                ov = cur.at[cc, a] if (cc in cur.index and a in cur.columns) else None
-                ov = None if pd.isna(ov) else int(ov)
+                # ★ 옛 값은 그 계정의 '올바른 소스' 파케이에서(ratios 에 없는 총자산은 scale 에서).
+                #   이전 버그: 총자산 old 를 ratios 에서 읽어 항상 None → 거짓 변경 카운트.
+                src = cur if a in cur.columns else (scur if a in scur.columns else None)
+                ov = src.at[cc, a] if (src is not None and cc in src.index) else None
+                ov = None if (ov is None or pd.isna(ov)) else int(ov)
                 if a in new_ratio.columns:
                     new_ratio.at[cc, a] = pd.NA if nv is None else nv
                 if a in new_scale.columns:

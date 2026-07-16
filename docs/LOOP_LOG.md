@@ -351,3 +351,32 @@
 | **holdout 개봉 실질 이유 최초 발생**(L6 dev 유의 우위 → out-of-sample 검증 값어치) | 발견 | `SHOWDOWN_L6.md`(개봉 권고 (1)) — 결정은 사람 | ✅ |
 | **설립연도(age) company.json 블록** ← Loop4·5 이월 | 제약 | Loop6 범위(예측방식+매핑) 밖 — **재이월 명시** | ⏭ |
 | 승리조건(0.433) 미달 지속(0.4794) — 단 gap 좁혀짐, 무료 지렛대 소진 | 발견 | `DECISIONS` D-028 + `SHOWDOWN_L6.md`(holdout 개봉 권고) | ✅ |
+
+## Loop 6-B — Loop 6 완결 검증 + 거짓라벨 방지 장치 (provenance 결속)
+- **무엇을 했나**: 검증방이 Loop 6 를 "미완/거짓라벨" 로 지적. **실증 대조** 결과 커밋된 산출물은 실제로
+  교정·k10 이었으나(일부 지적은 커밋 상태와 불일치), **근본 우려는 타당**: data/pit gitignore 라 커밋만으론
+  교정 검증 불가 + 결과 라벨이 실제 데이터에 결속 안 됨 + regen_summary '총자산 11775' 거짓수치(diff 버그).
+  → (PART1) 교정 매니페스트 `provenance.json` 커밋(원본·교정 콘텐츠 지문 + 실측 변경 767/25/0), regen_summary
+  정정, DATA_CARD 정정공시 2,291 기록. (PART2) **provenance 스탬프**(결과에 target 지문·실제 k 스탬프 + 라벨≠
+  실제면 assert 중단) + **test_provenance_integrity**(양성 3 + 위조탐지 음성 4) + **no-false-provenance 규칙**.
+  (PART3) 스탬프된 경로로 재채점·재결판.
+- **점수**: 불변 — **L6 0.4794**(안정 0.4452), L4 0.4977, **−3.68% firm-clustered 유의**(CI[−0.0242,−0.0131]).
+  교정 지문 d5db24e4(≠원본 29a17996) → 교정 실제 반영. 순위 base<L2<L3<L4<L6 유지. 87 tests green.
+- **이전 대비 변화**: 결과 수치 변화 없음(이미 옳았음). **바뀐 것은 검증가능성** — 이제 라벨(corrected/k10)이
+  실제 데이터 지문·peer 수에 코드로 결속돼, 어긋나면 테스트가 FAIL. "corrected 라 써놓고 원본" / "k10 라 써놓고
+  k5" 가 물리적으로 불가.
+- **비개발자용 한 줄 요약**: 앞 루프(6)의 결과는 실제로 맞았지만, **"맞다는 걸 남이 확인할 방법"** 이 없었다 —
+  교정한 데이터가 저장소에 안 들어가고(용량 문제), 결과 파일의 "교정됨" 딱지가 실제 데이터와 묶여 있지 않았다.
+  그래서 이번엔 결과에 데이터의 **지문(해시)** 을 찍고, **딱지와 실제가 다르면 자동으로 걸리는 검사**를 만들었다.
+  또 예전 요약의 "총자산 11,775건 변경" 은 계산 버그였음을 밝히고 **실제(매출채권 767, 나머지 0)** 로 바로잡았다.
+  성적(0.479)은 그대로다 — 달라진 건 **아무도 거짓 딱지를 못 붙이게 된 것**. 최종 시험지는 이번에도 안 열었다.
+
+### PART Z — 발견 → 반영 라우팅 (Loop 6-B). 미반영 0건.
+| 발견 | 성격 | 반영 위치 | 완료 |
+|---|---|---|:--:|
+| **결과 라벨이 실제 데이터에 결속 안 됨**(거짓 provenance 위험) ← 검증방 | 기계강제 | `provenance.py` + finalize/showdown 스탬프+assert + `test_provenance_integrity`(7) + `no-false-provenance.md` | ✅(상환) |
+| **regen_summary '총자산 11775' 거짓수치**(diff 카운터 버그) | 기계+데이터 | `regen_targets.extract diff` 소스 교정 + `regen_provenance.py`(매니페스트) + regen_summary 정정 | ✅(상환) |
+| **교정 데이터 커밋 안 됨(gitignore)→검증 불가** | 데이터+기계 | `provenance.json`(콘텐츠 지문 커밋; 검증방 재생성 후 대조) | ✅(상환) |
+| **정정공시 2,291건 교정 미적용**(원본 filing API 재취득 불가) | 제약 | `DATA_CARD` #6 + `provenance.json` amendment note | ✅(기록) |
+| L6 결과(0.4794, k10 유의) 실증 확인 — 커밋 상태 실제로 옳았음 | 검증 | `SHOWDOWN_L6.md` provenance 절 + 3자 지문 일치 | ✅ |
+| 원본 filing 고정취득(rcept_no 이력 API) | 제안 | `MAPPING_AUDIT.md` [M2] — 별도 루프 | ⏭(제안) |

@@ -54,6 +54,12 @@ data/pit/
    100% 채워지나 point-in-time 아님. 산업은 거의 안 바뀌어 룩어헤드 위험 낮음(명시).
 4. **사업내용 텍스트**: Loop 2 지연(구조만). 타당성 0-E 실측(96.7%).
 5. **fs_div**: 개별(OFS) 우선·연결(CFS) 대체. `fs_div` 컬럼 기록.
+6. **매핑 교정(Loop 6-B) 정정공시 미적용 2,291건**: 매출채권 별칭 버그(D-026) 교정을 위해 dev targets 를
+   재생성할 때, `fnlttSinglAcntAll` 가 **T 이후 정정본**을 반환한 firm-year **2,291건**은 rcept_dt 불일치로
+   **옛 값 유지**(정정본 사용=룩어헤드이므로 차단). 원본 filing 을 이 API 로 재취득 못 해 이들엔 교정
+   **미적용**(옛 값 불변, 안전). 실제 교정 필요분은 767 보다 많을 수 있으나 **PIT-clean 하게 교정 가능한
+   767 firm-year 만** 반영. 출처: `runs/2026-07-16_regen_targets/provenance.json`. (제안 [M2]: rcept_no 이력
+   API 로 원본 filing 고정취득 확장 — 별도 루프.)
 
 ## 무결성 (PART F/H17)
 - `tests/test_pit_integrity.py` **전량 통과**: 스냅샷 T 모든 rcept_dt ≤ T / as_of 미래차단(무작위

@@ -21,6 +21,7 @@ sys.path.insert(0, str(ROOT / "engines" / "similarity"))
 import score as S                                           # noqa: E402
 from pit import as_of                                       # noqa: E402
 import loop6_predict as LP                                  # noqa: E402
+import provenance as PV                                     # noqa: E402
 
 RUNS = ROOT / "runs"
 RUN = RUNS / "2026-07-16_loop6"
@@ -156,8 +157,22 @@ def main():
     l6s = table["L6(L4+median@k10)"]["ape_median_stable"]
     l4o = table["similarity_L4"]["ape_median_overall"]
     baseo = table["baseline"]["ape_median_overall"]
+
+    # ★ 출처: L6 행이 진짜 median@k=KL6 인지 커밋된 peers.parquet 에서 실제 k 를 읽어 강제(R6/R9).
+    l6_peers = RUN / "peers.parquet"
+    k_from_file = None
+    if l6_peers.exists():
+        k_from_file = PV.peers_k(l6_peers)
+        assert k_from_file == KL6, f"[PROVENANCE] L6 라벨 k={KL6} ≠ peers.parquet 실제 {k_from_file}(stale)"
+        canon_l6 = float(pd.DataFrame(
+            S._cases_from_peers(pd.read_parquet(l6_peers), tables, ratios, penalty, min_peers))["ape"].median())
+        assert round(canon_l6, 4) == l6o, \
+            f"[PROVENANCE] L6 표값 {l6o} ≠ 커밋 peers 채점 {round(canon_l6, 4)}(라벨-실제 불일치)"
+
     out = {
         "targets": "corrected(PART0 receivable fix)", "dev_years": ys, "penalty": round(penalty, 4),
+        "provenance": PV.stamp(ys),                          # ★ 실제 target 데이터 지문
+        "L6_k_label": KL6, "L6_k_from_peers_file": k_from_file,   # 라벨 k ↔ 실제 peer 수
         "selection_mismatch_vs_committed_L4_k5": mism,
         "separation": {"q_sep": q_sep, "tau_by_ratio": {k: round(v, 6) for k, v in tau.items()},
                        "n_flagged": len(flag), "defined_by_ratio": s_counts},

@@ -21,3 +21,5 @@ runs/**/*.csv
 # data/pit 구조(README)는 git에 남긴다. 디렉토리를 먼저 재포함해야 파일 재포함이 먹는다.
 !data/pit/**/
 !data/pit/**/README.md
+# 단, 캐시(원문·벡터·모델)는 무겁고 재생성 가능 — README 포함 전부 재-무시(3rd-party 모델카드 등).
+data/pit/cache/**

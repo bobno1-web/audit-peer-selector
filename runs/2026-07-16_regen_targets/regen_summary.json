@@ -1,20 +1,17 @@
 {
-  "dev_years": [
-    2016,
-    2017,
-    2018,
-    2019,
-    2020,
-    2021,
-    2022
-  ],
+  "dev_years": [2016, 2017, 2018, 2019, 2020, 2021, 2022],
   "n_firm_years_filed": 14084,
   "kept_old_filing_changed": 2291,
-  "n_account_changes": 12567,
-  "n_firm_years_changed": 11775,
+  "note": "★ Loop 6-B 정정: 이전 이 파일은 diff 카운터 버그로 '총자산 11775' 를 담았다(총자산 old 값을 ratios 파케이에서 읽어 항상 None 과 비교 — 총자산은 별칭 1개라 실제 변경 0). 아래는 원본 대비 라이브의 올바른 소스별 실측. 권위 있는 출처는 provenance.json.",
   "changes_by_account": {
-    "매출원가": 25,
     "매출채권": 767,
-    "총자산": 11775
-  }
+    "매출원가": 25,
+    "매출액": 0,
+    "매출총이익": 0,
+    "영업이익": 0,
+    "재고자산": 0,
+    "총자산": 0
+  },
+  "n_firm_years_changed": 792,
+  "authoritative_manifest": "runs/2026-07-16_regen_targets/provenance.json"
 }

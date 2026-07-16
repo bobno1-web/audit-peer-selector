@@ -7,6 +7,17 @@ dev(2016~2022)만. **holdout 미개봉.** ★ 모든 대조군을 **교정 targe
 
 ★ 자기검증: median@k10 경로 == 동결 canonical 채점기(top-10 peer 중앙값), |Δ|<1e-9. L4 선정 재현 mismatch 0.
 
+## ★ 출처 검증 (provenance — Loop 6-B, 검증방 발견 상환)
+`data/pit/targets` 는 gitignore 라 커밋 저장소만으로는 '교정 여부'를 확인할 수 없다. 그래서 결과 파일에
+**실제 사용한 target 데이터의 콘텐츠 지문**(write 독립 SHA-256)과 **실제 peer 수(k)** 를 스탬프하고,
+교정 매니페스트를 커밋해 **라벨↔실제를 결속**한다. 라벨과 실제가 어긋나면 `test_provenance_integrity`
+가 FAIL(거짓 라벨 차단).
+- 교정 targets 지문 `d5db24e4…`(원본 `29a17996…`와 다름 → **교정 실제 반영**). scores.json·showdown_l6.json·
+  provenance.json **3자 모두 이 지문에 일치**(라이브 재계산 대조). 매니페스트: `runs/2026-07-16_regen_targets/provenance.json`.
+- **L6 k 라벨=10 ↔ peers.parquet 실제 peer 수=10** 일치(showdown 이 파일에서 읽어 assert; stale k 차단).
+  L6 표값 0.4794 == 커밋 peers 채점(라벨-실제 결속). **매출채권 767·매출원가 25·나머지 0**(정정된 매니페스트;
+  이전 '총자산 11775' 는 diff 카운터 버그였음).
+
 ## ★ 일곱+ 대조군 (교정 targets, 전체/안정 둘 다)
 | 엔진 | 방법 | **전체 APE** | **안정 APE** | cov |
 |---|---|--:|--:|--:|

@@ -1,0 +1,37 @@
+{
+  "purpose": "교정 targets 출처(라벨↔실제 데이터 결속) — data/pit gitignore 보완",
+  "dev_years": [
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022
+  ],
+  "resolver_fix": "pit_build.extract 별칭 우선순위(순수 매출채권 > 합산) — D-026",
+  "changes_by_account": {
+    "매출액": 0,
+    "매출원가": 25,
+    "매출총이익": 0,
+    "영업이익": 0,
+    "재고자산": 0,
+    "매출채권": 767,
+    "총자산": 0
+  },
+  "n_firm_years_changed": 792,
+  "original_targets_digest": "29a179964c99a3a52eb82b99c448b174aff9b314060bd875d83132a4755fd349",
+  "corrected_targets_digest": "d5db24e4070ca3f7997da120258dc6b291a27a0c036ea97a43c829170fce4019",
+  "digest_differs": true,
+  "per_year_corrected_digest": {
+    "2016": "740a85de9cc19f13865bfcdfa7dd53817717c3e6c2408c5d4f0f96ce0213e3c9",
+    "2017": "c04274ef0dbabdecbd346e5206e6bc2c45b84b284f29c7138de1a3a50f18f443",
+    "2018": "feaf638edb0c6161c2d687d6d971611624752ee836fd7f7f9be9cf0841f3dd45",
+    "2019": "08451fb307b7fb2b180dda52224b506183aaba18a64edc4d239667f5df9f2e6b",
+    "2020": "3831128c5d82461c2ba50ea74872acb150d46999d1d9120e0ee9d8162ca46ceb",
+    "2021": "919db0c12bd1d13da88f9fa7fa565457f8b81e6c252ca1c4777656db9fda5124",
+    "2022": "9c3d6afeaac75518ec6ea4b1a325522f7a747e3165783f8bf18898c3b7187d3a"
+  },
+  "amendment_kept_old_note": "T후 정정공시(amendment) 반환 firm-year 는 옛값 유지(룩어헤드 차단). DATA_CARD 기록. 원본 filing 이 API 로 재취득 불가라 교정 미적용(안전).",
+  "hash_method": "sha256(sorted corp_code + 6 채점계정 콘텐츠; parquet write 독립)"
+}
