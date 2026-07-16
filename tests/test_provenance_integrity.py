@@ -19,8 +19,10 @@ import provenance as PV                                     # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 LOOP6 = ROOT / "runs" / "2026-07-16_loop6"
+LOOP7 = ROOT / "runs" / "2026-07-16_loop7"
 REGEN = ROOT / "runs" / "2026-07-16_regen_targets"
 DEV_YEARS = list(range(2016, 2023))
+HOLD_YEARS = list(range(2023, 2026))
 TP = ROOT / "data" / "pit" / "targets" / "ratios"
 
 
@@ -83,6 +85,27 @@ class TestProvenanceIntegrity(unittest.TestCase):
             self.skipTest("L6 산출물 부재 — skip")
         self.assertTrue(PV.k_label_matches_peers(s["k"], peers),
                         "★ scores.json k 라벨 ≠ peers.parquet 실제 peer 수(stale k)")
+
+    # ── holdout(Loop 7) 결속 — 개봉 결과가 실제 holdout 데이터·동결에 묶였나 ──
+    def test_holdout_freeze_unchanged(self):
+        h = _load(LOOP7 / "holdout_scores.json")
+        if h is None:
+            self.skipTest("holdout_scores.json 없음(개봉 전)")
+        self.assertTrue(h["freeze_unchanged_after_open"],
+                        "★ 개봉 후 freeze 변경됨(튜닝 의심) — freeze 해시 불일치")
+
+    def test_holdout_digest_matches_live(self):
+        h = _load(LOOP7 / "holdout_scores.json")
+        if h is None:
+            self.skipTest("개봉 전")
+        hold_present = all((TP / f"ratios_{y}.parquet").exists() for y in HOLD_YEARS)
+        if not hold_present:
+            self.skipTest("라이브 holdout targets 부재 — skip")
+        self.assertEqual(h["holdout_targets_digest"], PV.combined_targets_digest(HOLD_YEARS),
+                         "★ holdout 결과 스탬프 지문 ≠ 라이브 holdout targets(거짓/stale)")
+        if _live_targets_present():
+            self.assertEqual(h["dev_targets_digest"], PV.combined_targets_digest(DEV_YEARS),
+                             "★ holdout 결과의 dev 지문 ≠ 라이브 dev targets")
 
     def test_manifest_reflects_actual_correction(self):
         prov = _load(REGEN / "provenance.json")

@@ -1,0 +1,21 @@
+{
+  "purpose": "holdout 교정 targets 출처(Loop 7)",
+  "years": [
+    2023,
+    2024,
+    2025
+  ],
+  "changes_by_account": {
+    "매출채권": 254,
+    "매출원가": 19
+  },
+  "kept_old_filing_changed": 790,
+  "original_digest": "e499e912035da8c49632a80b00dac268d471a7b30a8c8b2973a3d5c165066137",
+  "corrected_digest": "4f539b7008e0c8924bbb0ce7c6387ddcc849c84a95c348b30d1992130e8e2ace",
+  "digest_differs": true,
+  "per_year_corrected_digest": {
+    "2023": "3509ae4d9668a969c0e5c8c02095a1f036d5d5c2ae13a1f42ec330e5f9d18e72",
+    "2024": "7cd9bd0f2506d885ec70ae79ef999e681e018458e361ba5450021699312f3ab3",
+    "2025": "e56a6f5e4d1b62a343f6fc7403875f82e7518b4af4941f321c04c34d769627f2"
+  }
+}

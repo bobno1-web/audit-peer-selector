@@ -486,3 +486,18 @@ DECISIONS·전후점수 필요, (2) **k 변경은 config 튜닝(가중치처럼 
   0.4794** (−3.68%, firm-clustered 부트스트랩 유의 CI[−0.0242,−0.0131]). 4비율 전부 하락. L6=median@k10 은
   **동결 canonical 채점기(top-10 peer 중앙값)와 |Δ|<1e-9 동일** → scorer 무변경(median 동결 유지, k config 만).
   승리조건 0.433 여전히 미달(0.4794). 상세 SHOWDOWN_L6.md.
+
+## D-029 [확정] Loop 7 — holdout 개봉 선언 + dev 동결 (★ 개봉 전 기록, 되돌릴 수 없음)
+프로젝트 마지막 검증. dev(2016~2022)에서 학습·개발한 모든 것을 holdout(2023~2025)에 **딱 한 번** 적용해
+out-of-sample 성능을 확정한다.
+- **★ 개봉 선언:** "지금부터 holdout 을 연다. 이후 dev 로 돌아가 재튜닝하지 않는다. 나온 결과가 프로젝트의
+  최종 성능이다." holdout 재학습·가중치·k·분리기준 변경 **금지**. 결과 나빠도 왜곡·재시도 **금지**.
+- **적용 엔진(개봉 전 확정):** baseline / L2 / L3 / L4 / **L6**(=L4 선정축 + median@k=10 + 예측불가분리).
+- **동결(freeze):** `config/holdout_freeze.json` — 엔진별 (components·weights·k·text_source), penalty_ape=**2.022445**
+  (dev 시장 상위꼬리 q=0.9), separation τ_r(dev s=|분자|/총자산 하위 q_sep=0.10), dev 교정 targets 지문
+  **d5db24e4…**. **FREEZE_SHA256 = `d582865680b490c73c3c8244e753814f55c4d2dc713cbab1cc15b749d7325a68`.**
+  개봉 후 이 해시가 바뀌면 부정(holdout_apply 가 검증).
+- **penalty·τ_r 은 dev 유도(holdout 시장·분포 참조 금지).** ORACLE 4비율·채점기·페널티 유도법 불변.
+- **holdout 데이터 준비(적용, 튜닝 아님):** mktcap(marcap 공개 parquet, T≤스냅샷) + 교정 resolver(D-026)로
+  targets — dev 와 **동일 파이프라인**. 재학습 0.
+- 기록 시점: Loop 7 PART 0 (holdout 채점 결과 보기 **전**).

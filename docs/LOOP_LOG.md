@@ -380,3 +380,40 @@
 | **정정공시 2,291건 교정 미적용**(원본 filing API 재취득 불가) | 제약 | `DATA_CARD` #6 + `provenance.json` amendment note | ✅(기록) |
 | L6 결과(0.4794, k10 유의) 실증 확인 — 커밋 상태 실제로 옳았음 | 검증 | `SHOWDOWN_L6.md` provenance 절 + 3자 지문 일치 | ✅ |
 | 원본 filing 고정취득(rcept_no 이력 API) | 제안 | `MAPPING_AUDIT.md` [M2] — 별도 루프 | ⏭(제안) |
+
+## Loop 7 — holdout 개봉 + 최종 결론 (★ 프로젝트 성능 검증 종료)
+- **무엇을 했나**: dev(2016~2022)에서 개발한 전부를 holdout(2023~2025)에 **딱 한 번** 적용. (PART0) 개봉 전
+  dev 설정 **동결**(`config/holdout_freeze.json` — 엔진별 weights·k, penalty 2.0224, τ_r; SHA-256
+  d582865680b490c7…) + D-029 개봉선언. (PART1) 홀드아웃 mktcap 빌드 + 교정 holdout targets 재생성(254 매출채권
+  교정, dev 와 동일 파이프라인) + `holdout_apply` 로 5엔진 채점(재학습 0, freeze 해시 불변 검증) + firm-clustered
+  부트. (PART2) `FINAL_REPORT.md`.
+- **점수(최종·out-of-sample)**: **L6 holdout median APE = 0.5029**(안정 0.4657). baseline 0.5585, L4 0.5297.
+  ★ **순위 완전 유지**([L6<L4<L3<L2<baseline] dev==holdout). L6 vs baseline **−10.0% 유의**(clustered
+  CI[−0.074,−0.037]), L6 vs L4 **−5.1% 유의**(CI[−0.042,−0.010]). 저하율 +2.9~6.4%(경미). freeze 불변(튜닝 0).
+- **이전 대비 변화**: dev→holdout. **과적합 아님이 확정**(순위 유지+경미 저하), **k=10 개선 out-of-sample 실재**.
+  단 **승리조건 0.433 최종 미달**(전체 0.5029/안정 0.4657) → "peer-중앙값 재무비율 예측"의 상한 ≈**0.50**(median
+  APE) 실증 확정. baseline 대비 −10% 가 이 방식의 한계.
+- **비개발자용 한 줄 요약**: 개발 내내 안 보고 아껴둔 **최종 시험지(2023~2025)를 딱 한 번 열어** 성적을 확정했다.
+  결과: 우리 엔진(L6)이 소박한 "산업+규모" 비교보다 **처음 보는 데이터에서도 10% 더 정확**했고, 그 순위가
+  개발용 데이터와 **똑같이 유지**됐다 — 즉 **요행·과적합이 아니라 진짜**였다. 다만 애초 목표선(0.433)에는 못
+  닿았다: "비슷한 회사들의 중앙값으로 재무비율을 맞히기"는 아무리 잘 골라도 오차 절반(중앙값 APE ≈0.50) 언저리가
+  **구조적 한계**임을 확인했다(같은 업종이라도 회사마다 사업이 달라 남는 차이는 못 줄인다). **결론: 이 도구는
+  '더 나은 비교 대상 선정기 + 이상 탐지기'로는 실제 쓸 만하다(검증됨). 단 정밀 예측기로는 한계가 분명하다.**
+  최종 시험지는 이 검증으로 **소진**됐고 다시 튜닝에 쓰지 않는다. 남은 일은 성적을 실무에 쓰기 좋게 만드는
+  **표현 개선**(신뢰등급·근거설명·red-flag 표시)뿐이다.
+
+### PART Z — 발견 → 반영 라우팅 (Loop 7). 미반영 0건. ★ 성능 검증 종료.
+| 발견 | 성격 | 반영 위치 | 완료 |
+|---|---|---|:--:|
+| **L6 가 baseline 을 out-of-sample −10% 유의하게 이김** | 발견(최종) | `FINAL_REPORT.md` + `runs/2026-07-16_loop7/holdout_scores.json` | ✅ |
+| **dev 순위 holdout 완전 유지 = 개선 진짜(과적합 아님)** | 발견(최종) | `FINAL_REPORT.md` 판정(b) | ✅ |
+| **k=10 개선 out-of-sample 재현(−5.1% 유의)** | 발견(최종) | `FINAL_REPORT.md` 판정(a) + 부트 | ✅ |
+| **승리조건 0.433 최종 미달 → 상한 ≈0.50 확정** | 발견(최종) | `FINAL_REPORT.md` 판정(c)·상한 | ✅ |
+| **개봉 규율(freeze+해시, 재학습0)** | 기계강제 | `holdout_freeze.py`+`holdout_apply`(해시검증)+`test_provenance_integrity`(holdout 결속 2) | ✅ |
+| **교정 holdout targets(dev 동일 파이프라인)** | 데이터+기계 | `regen_holdout_targets.py` + `runs/2026-07-16_regen_holdout/provenance.json` | ✅ |
+| **산출물 정교화(신뢰등급·근거·red-flag·포맷)** | 제안 | `FINAL_REPORT.md` 다음단계 — 예측오차 저하 아닌 표현 개선(holdout 재사용 아님) | ⏭(제안) |
+| **설립연도(age) company.json 블록** ← Loop4/5/6 이월 | 제약 | 성능 상한 확정으로 표현축 추가 무의미 — **종료** | ⏹(종결) |
+| **원본 filing 고정취득**[M2] ← Loop6-B | 제안 | `MAPPING_AUDIT.md` — 별도 루프(성능 무관) | ⏭(제안) |
+
+★ **프로젝트 성능 검증 종료.** dev 개발 → holdout 1회 확정. 최종: L6 holdout 0.5029, baseline −10% 유의,
+순위 유지, 승리조건 미달(상한 ≈0.50). holdout 소진 — 재튜닝 없음. 이후 = 산출물 표현 개선뿐.

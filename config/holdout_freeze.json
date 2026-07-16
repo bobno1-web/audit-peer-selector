@@ -1,0 +1,140 @@
+{
+  "created": "Loop 7 PART 0 — holdout 개봉 전 dev 동결(holdout 미접근)",
+  "dev_corrected_targets_digest": "d5db24e4070ca3f7997da120258dc6b291a27a0c036ea97a43c829170fce4019",
+  "dev_years": [
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022
+  ],
+  "engines": {
+    "baseline": {
+      "k": 5,
+      "params": {
+        "industry_tier_prefixes": [
+          999,
+          2
+        ],
+        "missing_scale": "rank_last",
+        "scale_distance": "log_euclidean",
+        "scale_features": [
+          "매출액",
+          "총자산"
+        ]
+      },
+      "type": "baseline"
+    },
+    "similarity_L2": {
+      "components": [
+        "industry",
+        "scale",
+        "text"
+      ],
+      "k": 5,
+      "prediction": "median",
+      "text_source": "full",
+      "type": "similarity",
+      "weights": [
+        0.4286,
+        0.5714,
+        0.0
+      ]
+    },
+    "similarity_L3": {
+      "components": [
+        "industry",
+        "scale",
+        "mktcap",
+        "text"
+      ],
+      "k": 5,
+      "prediction": "median",
+      "text_source": "section",
+      "type": "similarity",
+      "weights": [
+        0.2308,
+        0.3077,
+        0.1538,
+        0.3077
+      ]
+    },
+    "similarity_L4": {
+      "components": [
+        "industry",
+        "scale",
+        "mktcap",
+        "text",
+        "growth"
+      ],
+      "k": 5,
+      "prediction": "median",
+      "text_source": "section",
+      "type": "similarity",
+      "weights": [
+        0.2143,
+        0.2857,
+        0.1429,
+        0.2857,
+        0.0714
+      ]
+    },
+    "similarity_L6": {
+      "components": [
+        "industry",
+        "scale",
+        "mktcap",
+        "text",
+        "growth"
+      ],
+      "k": 10,
+      "note": "L4 선정축 + median@k=10 + 예측불가분리(τ_r)",
+      "prediction": "median",
+      "text_source": "section",
+      "type": "similarity",
+      "weights": [
+        0.2143,
+        0.2857,
+        0.1429,
+        0.2857,
+        0.0714
+      ]
+    }
+  },
+  "min_valid_peers": 3,
+  "penalty_ape": 2.022445,
+  "policy": "holdout 에는 이 값들을 그대로 적용만 한다. 재학습·재유도·k변경 금지. penalty·τ_r 은 dev 유도(holdout 시장·분포 참조 금지).",
+  "ratios": [
+    {
+      "denominator": "매출액",
+      "name": "매출총이익률",
+      "numerator": "매출총이익"
+    },
+    {
+      "denominator": "매출액",
+      "name": "영업이익률",
+      "numerator": "영업이익"
+    },
+    {
+      "denominator": "재고자산",
+      "name": "재고자산회전율",
+      "numerator": "매출원가"
+    },
+    {
+      "denominator": "매출채권",
+      "name": "매출채권회전율",
+      "numerator": "매출액"
+    }
+  ],
+  "separation": {
+    "q_sep": 0.1,
+    "tau_by_ratio": {
+      "매출채권회전율": 0.18943483,
+      "매출총이익률": 0.03422903,
+      "영업이익률": 0.00833801,
+      "재고자산회전율": 0.1712238
+    }
+  }
+}
