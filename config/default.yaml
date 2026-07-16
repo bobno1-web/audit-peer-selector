@@ -79,6 +79,13 @@ prediction:
 separation:
   numerator_over_assets_quantile: 0.10   # τ_r = s 의 dev 하위 분위수(값은 dev 유도, penalty q=0.9 와 대칭)
 
+# 산출물 정교화(Loop 8) — 표현/활용 계층. ★ 엔진 점수 불변(예측오차 미변경). 상수는 dev 유도.
+# 신뢰등급: peer 응집도(top-k 유사도 평균) 의 dev 분포 삼분위. 확인필요지점: 편차의 dev 상위 분위수.
+# ★ 채점비율 '실제값'은 신뢰등급에 미사용(정답 훔쳐보기 금지). 응집도=엔진 유사도, 정의여부·구조만.
+report:
+  cohesion_quantiles: [0.33, 0.67]   # LOW<0.33≤MEDIUM<0.67≤HIGH (dev 응집도 분포에서 임계 유도)
+  deviation_flag_quantile: 0.90      # 확인필요지점 = |편차|가 dev 상위 10%(채점기 편차 재활용)
+
 # 오차 이내 비율 보고 기준(%) — 임계값을 고정하지 않고 셋 다 보고.
 within: [10, 20, 30]
 

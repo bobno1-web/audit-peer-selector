@@ -1,0 +1,16 @@
+{
+  "thresholds": {
+    "q33": 0.431225,
+    "q67": 0.523338,
+    "dev_flag": 1.870101
+  },
+  "config": {
+    "cohesion_quantiles": [
+      0.33,
+      0.67
+    ],
+    "deviation_flag_quantile": 0.9
+  },
+  "derived_from": "dev",
+  "note": "응집도 삼분위·편차 상위분위수 — dev 유도(임의상수 아님)"
+}

@@ -1,0 +1,902 @@
+{
+  "as_of": "2022-05-15",
+  "engine": "similarity_l6",
+  "n_targets": 2570,
+  "thresholds": {
+    "q33": 0.431225,
+    "q67": 0.523338,
+    "dev_flag": 1.870101
+  },
+  "examples": {
+    "HIGH_confidence": {
+      "target": "00100601",
+      "as_of": "2022-05-15",
+      "peer_confidence": "HIGH",
+      "peer_cohesion": 0.5337,
+      "peers": [
+        {
+          "rank": 1,
+          "peer_code": "00863038",
+          "similarity": 0.5676,
+          "rationale": {
+            "industry": 0.1071,
+            "scale": 0.1929,
+            "mktcap": 0.1291,
+            "text": 0.1287,
+            "growth": 0.0097
+          }
+        },
+        {
+          "rank": 2,
+          "peer_code": "00328191",
+          "similarity": 0.5491,
+          "rationale": {
+            "industry": 0.0,
+            "scale": 0.2399,
+            "mktcap": 0.1372,
+            "text": 0.1099,
+            "growth": 0.0621
+          }
+        },
+        {
+          "rank": 3,
+          "peer_code": "00445160",
+          "similarity": 0.5431,
+          "rationale": {
+            "industry": 0.2143,
+            "scale": 0.1975,
+            "mktcap": 0.0816,
+            "text": 0.043,
+            "growth": 0.0066
+          }
+        },
+        {
+          "rank": 4,
+          "peer_code": "00608316",
+          "similarity": 0.5379,
+          "rationale": {
+            "industry": 0.0,
+            "scale": 0.277,
+            "mktcap": 0.1426,
+            "text": 0.0686,
+            "growth": 0.0497
+          }
+        },
+        {
+          "rank": 5,
+          "peer_code": "00604268",
+          "similarity": 0.5347,
+          "rationale": {
+            "industry": 0.2143,
+            "scale": 0.1148,
+            "mktcap": 0.0452,
+            "text": 0.1019,
+            "growth": 0.0586
+          }
+        },
+        {
+          "rank": 6,
+          "peer_code": "01169267",
+          "similarity": 0.5284,
+          "rationale": {
+            "industry": 0.0,
+            "scale": 0.2564,
+            "mktcap": 0.1335,
+            "text": 0.082,
+            "growth": 0.0565
+          }
+        },
+        {
+          "rank": 7,
+          "peer_code": "01462605",
+          "similarity": 0.5261,
+          "rationale": {
+            "industry": 0.1071,
+            "scale": 0.1773,
+            "mktcap": 0.14,
+            "text": 0.1017,
+            "growth": 0.0
+          }
+        },
+        {
+          "rank": 8,
+          "peer_code": "00406037",
+          "similarity": 0.5216,
+          "rationale": {
+            "industry": 0.0,
+            "scale": 0.2671,
+            "mktcap": 0.118,
+            "text": 0.1008,
+            "growth": 0.0357
+          }
+        },
+        {
+          "rank": 9,
+          "peer_code": "01310773",
+          "similarity": 0.5186,
+          "rationale": {
+            "industry": 0.1071,
+            "scale": 0.1698,
+            "mktcap": 0.0507,
+            "text": 0.1246,
+            "growth": 0.0663
+          }
+        },
+        {
+          "rank": 10,
+          "peer_code": "00861997",
+          "similarity": 0.5102,
+          "rationale": {
+            "industry": 0.0,
+            "scale": 0.27,
+            "mktcap": 0.1342,
+            "text": 0.0516,
+            "growth": 0.0545
+          }
+        }
+      ],
+      "ratios": [
+        {
+          "ratio": "매출총이익률",
+          "peer_median": 0.208,
+          "target_actual": 0.1123,
+          "deviation_pct": 85.2,
+          "direction": "하위",
+          "check_needed": false,
+          "confidence": "HIGH",
+          "valid_peers": 10,
+          "comparable": true,
+          "note": ""
+        },
+        {
+          "ratio": "영업이익률",
+          "peer_median": 0.0568,
+          "target_actual": 0.0434,
+          "deviation_pct": 30.8,
+          "direction": "하위",
+          "check_needed": false,
+          "confidence": "HIGH",
+          "valid_peers": 10,
+          "comparable": true,
+          "note": ""
+        },
+        {
+          "ratio": "재고자산회전율",
+          "peer_median": 4.1135,
+          "target_actual": 57.1236,
+          "deviation_pct": 92.8,
+          "direction": "상위",
+          "check_needed": false,
+          "confidence": "HIGH",
+          "valid_peers": 10,
+          "comparable": true,
+          "note": ""
+        },
+        {
+          "ratio": "매출채권회전율",
+          "peer_median": 4.4249,
+          "target_actual": 3.094,
+          "deviation_pct": 43.0,
+          "direction": "하위",
+          "check_needed": false,
+          "confidence": "HIGH",
+          "valid_peers": 10,
+          "comparable": true,
+          "note": ""
+        }
+      ]
+    },
+    "MEDIUM_confidence": {
+      "target": "00101257",
+      "as_of": "2022-05-15",
+      "peer_confidence": "MEDIUM",
+      "peer_cohesion": 0.4902,
+      "peers": [
+        {
+          "rank": 1,
+          "peer_code": "00174527",
+          "similarity": 0.6054,
+          "rationale": {
+            "industry": 0.2143,
+            "scale": 0.2159,
+            "mktcap": 0.0,
+            "text": 0.1544,
+            "growth": 0.0209
+          }
+        },
+        {
+          "rank": 2,
+          "peer_code": "00131504",
+          "similarity": 0.576,
+          "rationale": {
+            "industry": 0.2143,
+            "scale": 0.1621,
+            "mktcap": 0.0,
+            "text": 0.1508,
+            "growth": 0.0488
+          }
+        },
+        {
+          "rank": 3,
+          "peer_code": "00146232",
+          "similarity": 0.5243,
+          "rationale": {
+            "industry": 0.1071,
+            "scale": 0.2182,
+            "mktcap": 0.0,
+            "text": 0.1555,
+            "growth": 0.0435
+          }
+        },
+        {
+          "rank": 4,
+          "peer_code": "00111838",
+          "similarity": 0.4907,
+          "rationale": {
+            "industry": 0.2143,
+            "scale": 0.1818,
+            "mktcap": 0.0,
+            "text": 0.0794,
+            "growth": 0.0153
+          }
+        },
+        {
+          "rank": 5,
+          "peer_code": "00105466",
+          "similarity": 0.4704,
+          "rationale": {
+            "industry": 0.2143,
+            "scale": 0.0687,
+            "mktcap": 0.0,
+            "text": 0.1413,
+            "growth": 0.0461
+          }
+        },
+        {
+          "rank": 6,
+          "peer_code": "00103042",
+          "similarity": 0.4637,
+          "rationale": {
+            "industry": 0.0,
+            "scale": 0.2341,
+            "mktcap": 0.0,
+            "text": 0.1687,
+            "growth": 0.0609
+          }
+        },
+        {
+          "rank": 7,
+          "peer_code": "00136925",
+          "similarity": 0.449,
+          "rationale": {
+            "industry": 0.2143,
+            "scale": 0.0688,
+            "mktcap": 0.0,
+            "text": 0.1349,
+            "growth": 0.0311
+          }
+        },
+        {
+          "rank": 8,
+          "peer_code": "00102760",
+          "similarity": 0.443,
+          "rationale": {
+            "industry": 0.2143,
+            "scale": 0.047,
+            "mktcap": 0.0,
+            "text": 0.1726,
+            "growth": 0.0091
+          }
+        },
+        {
+          "rank": 9,
+          "peer_code": "00447609",
+          "similarity": 0.4404,
+          "rationale": {
+            "industry": 0.0,
+            "scale": 0.268,
+            "mktcap": 0.0,
+            "text": 0.1023,
+            "growth": 0.0701
+          }
+        },
+        {
+          "rank": 10,
+          "peer_code": "00158565",
+          "similarity": 0.4386,
+          "rationale": {
+            "industry": 0.0,
+            "scale": 0.2362,
+            "mktcap": 0.0,
+            "text": 0.1432,
+            "growth": 0.0592
+          }
+        }
+      ],
+      "ratios": [
+        {
+          "ratio": "매출총이익률",
+          "peer_median": 0.1249,
+          "target_actual": 0.1108,
+          "deviation_pct": 12.7,
+          "direction": "하위",
+          "check_needed": false,
+          "confidence": "MEDIUM",
+          "valid_peers": 10,
+          "comparable": true,
+          "note": ""
+        },
+        {
+          "ratio": "영업이익률",
+          "peer_median": 0.0674,
+          "target_actual": 0.0532,
+          "deviation_pct": 26.7,
+          "direction": "하위",
+          "check_needed": false,
+          "confidence": "MEDIUM",
+          "valid_peers": 10,
+          "comparable": true,
+          "note": ""
+        },
+        {
+          "ratio": "재고자산회전율",
+          "peer_median": 16.9028,
+          "target_actual": 1.9586,
+          "deviation_pct": 763.0,
+          "direction": "하위",
+          "check_needed": true,
+          "confidence": "MEDIUM",
+          "valid_peers": 10,
+          "comparable": true,
+          "note": ""
+        },
+        {
+          "ratio": "매출채권회전율",
+          "peer_median": 6.1234,
+          "target_actual": 40.9989,
+          "deviation_pct": 85.1,
+          "direction": "상위",
+          "check_needed": false,
+          "confidence": "MEDIUM",
+          "valid_peers": 10,
+          "comparable": true,
+          "note": ""
+        }
+      ]
+    },
+    "LOW_confidence": {
+      "target": "00102858",
+      "as_of": "2022-05-15",
+      "peer_confidence": "LOW",
+      "peer_cohesion": 0.4043,
+      "peers": [
+        {
+          "rank": 1,
+          "peer_code": "00126371",
+          "similarity": 0.5011,
+          "rationale": {
+            "industry": 0.0,
+            "scale": 0.2297,
+            "mktcap": 0.1224,
+            "text": 0.0821,
+            "growth": 0.0669
+          }
+        },
+        {
+          "rank": 2,
+          "peer_code": "00583424",
+          "similarity": 0.4166,
+          "rationale": {
+            "industry": 0.0,
+            "scale": 0.1217,
+            "mktcap": 0.1344,
+            "text": 0.1125,
+            "growth": 0.0481
+          }
+        },
+        {
+          "rank": 3,
+          "peer_code": "00126478",
+          "similarity": 0.4152,
+          "rationale": {
+            "industry": 0.0,
+            "scale": 0.1977,
+            "mktcap": 0.0693,
+            "text": 0.1234,
+            "growth": 0.0247
+          }
+        },
+        {
+          "rank": 4,
+          "peer_code": "00126186",
+          "similarity": 0.4127,
+          "rationale": {
+            "industry": 0.0,
+            "scale": 0.1894,
+            "mktcap": 0.1312,
+            "text": 0.0525,
+            "growth": 0.0396
+          }
+        },
+        {
+          "rank": 5,
+          "peer_code": "00635134",
+          "similarity": 0.4007,
+          "rationale": {
+            "industry": 0.0,
+            "scale": 0.2228,
+            "mktcap": 0.0847,
+            "text": 0.0477,
+            "growth": 0.0455
+          }
+        },
+        {
+          "rank": 6,
+          "peer_code": "00244455",
+          "similarity": 0.3873,
+          "rationale": {
+            "industry": 0.0,
+            "scale": 0.1367,
+            "mktcap": 0.1281,
+            "text": 0.0923,
+            "growth": 0.0301
+          }
+        },
+        {
+          "rank": 7,
+          "peer_code": "00124540",
+          "similarity": 0.3864,
+          "rationale": {
+            "industry": 0.0,
+            "scale": 0.2442,
+            "mktcap": 0.036,
+            "text": 0.0713,
+            "growth": 0.0349
+          }
+        },
+        {
+          "rank": 8,
+          "peer_code": "01390344",
+          "similarity": 0.3829,
+          "rationale": {
+            "industry": 0.0,
+            "scale": 0.1548,
+            "mktcap": 0.1317,
+            "text": 0.068,
+            "growth": 0.0285
+          }
+        },
+        {
+          "rank": 9,
+          "peer_code": "00145880",
+          "similarity": 0.3722,
+          "rationale": {
+            "industry": 0.1071,
+            "scale": 0.0498,
+            "mktcap": 0.0752,
+            "text": 0.0726,
+            "growth": 0.0674
+          }
+        },
+        {
+          "rank": 10,
+          "peer_code": "00684714",
+          "similarity": 0.3679,
+          "rationale": {
+            "industry": 0.1071,
+            "scale": 0.0639,
+            "mktcap": 0.0116,
+            "text": 0.1245,
+            "growth": 0.0607
+          }
+        }
+      ],
+      "ratios": [
+        {
+          "ratio": "매출총이익률",
+          "peer_median": 0.1821,
+          "target_actual": 0.1412,
+          "deviation_pct": 28.9,
+          "direction": "하위",
+          "check_needed": false,
+          "confidence": "LOW",
+          "valid_peers": 10,
+          "comparable": true,
+          "note": ""
+        },
+        {
+          "ratio": "영업이익률",
+          "peer_median": 0.0865,
+          "target_actual": 0.1291,
+          "deviation_pct": 33.0,
+          "direction": "상위",
+          "check_needed": false,
+          "confidence": "LOW",
+          "valid_peers": 10,
+          "comparable": true,
+          "note": ""
+        },
+        {
+          "ratio": "재고자산회전율",
+          "peer_median": 5.3137,
+          "target_actual": 2.6533,
+          "deviation_pct": 100.3,
+          "direction": "하위",
+          "check_needed": false,
+          "confidence": "LOW",
+          "valid_peers": 10,
+          "comparable": true,
+          "note": ""
+        },
+        {
+          "ratio": "매출채권회전율",
+          "peer_median": 8.2208,
+          "target_actual": 16.4998,
+          "deviation_pct": 50.2,
+          "direction": "상위",
+          "check_needed": false,
+          "confidence": "LOW",
+          "valid_peers": 10,
+          "comparable": true,
+          "note": ""
+        }
+      ]
+    },
+    "check_needed_example": {
+      "target": "00100939",
+      "as_of": "2022-05-15",
+      "peer_confidence": "HIGH",
+      "peer_cohesion": 0.5646,
+      "peers": [
+        {
+          "rank": 1,
+          "peer_code": "00148920",
+          "similarity": 0.7052,
+          "rationale": {
+            "industry": 0.2143,
+            "scale": 0.2087,
+            "mktcap": 0.0927,
+            "text": 0.1283,
+            "growth": 0.0612
+          }
+        },
+        {
+          "rank": 2,
+          "peer_code": "00129387",
+          "similarity": 0.6542,
+          "rationale": {
+            "industry": 0.2143,
+            "scale": 0.1498,
+            "mktcap": 0.0923,
+            "text": 0.1286,
+            "growth": 0.0692
+          }
+        },
+        {
+          "rank": 3,
+          "peer_code": "00583442",
+          "similarity": 0.5675,
+          "rationale": {
+            "industry": 0.2143,
+            "scale": 0.1219,
+            "mktcap": 0.1084,
+            "text": 0.0569,
+            "growth": 0.0659
+          }
+        },
+        {
+          "rank": 4,
+          "peer_code": "00102113",
+          "similarity": 0.5574,
+          "rationale": {
+            "industry": 0.1071,
+            "scale": 0.2562,
+            "mktcap": 0.0755,
+            "text": 0.0754,
+            "growth": 0.0432
+          }
+        },
+        {
+          "rank": 5,
+          "peer_code": "00623661",
+          "similarity": 0.5374,
+          "rationale": {
+            "industry": 0.1071,
+            "scale": 0.2832,
+            "mktcap": 0.0439,
+            "text": 0.0382,
+            "growth": 0.065
+          }
+        },
+        {
+          "rank": 6,
+          "peer_code": "00103510",
+          "similarity": 0.5316,
+          "rationale": {
+            "industry": 0.0,
+            "scale": 0.2399,
+            "mktcap": 0.14,
+            "text": 0.0971,
+            "growth": 0.0546
+          }
+        },
+        {
+          "rank": 7,
+          "peer_code": "00101433",
+          "similarity": 0.5281,
+          "rationale": {
+            "industry": 0.1071,
+            "scale": 0.1548,
+            "mktcap": 0.0897,
+            "text": 0.1235,
+            "growth": 0.0529
+          }
+        },
+        {
+          "rank": 8,
+          "peer_code": "00122472",
+          "similarity": 0.5242,
+          "rationale": {
+            "industry": 0.1071,
+            "scale": 0.178,
+            "mktcap": 0.0951,
+            "text": 0.0788,
+            "growth": 0.0652
+          }
+        },
+        {
+          "rank": 9,
+          "peer_code": "00158565",
+          "similarity": 0.5233,
+          "rationale": {
+            "industry": 0.1071,
+            "scale": 0.2181,
+            "mktcap": 0.0847,
+            "text": 0.0734,
+            "growth": 0.04
+          }
+        },
+        {
+          "rank": 10,
+          "peer_code": "00156691",
+          "similarity": 0.5168,
+          "rationale": {
+            "industry": 0.0,
+            "scale": 0.2443,
+            "mktcap": 0.1334,
+            "text": 0.0747,
+            "growth": 0.0644
+          }
+        }
+      ],
+      "ratios": [
+        {
+          "ratio": "매출총이익률",
+          "peer_median": 0.156,
+          "target_actual": 0.0238,
+          "deviation_pct": 554.9,
+          "direction": "하위",
+          "check_needed": true,
+          "confidence": "LOW",
+          "valid_peers": 10,
+          "comparable": false,
+          "note": "비교 부적합(손익분기 근처)"
+        },
+        {
+          "ratio": "영업이익률",
+          "peer_median": 0.0583,
+          "target_actual": -0.0895,
+          "deviation_pct": 165.1,
+          "direction": "하위",
+          "check_needed": false,
+          "confidence": "HIGH",
+          "valid_peers": 9,
+          "comparable": true,
+          "note": ""
+        },
+        {
+          "ratio": "재고자산회전율",
+          "peer_median": 7.8197,
+          "target_actual": 6.0292,
+          "deviation_pct": 29.7,
+          "direction": "하위",
+          "check_needed": false,
+          "confidence": "HIGH",
+          "valid_peers": 10,
+          "comparable": true,
+          "note": ""
+        },
+        {
+          "ratio": "매출채권회전율",
+          "peer_median": 4.8569,
+          "target_actual": 5.3447,
+          "deviation_pct": 9.1,
+          "direction": "상위",
+          "check_needed": false,
+          "confidence": "HIGH",
+          "valid_peers": 10,
+          "comparable": true,
+          "note": ""
+        }
+      ]
+    },
+    "not_comparable_example": {
+      "target": "00100939",
+      "as_of": "2022-05-15",
+      "peer_confidence": "HIGH",
+      "peer_cohesion": 0.5646,
+      "peers": [
+        {
+          "rank": 1,
+          "peer_code": "00148920",
+          "similarity": 0.7052,
+          "rationale": {
+            "industry": 0.2143,
+            "scale": 0.2087,
+            "mktcap": 0.0927,
+            "text": 0.1283,
+            "growth": 0.0612
+          }
+        },
+        {
+          "rank": 2,
+          "peer_code": "00129387",
+          "similarity": 0.6542,
+          "rationale": {
+            "industry": 0.2143,
+            "scale": 0.1498,
+            "mktcap": 0.0923,
+            "text": 0.1286,
+            "growth": 0.0692
+          }
+        },
+        {
+          "rank": 3,
+          "peer_code": "00583442",
+          "similarity": 0.5675,
+          "rationale": {
+            "industry": 0.2143,
+            "scale": 0.1219,
+            "mktcap": 0.1084,
+            "text": 0.0569,
+            "growth": 0.0659
+          }
+        },
+        {
+          "rank": 4,
+          "peer_code": "00102113",
+          "similarity": 0.5574,
+          "rationale": {
+            "industry": 0.1071,
+            "scale": 0.2562,
+            "mktcap": 0.0755,
+            "text": 0.0754,
+            "growth": 0.0432
+          }
+        },
+        {
+          "rank": 5,
+          "peer_code": "00623661",
+          "similarity": 0.5374,
+          "rationale": {
+            "industry": 0.1071,
+            "scale": 0.2832,
+            "mktcap": 0.0439,
+            "text": 0.0382,
+            "growth": 0.065
+          }
+        },
+        {
+          "rank": 6,
+          "peer_code": "00103510",
+          "similarity": 0.5316,
+          "rationale": {
+            "industry": 0.0,
+            "scale": 0.2399,
+            "mktcap": 0.14,
+            "text": 0.0971,
+            "growth": 0.0546
+          }
+        },
+        {
+          "rank": 7,
+          "peer_code": "00101433",
+          "similarity": 0.5281,
+          "rationale": {
+            "industry": 0.1071,
+            "scale": 0.1548,
+            "mktcap": 0.0897,
+            "text": 0.1235,
+            "growth": 0.0529
+          }
+        },
+        {
+          "rank": 8,
+          "peer_code": "00122472",
+          "similarity": 0.5242,
+          "rationale": {
+            "industry": 0.1071,
+            "scale": 0.178,
+            "mktcap": 0.0951,
+            "text": 0.0788,
+            "growth": 0.0652
+          }
+        },
+        {
+          "rank": 9,
+          "peer_code": "00158565",
+          "similarity": 0.5233,
+          "rationale": {
+            "industry": 0.1071,
+            "scale": 0.2181,
+            "mktcap": 0.0847,
+            "text": 0.0734,
+            "growth": 0.04
+          }
+        },
+        {
+          "rank": 10,
+          "peer_code": "00156691",
+          "similarity": 0.5168,
+          "rationale": {
+            "industry": 0.0,
+            "scale": 0.2443,
+            "mktcap": 0.1334,
+            "text": 0.0747,
+            "growth": 0.0644
+          }
+        }
+      ],
+      "ratios": [
+        {
+          "ratio": "매출총이익률",
+          "peer_median": 0.156,
+          "target_actual": 0.0238,
+          "deviation_pct": 554.9,
+          "direction": "하위",
+          "check_needed": true,
+          "confidence": "LOW",
+          "valid_peers": 10,
+          "comparable": false,
+          "note": "비교 부적합(손익분기 근처)"
+        },
+        {
+          "ratio": "영업이익률",
+          "peer_median": 0.0583,
+          "target_actual": -0.0895,
+          "deviation_pct": 165.1,
+          "direction": "하위",
+          "check_needed": false,
+          "confidence": "HIGH",
+          "valid_peers": 9,
+          "comparable": true,
+          "note": ""
+        },
+        {
+          "ratio": "재고자산회전율",
+          "peer_median": 7.8197,
+          "target_actual": 6.0292,
+          "deviation_pct": 29.7,
+          "direction": "하위",
+          "check_needed": false,
+          "confidence": "HIGH",
+          "valid_peers": 10,
+          "comparable": true,
+          "note": ""
+        },
+        {
+          "ratio": "매출채권회전율",
+          "peer_median": 4.8569,
+          "target_actual": 5.3447,
+          "deviation_pct": 9.1,
+          "direction": "상위",
+          "check_needed": false,
+          "confidence": "HIGH",
+          "valid_peers": 10,
+          "comparable": true,
+          "note": ""
+        }
+      ]
+    }
+  }
+}
