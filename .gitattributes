@@ -1,0 +1,18 @@
+# 줄바꿈 정규화 — 재발 방지.
+# 저장소에는 LF 로 정규화(text=auto)하고, Windows 전용 스크립트만 CRLF 로 체크아웃한다.
+* text=auto
+
+# Windows 배치/파워셸/명령 스크립트는 CRLF (더블클릭 실행 안정성)
+*.bat  text eol=crlf
+*.cmd  text eol=crlf
+*.ps1  text eol=crlf
+
+# POSIX 셸 스크립트는 LF
+*.sh   text eol=lf
+
+# 바이너리(스크린샷 등)는 변환 금지
+*.png  binary
+*.jpg  binary
+*.ico  binary
+*.parquet binary
+*.npz  binary

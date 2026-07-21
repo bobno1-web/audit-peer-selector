@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>동종기업 선정기</title>
+  <!-- 브랜드 마크(돋보기) — 인라인 data URI SVG. 흰 타일 + 블랙 단색 심볼 -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%3E%3Crect%20width='24'%20height='24'%20rx='6'%20fill='%23F9FAFB'/%3E%3Ccircle%20cx='10.5'%20cy='10.5'%20r='6.5'%20fill='none'%20stroke='%231A1A1A'%20stroke-width='2'/%3E%3Ccircle%20cx='10.5'%20cy='10.5'%20r='1.5'%20fill='%231A1A1A'/%3E%3Cpath%20d='M15.6%2015.6%2021%2021'%20fill='none'%20stroke='%231A1A1A'%20stroke-width='2'%20stroke-linecap='round'/%3E%3C/svg%3E">
+  <!-- Pretendard (CDN). 로드 실패 시 아래 font-family 폴백(system-ui) 사용 -->
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+  <style>
+    :root{
+      --coral:#D85A30; --coral-dark:#BE4A24;
+      --ink:#1A1A1C; --muted:#6E6763; --line:#ECEAE8;
+      --tint:#FDF1EA; --tint-line:#F4E5DB; --white:#FFFFFF;
+      --font:"Pretendard","Pretendard Variable",system-ui,-apple-system,
+             "Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0}
+    body{
+      background:var(--white); color:var(--ink);        /* ★ 순백 배경 (크림 제거) */
+      font-family:var(--font);
+      -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+      line-height:1.6; font-weight:400;
+    }
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+
+    /* 헤더 */
+    header{padding:30px 0}
+    .brand{display:flex;align-items:center;gap:11px;font-weight:700;font-size:18px;letter-spacing:-.01em}
+    .brand .logo{                                        /* 브랜드 마크: 흰 타일 + 얇은 회색 테두리 + 블랙 단색 돋보기 */
+      width:32px;height:32px;border-radius:8px;background:#F9FAFB;border:1px solid #E5E7EB;
+      display:flex;align-items:center;justify-content:center;flex:0 0 auto;
+    }
+
+    /* 히어로 — 넉넉한 여백 */
+    .hero{text-align:center;padding:96px 0 44px}
+    .hero h1{
+      font-size:clamp(38px,6.4vw,66px);line-height:1.1;font-weight:800;
+      letter-spacing:-.038em;margin:0 0 24px;
+    }
+    .hero h1 .hl{color:var(--coral)}                     /* 코랄 = 포인트 (강조 단어) */
+    .hero p.sub{
+      font-size:clamp(17px,2.2vw,20px);color:var(--muted);font-weight:400;
+      max-width:600px;margin:0 auto 46px;line-height:1.55;
+    }
+
+    /* 검색 카드 — 흰 카드 + 얇은 테두리 + 부드러운 그림자 */
+    .search{
+      background:var(--white);border:1px solid var(--line);border-radius:20px;
+      box-shadow:0 14px 46px rgba(26,20,16,.07);
+      max-width:580px;margin:0 auto;padding:26px 26px 22px;text-align:left;
+    }
+    .field{margin-bottom:16px}
+    .field label{display:block;font-size:13px;font-weight:600;color:var(--ink);margin:0 0 8px}
+    .field input{
+      width:100%;border:1px solid var(--line);border-radius:12px;
+      padding:14px 15px;font-size:16px;color:var(--ink);background:var(--white);
+      font-family:var(--font);transition:border-color .15s, box-shadow .15s;
+    }
+    .field input::placeholder{color:#BBB1AA}
+    .field input:focus{outline:none;border-color:var(--coral);box-shadow:0 0 0 3px rgba(216,90,48,.13)}
+    .hint{font-size:12.5px;color:var(--muted);margin:7px 0 0;line-height:1.5}
+    .cta-row{display:flex;align-items:center;gap:15px;margin-top:6px}
+    button.cta{                                          /* 코랄 = 포인트 (버튼) */
+      appearance:none;border:0;cursor:pointer;
+      background:var(--coral);color:#fff;font-weight:700;font-size:16px;font-family:var(--font);
+      padding:15px 28px;border-radius:13px;transition:background .15s, transform .05s;
+      display:inline-flex;align-items:center;gap:9px;
+    }
+    button.cta:hover{background:var(--coral-dark)}
+    button.cta:active{transform:translateY(1px)}
+    .cta-note{font-size:13px;color:var(--muted)}
+    .cta-note b{color:var(--coral);font-weight:700}
+
+    /* 에러 / 오타 후보 (에러 UX — 예시 칩과 무관) */
+    .alert{
+      background:#FDF6F2;border:1px solid #F2DDD0;border-radius:14px;
+      padding:14px 16px;margin:0 auto 20px;max-width:580px;color:#8A3B1E;font-size:14px;text-align:left;
+    }
+    .sugg{display:flex;flex-wrap:wrap;gap:8px;margin-top:11px}
+    .chip{
+      background:var(--white);border:1px solid var(--line);border-radius:999px;
+      padding:8px 14px;font-size:13px;color:var(--ink);transition:border-color .15s,color .15s;
+    }
+    .chip:hover{border-color:var(--coral);color:var(--coral)}
+
+    /* 3단계 카드 — 더 크고 여유롭게 */
+    .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;padding:104px 0 24px}
+    .card{
+      background:var(--white);border:1px solid var(--line);border-radius:20px;
+      box-shadow:0 10px 30px rgba(26,20,16,.05);padding:38px 32px;
+      transition:transform .15s, box-shadow .15s;
+    }
+    .card:hover{transform:translateY(-3px);box-shadow:0 16px 38px rgba(26,20,16,.08)}
+    .card .ic{                                           /* 아주 연한 코랄 틴트 (포인트) + 코랄 아이콘 */
+      width:56px;height:56px;border-radius:16px;background:var(--tint);
+      display:flex;align-items:center;justify-content:center;margin-bottom:24px;
+    }
+    .card .no{font-size:13px;font-weight:700;color:var(--coral);letter-spacing:.08em}
+    .card h3{margin:12px 0 12px;font-size:20px;font-weight:700;letter-spacing:-.01em}
+    .card p{margin:0;font-size:15px;color:var(--muted);line-height:1.6}
+
+    footer{padding:60px 0 56px;text-align:center;color:var(--muted);font-size:13px}
+
+    @media (max-width:760px){
+      .hero{padding:60px 0 36px}
+      .steps{grid-template-columns:1fr;gap:16px;padding-top:64px}
+      .card{padding:30px 26px}
+      .cta-row{flex-direction:column;align-items:stretch}
+      button.cta{justify-content:center}
+      .cta-note{text-align:center}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <div class="brand">
+        <span class="logo" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="10.5" cy="10.5" r="6.5"></circle>
+            <circle cx="10.5" cy="10.5" r="1.5" fill="#1A1A1A" stroke="none"></circle>
+            <path d="M15.6 15.6 21 21"></path>
+          </svg>
+        </span>
+        <span>동종기업 선정기</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <h1>이 회사, <span class="hl">무엇과 비교</span>할까요?</h1>
+      <p class="sub">회사 이름 하나만 넣으면, 재무적으로 비교할 만한 비슷한 회사를 순위대로 골라줍니다.</p>
+
+      {% if error %}
+        <div class="alert">
+          {{ error }}
+          {% if suggestions %}
+            <div class="sugg">
+              {% for s in suggestions %}
+                <a class="chip" href="{{ url_for('query', company=s.corp_name) }}">{{ s.corp_name }}</a>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      <form class="search" method="post" action="{{ url_for('query') }}" id="searchForm">
+        <div class="field">
+          <label for="company">회사명</label>
+          <input type="text" id="company" name="company" autocomplete="off" autofocus
+                 placeholder="{% if placeholder %}예: {{ placeholder }}{% else %}회사명{% endif %}" value="{{ company or '' }}">
+          <p class="hint">감사 대상 회사 하나만 입력하세요. 정식 등록 상호를 권장합니다.</p>
+        </div>
+        <div class="field">
+          <label for="opendart_api_key">OpenDART API 키 <span style="color:var(--muted);font-weight:400">(선택)</span></label>
+          <input type="password" id="opendart_api_key" name="opendart_api_key" autocomplete="off"
+                 placeholder="40자리 인증키">
+          <p class="hint">데모는 미리 빌드된 최신 시점 스냅샷에서 순위를 냅니다.
+            키는 이 세션 메모리에만 두며 신규 기업 수집 시에만 쓰입니다.</p>
+        </div>
+        <div class="cta-row">
+          <button type="submit" class="cta">
+            시작하기
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4"
+                 stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+          </button>
+          <span class="cta-note"><b>OpenDART 키 필요</b> · 무료 발급</span>
+        </div>
+      </form>
+    </section>
+
+    <section class="steps">
+      <div class="card">
+        <div class="ic" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#D85A30" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 20v-1a5 5 0 0 1 5-5h2"></path><circle cx="10" cy="8" r="3.5"></circle>
+            <path d="M18 14v6M15 17h6"></path></svg>
+        </div>
+        <div class="no">01</div>
+        <h3>회사명 입력</h3>
+        <p>감사 대상 회사 하나만 넣습니다.</p>
+      </div>
+      <div class="card">
+        <div class="ic" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#D85A30" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3v18"></path><path d="M5 8l7-4 7 4"></path>
+            <path d="M5 8v5a7 3 0 0 0 14 0V8"></path></svg>
+        </div>
+        <div class="no">02</div>
+        <h3>비슷한 회사 비교</h3>
+        <p>업종·규모·사업내용을 종합합니다.</p>
+      </div>
+      <div class="card">
+        <div class="ic" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#D85A30" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 20V10M12 20V4M18 20v-7"></path></svg>
+        </div>
+        <div class="no">03</div>
+        <h3>동종기업 순위</h3>
+        <p>신뢰도와 근거를 함께 보여줍니다.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap">
+    로컬 실행 · 입력한 키는 이 세션 메모리에만 두고 파일·로그에 저장하지 않습니다
+  </footer>
+
+  <script>
+    // 제출 시 로딩 상태(엔진 실행 대기) — 버튼만 '분석 중'으로. 값은 서버가 채운다.
+    document.getElementById('searchForm').addEventListener('submit', function(){
+      var b=this.querySelector('button.cta');
+      if(this.querySelector('#company').value.trim()){ b.textContent='분석 중…'; b.disabled=true; }
+    });
+  </script>
+</body>
+</html>

@@ -33,6 +33,47 @@ when they were alive (no survivorship bias).
 
 ---
 
+## 🔍 Try it in the web app (local web UI)
+
+No coding needed — **type one company name** and a local web app returns its ranked peers. It uses the same
+stack as the sister projects (local Flask + static HTML), and the screen is a **presentation layer** that
+only *displays* the frozen engine's output — it does not change ranks, similarity scores, or engine
+performance. The brand mark is a magnifying glass (the same symbol for the browser-tab favicon and the logo).
+
+**How to run:** double-click `start.bat` → it installs the required libraries once, starts a local server, and
+opens the browser automatically (local-only `127.0.0.1`, never exposed). Type a company name and hit "시작하기"
+(Start). The OpenDART API key is **optional**; even if entered it is kept **in session memory only** and never
+written to files, logs, or disk (the demo ranks from a pre-built latest snapshot, so it works without a key).
+
+### ▶️ Demo
+
+| Landing (one company name) | Result — honest industry / size groups |
+|---|---|
+| ![landing](docs/images/web_landing.png) | ![result](docs/images/web_result_ottogi.png) |
+
+| "Size-only similar" group expanded (collapsible) | When no industry-similar peer — honest notice |
+|---|---|
+| ![collapsible](docs/images/web_result_ottogi_expanded.png) | ![honest notice](docs/images/web_honest_notice.png) |
+
+- The result screen splits peers into two groups — **"comparable peers"** (industry / business similar) on top,
+  and **"different industry but similar in size / market cap"** collapsed below by default. The rank and
+  similarity numbers are the engine's originals.
+- If no industry-similar peer is found (e.g., a diversified conglomerate like CJ ENM), it **honestly says
+  "none found"** and offers only the size/market-cap-similar companies in the collapsible — it does not pad the list.
+
+### What this web app cared about (honesty)
+
+- **No rank manipulation.** Similarity scores and ranks are shown as the engine produced them; the
+  "industry / size" groups are a **visual split only** and do not renumber within a group.
+- **Says "none" when there is none.** If there is no industry-similar peer, it does not fill the gap — it says so.
+- **Confidence grade and rationale are a presentation layer.** The HIGH/MEDIUM/LOW grade and per-axis rationale
+  **do not change** the engine's predictive performance — they only make the output easier to read.
+- **It only *applies* the frozen engine to fresh data.** The web serves the latest snapshot (2025-05-15) but
+  **loads the dev-frozen weights and thresholds and applies them without any retraining** (no tuning on newer
+  data). The tool's performance limit (the ceiling ≈ median APE 0.50 in §4) is the same even with fresh data.
+
+---
+
 ## 2. How to run
 
 ### Prerequisites

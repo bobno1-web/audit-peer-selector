@@ -1,0 +1,6 @@
+{
+  "serve_as_of_year": 2025,
+  "rollback_year": 2022,
+  "note": "웹이 조회하는 스냅샷 연도(데이터 소스 포인터). 확정 L6 가중치(dev 동결)를 이 연도 데이터에 apply 만 한다 — 재학습/재유도 아님. 롤백: serve_as_of_year 를 2022 로 바꾸거나(또는 env PEER_SNAPSHOT_YEAR=2022) 이 파일을 지우면 완비 최신 연도로 자동. 엔진/채점기/임계값은 이 파일과 무관하게 dev 동결값 그대로.",
+  "loop": "WEB-5"
+}
