@@ -85,9 +85,16 @@ def _snapshot_year() -> int:
     return max(avail)
 
 
-@lru_cache(maxsize=1)
-def _ctx() -> dict:
-    """서버 기동 시 1회만 구축하는 스냅샷 컨텍스트(모든 질의 공유). 상수는 dev·config 유도."""
+def available_years() -> list[int]:
+    """연도 선택 UI 용: 데이터가 완비된 스냅샷 연도(내림차순). ★ 데이터 소스 목록일 뿐 —
+    가중치·임계값은 무관하게 dev 동결. 기본(no-year) 스냅샷 로직(_snapshot_year)은 그대로."""
+    return sorted(_snapshot_feature_years(), reverse=True)
+
+
+@lru_cache(maxsize=None)
+def _ctx(year: int | None = None) -> dict:
+    """스냅샷 컨텍스트(연도별 캐시). year=None 이면 기본 스냅샷 연도(_snapshot_year, Web-5 최신).
+    ★ year 는 데이터 소스 선택일 뿐 — 엔진 가중치·신뢰등급 임계값·τ_r 은 여전히 dev 동결값(재유도 0)."""
     cfg = BR.S.load_cfg()
     ratios = cfg["ratios"]
     k = int(cfg["prediction"]["k"])
@@ -96,7 +103,8 @@ def _ctx() -> dict:
     cfg_l6, w = BR.l6_cfg_weights(cfg)
     txt = BR.SIM.load_text_vectors()
 
-    year = _snapshot_year()
+    if year is None:
+        year = _snapshot_year()
     T = f"{year}-05-15"
     dev = [y for y in cfg["pit_split"]["dev_years"]
            if (ROOT / "data/pit/features/scale" / f"scale_{y}.parquet").exists()]
@@ -153,9 +161,9 @@ def warmup() -> dict:
             "thresholds": c["thr"], "thresholds_source": c["thr_source"]}
 
 
-def suggest(name: str, limit: int = 8) -> list[dict]:
+def suggest(name: str, limit: int = 8, year: int | None = None) -> list[dict]:
     """부분일치 후보(오타·상호 확인용). 랭킹 가능(스냅샷 피처 존재)한 후보 우선."""
-    c = _ctx()
+    c = _ctx(year)
     q = _norm(name)
     if not q:
         return []
@@ -190,22 +198,23 @@ def _target_meta(c: dict, code: str, i: int) -> dict:
     }
 
 
-def query(name: str) -> dict:
+def query(name: str, year: int | None = None) -> dict:
     """회사명 → 엔진 L6 랭킹 → 리포트. build_report 함수 그대로 사용(재구현 0).
+    year=None 이면 기본 스냅샷(최신), 지정 시 그 연도 스냅샷에 확정 엔진을 적용(재학습 0).
 
     반환 dict:
       ok=False + reason(not_found | not_rankable | ambiguous) + suggestions
       ok=True  + target(메타) + peer_confidence + peer_cohesion + peers[] + ratios[]
                  (필드는 전부 build_report 실제 산출 — WEB_DATA_CONTRACT.md)
     """
-    c = _ctx()
+    c = _ctx(year)
     q = _norm(name)
     if not q:
         return {"ok": False, "reason": "empty", "message": "회사명을 입력하세요."}
 
     codes = c["name_index"].get(q, [])
     if not codes:
-        sug = suggest(name)
+        sug = suggest(name, year=year)
         return {"ok": False, "reason": "not_found",
                 "message": "해당 회사를 찾을 수 없습니다. 상호(정식 등록명)를 확인하세요.",
                 "suggestions": sug}
@@ -214,9 +223,9 @@ def query(name: str) -> dict:
     rankable = [x for x in codes if x in c["idx"]]
     if not rankable:
         return {"ok": False, "reason": "not_rankable",
-                "message": ("해당 회사는 공시 원장에는 있으나 2022-05-15 시점 비교용 재무·산업 피처가 "
+                "message": (f"해당 회사는 공시 원장에는 있으나 {c['T']} 시점 비교용 재무·산업 피처가 "
                             "없어 순위를 낼 수 없습니다(비상장·자료 미제출 등)."),
-                "suggestions": suggest(name)}
+                "suggestions": suggest(name, year=year)}
     if len({c["name_of"][x] for x in rankable}) > 1 or len(rankable) > 1:
         # 동명이인(코드 다름) — 후보를 제시하되, 그중 하나로 진행하지 않는다(억지 결과 0).
         if len(rankable) > 1:

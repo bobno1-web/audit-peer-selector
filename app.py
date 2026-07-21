@@ -43,28 +43,71 @@ def _placeholder_company() -> str:
         return ""
 
 
-# ── 라우트 ───────────────────────────────────────────────────────────────────
+# ── 라우트 (3페이지 플로우: / → /key → /search → 결과) ─────────────────────────
 @app.get("/")
 def index():
-    return render_template("index.html", placeholder=_placeholder_company())
+    """랜딩(1페이지). 입력창 없음 — '시작하기' 로만 /key 로 이동(네이버 웨일 톤)."""
+    return render_template("index.html")
+
+
+@app.get("/key")
+def key():
+    """키 입력(2페이지). OpenDART 키(선택). '다음' → /search. 키는 폼으로만 전달, 저장 0."""
+    return render_template("key.html")
+
+
+def _search_ctx(**over):
+    """/search·에러 재렌더용 컨텍스트(연도 목록·placeholder·이어받은 키). 세션 저장 없이 폼 값만."""
+    years = web_engine.available_years()
+    ctx = {"placeholder": _placeholder_company(), "years": years,
+           "selected_year": years[0] if years else None, "opendart_key": ""}
+    ctx.update({k: v for k, v in over.items() if v is not None})
+    return ctx
+
+
+def _parse_year(raw, years):
+    """폼 연도(문자열) → 유효 연도(int) 또는 None(기본=최신). 임의값 방지."""
+    try:
+        y = int(raw)
+    except (TypeError, ValueError):
+        return None
+    return y if y in years else None
+
+
+@app.route("/search", methods=["GET", "POST"])
+def search():
+    """회사 입력(3페이지). /key 에서 POST 로 온 키를 hidden 으로 이어받아 '전달만' 한다.
+    ★ Web-9: OpenDART 키 필수 — 빈 값이면 /key 로 되돌려 진행 차단(V9-1).
+    ★ 키는 서버·파일·로그·쿠키 어디에도 저장하지 않는다 — 다음 폼으로 넘길 뿐(반환 시 소멸).
+      (키는 POST 바디로만 전달 — GET 쿼리스트링 금지: dev 서버 access log 노출 방지.)"""
+    opendart_key = (request.values.get("opendart_api_key") or "").strip()  # 폼 전달용(미저장)
+    if not opendart_key:
+        return render_template("key.html", key_error=True), 400   # 키 없이 진행 차단
+    return render_template("search.html", **_search_ctx(opendart_key=opendart_key))
 
 
 @app.route("/query", methods=["GET", "POST"])
 def query():
+    """결과. 회사·연도로 web_engine.query 실행. 실패 시 /search 재렌더(랜딩 아님)."""
     name = (request.values.get("company") or "").strip()
-    # ★ 키는 받되 저장하지 않는다 — 이 지역변수 밖으로 새지 않으며 반환 시 소멸.
-    #   pre-built 스냅샷 랭킹은 키를 호출하지 않는다(신규 기업 수집 확장 시에만 자식 env 로 전달).
-    _opendart_key = (request.values.get("opendart_api_key") or "").strip()  # noqa: F841 (미저장·미로그)
+    years = web_engine.available_years()
+    year = _parse_year(request.values.get("year"), years)
+    sel = year or (years[0] if years else None)
+    # ★ 키는 받되 저장하지 않는다 — 지역변수 밖으로 새지 않으며 반환 시 소멸(폼 재전달만).
+    #   pre-built 스냅샷 랭킹은 키를 호출하지 않는다(신규 기업 수집 확장 시에만 사용).
+    opendart_key = (request.values.get("opendart_api_key") or "").strip()
 
     if not name:
-        return render_template("index.html", placeholder=_placeholder_company(),
-                               error="회사명을 입력하세요.", company=name), 400
+        return render_template("search.html", **_search_ctx(
+            error="회사명을 입력하세요.", company=name, selected_year=sel,
+            opendart_key=opendart_key)), 400
 
-    result = web_engine.query(name)
+    result = web_engine.query(name, year=year)
     if not result.get("ok"):
-        return render_template("index.html", placeholder=_placeholder_company(),
-                               error=result.get("message"), reason=result.get("reason"),
-                               suggestions=result.get("suggestions", []), company=name), 200
+        return render_template("search.html", **_search_ctx(
+            error=result.get("message"), reason=result.get("reason"),
+            suggestions=result.get("suggestions", []), company=name, selected_year=sel,
+            opendart_key=opendart_key)), 200
 
     return render_template("result.html", r=result, live=True)
 

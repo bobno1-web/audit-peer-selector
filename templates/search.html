@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}회사 검색 · PeerLens{% endblock %}
+{% block content %}
+  <main class="wrap">
+    <section class="panel">
+      <h2>어떤 회사를 볼까요?</h2>
+
+      <form class="form-card" method="post" action="{{ url_for('query') }}" id="searchForm" autocomplete="off">
+        {% if error %}
+          <div class="alert">
+            {{ error }}
+            {% if suggestions %}
+              <div class="sugg">
+                {% for s in suggestions %}
+                  <a class="chip" href="{{ url_for('query', company=s.corp_name) }}">{{ s.corp_name }}</a>
+                {% endfor %}
+              </div>
+            {% endif %}
+          </div>
+        {% endif %}
+
+        <div class="field">
+          <input type="text" id="company" name="company" autocomplete="off" autofocus
+                 aria-label="회사명"
+                 placeholder="{% if placeholder %}예: {{ placeholder }}{% else %}회사명{% endif %}"
+                 value="{{ company or '' }}">
+        </div>
+
+        {# ★ 기준 시점 선택 UI 제거(Web-9): year 파라미터 미전송 → /query 가 최신 스냅샷 자동 사용 #}
+        <input type="hidden" name="opendart_api_key" value="{{ opendart_key or '' }}">
+
+        <button type="submit" class="cta block">
+          동종기업 찾기
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2"
+               stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+        </button>
+      </form>
+      <div class="backrow"><a class="back" href="{{ url_for('key') }}">← 이전</a></div>
+    </section>
+  </main>
+{% endblock %}
+{% block script %}
+  <script>
+    // 제출 시 로딩 상태(엔진 실행 대기) — 버튼 라벨만 바꾼다. 값은 서버가 채운다.
+    document.getElementById('searchForm').addEventListener('submit', function(){
+      var b=this.querySelector('button.cta');
+      if(this.querySelector('#company').value.trim()){ b.textContent='분석 중…'; b.disabled=true; }
+    });
+  </script>
+{% endblock %}
