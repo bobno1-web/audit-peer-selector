@@ -47,17 +47,21 @@ written to files, logs, or disk (the demo ranks from a pre-built latest snapshot
 
 ### ▶️ Demo
 
-| Landing (one company name) | Result — honest industry / size groups |
-|---|---|
-| ![landing](docs/images/web_landing.png) | ![result](docs/images/web_result_ottogi.png) |
+**① Landing — just one company name**
 
-| "Size-only similar" group expanded (collapsible) | When no industry-similar peer — honest notice |
-|---|---|
-| ![collapsible](docs/images/web_result_ottogi_expanded.png) | ![honest notice](docs/images/web_honest_notice.png) |
+![landing](docs/images/web_landing.png)
+
+**② OpenDART API key (optional · kept in session memory only, never stored)**
+
+![API key](docs/images/web_key.png)
+
+**③ Result — Ottogi (high confidence · fiscal year 2025 · ordered by similarity, no numbers shown)**
+
+![result Ottogi](docs/images/web_result_ottogi.png)
 
 - The result screen splits peers into two groups — **"comparable peers"** (industry / business similar) on top,
-  and **"different industry but similar in size / market cap"** collapsed below by default. The rank and
-  similarity numbers are the engine's originals.
+  and **"different industry but similar in size / market cap"** collapsed below by default. Similarity scores have
+  **no absolute meaning** (0.46 ≠ 46%), so no number is shown — peers are simply **ordered top-down by similarity**.
 - If no industry-similar peer is found (e.g., a diversified conglomerate like CJ ENM), it **honestly says
   "none found"** and offers only the size/market-cap-similar companies in the collapsible — it does not pad the list.
 

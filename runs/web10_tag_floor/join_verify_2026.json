@@ -1,0 +1,182 @@
+{
+  "year": 2026,
+  "available_years": [
+    2026,
+    2025,
+    2024,
+    2023,
+    2022,
+    2021,
+    2020,
+    2019,
+    2018,
+    2017,
+    2016
+  ],
+  "year_servable": true,
+  "floor": 0.49,
+  "H2_floor_validity": {
+    "year": 2026,
+    "n_firms": 2759,
+    "null_p50": 0.1838,
+    "null_p99": 0.4897,
+    "floor": 0.49,
+    "floor_vs_null_p99": "close (valid)"
+  },
+  "H3_cj_before_after": [
+    {
+      "target": "CJ제일제당",
+      "ok": true,
+      "as_of": "2026-05-15",
+      "peers": [
+        {
+          "rank": 1,
+          "peer": "농심",
+          "raw_text_cos": 0.345,
+          "text_before": false,
+          "text_after": false
+        },
+        {
+          "rank": 2,
+          "peer": "CJ대한통운",
+          "raw_text_cos": 0.499,
+          "text_before": true,
+          "text_after": true
+        },
+        {
+          "rank": 3,
+          "peer": "오뚜기",
+          "raw_text_cos": 0.347,
+          "text_before": true,
+          "text_after": false
+        },
+        {
+          "rank": 4,
+          "peer": "대상",
+          "raw_text_cos": 0.387,
+          "text_before": true,
+          "text_after": false
+        },
+        {
+          "rank": 5,
+          "peer": "팬오션",
+          "raw_text_cos": 0.388,
+          "text_before": false,
+          "text_after": false
+        },
+        {
+          "rank": 6,
+          "peer": "삼양사",
+          "raw_text_cos": 0.359,
+          "text_before": true,
+          "text_after": false
+        },
+        {
+          "rank": 7,
+          "peer": "아시아나항공",
+          "raw_text_cos": 0.284,
+          "text_before": true,
+          "text_after": false
+        },
+        {
+          "rank": 8,
+          "peer": "대우건설",
+          "raw_text_cos": 0.38,
+          "text_before": true,
+          "text_after": false
+        },
+        {
+          "rank": 9,
+          "peer": "SK가스",
+          "raw_text_cos": 0.457,
+          "text_before": true,
+          "text_after": false
+        },
+        {
+          "rank": 10,
+          "peer": "CJ씨푸드",
+          "raw_text_cos": 0.444,
+          "text_before": true,
+          "text_after": false
+        }
+      ]
+    },
+    {
+      "target": "오뚜기",
+      "ok": true,
+      "as_of": "2026-05-15",
+      "peers": [
+        {
+          "rank": 1,
+          "peer": "대상",
+          "raw_text_cos": 0.436,
+          "text_before": false,
+          "text_after": false
+        },
+        {
+          "rank": 2,
+          "peer": "농심",
+          "raw_text_cos": 0.338,
+          "text_before": false,
+          "text_after": false
+        },
+        {
+          "rank": 3,
+          "peer": "삼양사",
+          "raw_text_cos": 0.328,
+          "text_before": false,
+          "text_after": false
+        },
+        {
+          "rank": 4,
+          "peer": "롯데웰푸드",
+          "raw_text_cos": 0.105,
+          "text_before": false,
+          "text_after": false
+        },
+        {
+          "rank": 5,
+          "peer": "삼양식품",
+          "raw_text_cos": 0.368,
+          "text_before": false,
+          "text_after": false
+        },
+        {
+          "rank": 6,
+          "peer": "롯데칠성음료",
+          "raw_text_cos": 0.506,
+          "text_before": true,
+          "text_after": true
+        },
+        {
+          "rank": 7,
+          "peer": "에스원",
+          "raw_text_cos": 0.334,
+          "text_before": true,
+          "text_after": false
+        },
+        {
+          "rank": 8,
+          "peer": "KG스틸",
+          "raw_text_cos": 0.421,
+          "text_before": true,
+          "text_after": false
+        },
+        {
+          "rank": 9,
+          "peer": "대한유화",
+          "raw_text_cos": 0.373,
+          "text_before": true,
+          "text_after": false
+        },
+        {
+          "rank": 10,
+          "peer": "CJ제일제당",
+          "raw_text_cos": 0.347,
+          "text_before": true,
+          "text_after": false
+        }
+      ]
+    }
+  ]
+}

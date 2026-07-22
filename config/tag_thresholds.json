@@ -1,0 +1,32 @@
+{
+  "axis_floors": {
+    "text": 0.52
+  },
+  "derivation": {
+    "method": "cross-industry text-cosine null distribution, p99",
+    "null_definition": "회사 쌍 중 KSIC 2자리(대분류)가 서로 다른 쌍 = 사업이 무관한 쌍. 이들의 텍스트 코사인은 '사업보고서 상투어(제조·판매·사업의 내용…)' 겹침만 반영하는 널(null) 분포.",
+    "rationale": "'사업내용 유사' 태그는 진짜 사업내용이 겹칠 때만 붙어야 한다. 상투어 널 분포의 p99를 넘어야 = 무관 산업 쌍이 상투어만으로 우연히 도달하는 수준을 1% 이내로 초과 = 통계적으로 유의한 실제 텍스트 겹침으로 본다.",
+    "dev_years": [2016, 2017, 2018, 2019, 2020, 2021, 2022],
+    "quantile": 0.99,
+    "ksic_prefix": 2,
+    "per_year_p99": [0.5202, 0.5176, 0.5174, 0.5171, 0.5204, 0.5228, 0.5245],
+    "mean_p99": 0.52,
+    "std_p99": 0.0027,
+    "value": 0.52,
+    "discrimination_auc": 0.6532,
+    "note": "연도별 표준편차 0.0027로 매우 안정 → 2025/2026 스냅샷에도 그대로 타당(재유도 불필요). AUC(같은KSIC2 코사인 > 다른KSIC2 코사인)=0.653 — 텍스트가 산업신호를 담되(우연 0.5 초과), 상투어 때문에 널 p99가 0.52로 높아 하한이 필요."
+  },
+  "axis_floor_review": {
+    "text": "★ 하한 필요. 상투어로 무관-산업 쌍의 텍스트 코사인이 널 p50=0.18·p99=0.52로 뜬다(0 근처로 안 죽음).",
+    "industry": "하한 불필요. sim이 KSIC 접두 매칭의 이산값 → sim>0이면 이미 실제 산업 일치(범주형). 상투어 baseline 없음.",
+    "scale": "하한 불필요. exp(-거리) 커널 — 무관 쌍은 sim≈0(널 median 0.00). 상투어 baseline 없음.",
+    "mktcap": "하한 불필요. exp(-거리) 커널. 널 median 0.215이나 이는 실제 로그시총 근접이지 상투어 아님. 가중치 최저군이라 태그 기여도 약함.",
+    "growth": "하한 불필요. exp(-거리) 커널 — 무관 쌍 sim≈0(널 median 0.00). 가중치 최저."
+  },
+  "applies_to": "표시 계층의 축 라벨(top_axes)만. 순위·유사도 점수·peer 선정은 불변.",
+  "vector_space": "이 axis_floors(0.52)는 dev '공유'(shared) 텍스트 벡터공간(section_vectors.npz)의 하한 = 서빙 연도 2022/2024/2025 등 공유 npz 를 쓰는 스냅샷에 적용.",
+  "per_space_floors": "★ 연도별 '프레시' 텍스트 벡터(section_vectors_{year}.npz)는 vocab/IDF 가 달라 코사인 척도가 다르므로, 같은 METHOD(cross-KSIC2 널 p99)로 그 공간에서 하한을 재유도해 사이드카 section_vectors_{year}.floor.json 에 결속한다. 예: 2026 프레시 = 0.49(널 p99 0.4897, AUC 0.680). METHOD 동결, VALUE per-space(엔진 _robust_scale 의 스냅샷별 IQR 재유도와 동형).",
+  "source_script": "scripts/derive_tag_floor.py  (공유공간: derive() / 연도공간: derive_for_year(year), --year-floor)",
+  "reproduce": "python scripts/derive_tag_floor.py --verify-cj  →  runs/web10_tag_floor/derivation.json; --year 2026 --year-floor → section_vectors_2026.floor.json",
+  "doc": "docs/TAG_THRESHOLD.md"
+}

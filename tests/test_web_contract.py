@@ -35,21 +35,36 @@ def _data_present():
     return SCALE_2022.exists()
 
 
-class TestSnapshotIsDevNotHoldout(unittest.TestCase):
-    """항상 실행 — 스냅샷 연도가 dev 이고 holdout 이 아님(룩어헤드·holdout 개봉 0)."""
+class TestServeIsApplyOnlyDevFrozen(unittest.TestCase):
+    """항상 실행 — 서빙 스냅샷 연도는 '데이터 소스 포인터'(dev/holdout/이후 가능)이고, 학습된
+    파라미터(엔진 가중치·신뢰등급 임계값)는 **dev 동결값에서 로드**됨(재유도 0). ★ WEB-5(데이터소스
+    최신화)+Loop7(holdout 개봉, D-029) 이후의 정직한 계약: 최신 스냅샷 apply 는 허용, 재학습은 금지.
+    (룩어헤드는 pit.as_of(T≤스냅샷)로 별도 강제 — test_pit_integrity.)"""
 
-    def test_snapshot_year_in_dev_not_holdout(self):
+    def test_engine_weights_are_dev_frozen_L6(self):
+        import numpy as np
+        cfg = yaml.safe_load((ROOT / "config" / "default.yaml").read_text(encoding="utf-8"))
+        import build_report as BR
+        _, w = BR.l6_cfg_weights(cfg)                     # 웹이 실제 쓰는 가중치
+        fz = json.loads((ROOT / "config" / "holdout_freeze.json").read_text(encoding="utf-8"))
+        frozen = np.array(fz["engines"]["similarity_L6"]["weights"], float)
+        frozen = frozen / frozen.sum()
+        self.assertTrue(np.allclose(w, frozen), "웹 가중치가 dev 동결 L6 와 다름(재학습 금지 위반)")
+
+    def test_confidence_thresholds_from_committed_dev(self):
+        # 신뢰등급 임계값은 Loop8 committed thresholds.json(dev 유도) 에서 로드 — 서빙연도로 재유도 안 함.
+        self.assertTrue((ROOT / "runs" / "2026-07-16_loop8" / "thresholds.json").exists(),
+                        "dev 동결 thresholds.json 있어야 함(재유도 아님)")
+
+    def test_rollback_year_is_dev(self):
+        # 롤백 지점(config/web_snapshot.json.rollback_year)은 dev 스냅샷이어야 함(안전한 원복 지점).
         cfg = yaml.safe_load((ROOT / "config" / "default.yaml").read_text(encoding="utf-8"))
         dev = set(cfg["pit_split"]["dev_years"])
-        hold = set(cfg["pit_split"]["holdout_years"])
-        # _snapshot_year 는 dev∩디스크의 max. 데이터 없으면 예외 → dev 상한으로 논리 검증.
-        try:
-            y = web_engine._snapshot_year()
-        except Exception:
-            y = max(dev)
-        self.assertIn(y, dev, "스냅샷 연도는 dev 여야 한다")
-        self.assertNotIn(y, hold, "스냅샷 연도가 holdout 이면 안 된다(W21)")
-        self.assertLessEqual(y, max(dev))
+        snap = ROOT / "config" / "web_snapshot.json"
+        if snap.exists():
+            rb = json.loads(snap.read_text(encoding="utf-8")).get("rollback_year")
+            if rb is not None:
+                self.assertIn(int(rb), dev, "롤백 연도는 dev 스냅샷이어야 한다")
 
 
 class TestWebMatchesLoop8(unittest.TestCase):
@@ -60,13 +75,16 @@ class TestWebMatchesLoop8(unittest.TestCase):
         if not _data_present():
             raise unittest.SkipTest("data/pit 없음(gitignore) — 양성 검사 skip")
         cls.samples = json.loads(LOOP8.read_text(encoding="utf-8"))["examples"]
-        cls.ctx = web_engine._ctx()
+        # ★ 샘플은 dev(2022-05-15) 스냅샷 산출 — 그 스냅샷 연도로 질의해야 엔진 충실성을 검증한다.
+        #   (서빙 기본연도는 WEB-5 이후 최신 스냅샷이므로 default 로 비교하면 안 됨.)
+        cls.sample_year = int(next(v for v in cls.samples.values() if v)["as_of"][:4])
+        cls.ctx = web_engine._ctx(cls.sample_year)
 
     def _report_for_code(self, code):
-        """커밋 샘플의 target(corp_code)을 회사명으로 되짚어 web_engine.query 로 재생성."""
+        """커밋 샘플의 target(corp_code)을 회사명으로 되짚어 그 스냅샷 연도로 재생성."""
         name = self.ctx["name_of"].get(code)
         self.assertTrue(name, f"{code} 원장 이름 없음")
-        return web_engine.query(name), name
+        return web_engine.query(name, year=self.sample_year), name
 
     def test_high_example_matches_exactly(self):
         ex = self.samples["HIGH_confidence"]
@@ -89,7 +107,7 @@ class TestWebMatchesLoop8(unittest.TestCase):
     def test_no_fabricated_value_fields(self):
         """모든 예시에서 peer/ratio 키가 스키마 안(엔진필드+실데이터 파생)에만 있다."""
         for key, ex in self.samples.items():
-            r = web_engine.query(self.ctx["name_of"].get(ex["target"], ""))
+            r = web_engine.query(self.ctx["name_of"].get(ex["target"], ""), year=self.sample_year)
             if not r.get("ok"):
                 continue
             for p in r["peers"]:

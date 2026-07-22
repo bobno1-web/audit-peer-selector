@@ -13,7 +13,20 @@ import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
 PIT = ROOT / "data" / "pit"
-EVAL_YEARS = list(range(2015, 2026))
+def _discover_eval_years():
+    """평가시점 연도 = 유니버스 원장이 있는 연도(디스크 발견). ★ 하드코딩 상한 없음 —
+    새 스냅샷(예: 2026)을 원장이 생기면 자동 인식. 없으면 기존 범위(2015~2025) 폴백."""
+    uni = PIT / "universe"
+    ys = set()
+    if uni.exists():
+        for p in uni.glob("universe_*.csv"):
+            s = p.stem.split("_")[-1]
+            if len(s) == 4 and s.isdigit():
+                ys.add(int(s))
+    return sorted(ys) if ys else list(range(2015, 2026))
+
+
+EVAL_YEARS = _discover_eval_years()
 SNAP_MMDD = "-05-15"                                   # 평가시점(매년 5/15)
 
 

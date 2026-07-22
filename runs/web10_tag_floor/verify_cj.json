@@ -1,0 +1,61 @@
+{
+  "floor": 0.52,
+  "cases": [
+    {
+      "year": 2025,
+      "target": "00635134",
+      "floor": 0.52,
+      "peers": [
+        {
+          "name": "대한전선(오판정?)",
+          "code": "00113207",
+          "text_cosine": 0.2821,
+          "passes_floor": false
+        },
+        {
+          "name": "KG스틸(오판정?)",
+          "code": "00115676",
+          "text_cosine": 0.2605,
+          "passes_floor": false
+        },
+        {
+          "name": "삼성전기(오판정?)",
+          "code": "00126371",
+          "text_cosine": 0.3754,
+          "passes_floor": false
+        },
+        {
+          "name": "두산에너빌리티(오판정?)",
+          "code": "00159616",
+          "text_cosine": 0.3646,
+          "passes_floor": false
+        },
+        {
+          "name": "대상(진짜식품)",
+          "code": "00121941",
+          "text_cosine": 0.2995,
+          "passes_floor": false
+        },
+        {
+          "name": "동원F&B(진짜식품)",
+          "code": "00340917",
+          "text_cosine": 0.2588,
+          "passes_floor": false
+        },
+        {
+          "name": "농심(진짜식품)",
+          "code": "00108241",
+          "text_cosine": 0.3227,
+          "passes_floor": false
+        },
+        {
+          "name": "오뚜기(진짜식품)",
+          "code": "00141529",
+          "text_cosine": 0.2617,
+          "passes_floor": false
+        }
+      ],
+      "target_name": "CJ제일제당"
+    }
+  ]
+}

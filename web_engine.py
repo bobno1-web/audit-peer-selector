@@ -36,6 +36,52 @@ AXIS_LABELS = {"industry": "업종", "scale": "규모", "mktcap": "시가총액"
                "text": "사업내용", "growth": "성장성"}
 
 
+def _load_tag_floors() -> dict:
+    """축 라벨 '절대 하한'(WEB-10 ①). ★ 표시 계층 전용 — 순위·유사도 점수·peer 선정 불변.
+    값은 데이터 유도(config/tag_thresholds.json, dev 널 분포 p99 = scripts/derive_tag_floor.py).
+    특히 text(사업내용)는 사업보고서 상투어 겹침으로 무관 산업이 '유사'로 붙는 오판정을 막는다.
+    파일 없거나 파싱 실패면 {} → 하한 미적용(기존 동작으로 안전 폴백)."""
+    p = ROOT / "config" / "tag_thresholds.json"
+    if p.exists():
+        try:
+            return dict(json.loads(p.read_text(encoding="utf-8")).get("axis_floors", {}))
+        except Exception:
+            return {}
+    return {}
+
+
+# dev 공유(shared) 벡터공간의 하한(2022/2024/2025 등 공유 npz 서빙 연도가 사용). 순위/점수와 독립.
+TAG_FLOORS = _load_tag_floors()
+
+
+def _floors_for(year: int) -> dict:
+    """서빙 연도의 '벡터 공간'에 맞는 하한. 연도별 프레시 벡터(section_vectors_{year}.npz)가 있으면
+    그 공간에서 유도한 사이드카(section_vectors_{year}.floor.json)를, 없으면 공유공간 config(0.52)를.
+    ★ 같은 METHOD(널 p99), 공간별 VALUE — 엔진 _robust_scale 이 스냅샷마다 IQR 재유도하는 것과 동형.
+    라벨만 좌우, 순위·점수 불변."""
+    sc = ROOT / "data" / "pit" / "features" / "business" / f"section_vectors_{year}.floor.json"
+    if sc.exists():
+        try:
+            return dict(json.loads(sc.read_text(encoding="utf-8")).get("axis_floors", {}))
+        except Exception:
+            return TAG_FLOORS
+    return TAG_FLOORS
+
+
+def _load_text_vectors_for(year: int):
+    """스냅샷 연도의 텍스트 벡터. `section_vectors_{year}.npz` 있으면 그것(그 시점 최신 '사업의 내용',
+    ★ point-in-time 피처 — mktcap·scale·growth 처럼 스냅샷마다 재산출), 없으면 공유 캐시.
+    ★ 엔진 가중치·k·임계값은 불변(apply-only). 벡터라이저(문자 3-gram TF-IDF, L2)는 동일 방법.
+    구 스냅샷(2022/2024/2025)은 연도별 파일이 없어 공유 캐시 유지 → 롤백·과거결과 불변."""
+    p = ROOT / "data" / "pit" / "features" / "business" / f"section_vectors_{year}.npz"
+    if p.exists():
+        z = np.load(p, allow_pickle=True)
+        key = "keys" if "keys" in z else "corp_codes"
+        codes = [str(c) for c in z[key]]
+        return {c: i for i, c in enumerate(codes)}, z["matrix"].astype(np.float32)
+    return BR.SIM.load_text_vectors()
+
+
 def _norm(s: str) -> str:
     """회사명 매칭용 정규화(공백 제거·유니코드 정규화·소문자). 표시엔 원문 사용."""
     return unicodedata.normalize("NFKC", str(s or "")).replace(" ", "").strip().lower()
@@ -45,8 +91,11 @@ def _snapshot_feature_years() -> list[int]:
     """확정 L6(5축: industry·scale·mktcap·text·growth)에 필요한 피처가 모두 있는 연도 목록.
     ★ 데이터 소스 탐지일 뿐 — 가중치·신뢰등급 임계값은 여전히 dev 동결값(재유도 0).
     segment 는 확정 L6(L4_ORDER)이 미사용하므로 요건에서 제외."""
-    cfg = BR.S.load_cfg()
-    years = sorted(set(cfg["pit_split"]["dev_years"]) | set(cfg["pit_split"].get("holdout_years", [])))
+    # ★ 서빙 스냅샷 연도는 디스크에서 발견(dev/holdout/이후 최신 포함). 서빙은 '데이터 소스'이고
+    #   가중치·임계값은 dev 동결(재유도 0) — WEB-5 데이터소스 최신화 원칙. config 연도 상한에 안 묶임.
+    sd = ROOT / "data/pit/features/scale"
+    years = sorted(int(p.stem.split("_")[1]) for p in sd.glob("scale_*.parquet")
+                   if p.stem.split("_")[1].isdigit())
     ok = []
     for y in years:
         need = [ROOT / "data/pit/features" / d / f"{d}_{y}.parquet"
@@ -101,10 +150,10 @@ def _ctx(year: int | None = None) -> dict:
     min_peers = int(cfg["min_valid_peers"])
     q_sep = float(cfg["separation"]["numerator_over_assets_quantile"])
     cfg_l6, w = BR.l6_cfg_weights(cfg)
-    txt = BR.SIM.load_text_vectors()
 
     if year is None:
         year = _snapshot_year()
+    txt = _load_text_vectors_for(year)          # 연도별 최신 텍스트(있으면) — 데이터소스 계층
     T = f"{year}-05-15"
     dev = [y for y in cfg["pit_split"]["dev_years"]
            if (ROOT / "data/pit/features/scale" / f"scale_{y}.parquet").exists()]
@@ -247,11 +296,26 @@ def query(name: str, year: int | None = None) -> dict:
         c["tau"], c["min_peers"], c["thr"]["dev_flag"], pg)
 
     # peer 코드 → 회사명(원장). 축 근거는 실제 rationale 그대로 + 표시 라벨만 부여.
+    # ★ WEB-10 ①: 축 라벨에 '절대 하한'(TAG_FLOORS) 적용 — 표시 계층만. 상투어 겹침으로
+    #   무관 산업이 '사업내용 유사'로 붙는 오판정 차단. 순위·유사도 점수·peer 선정은 전부 불변.
+    #   하한 비교는 '원(raw) 축 유사도'(가중 전 sim)에 한다 — rationale 은 w·sim 이므로 부적합.
+    raw_axis = {ax: BR.SIM.SIMS[ax](c["A"], i) for ax in L4_ORDER}
+    floors = _floors_for(c["year"])             # ★ 서빙 연도의 벡터공간에 맞는 하한(공유=0.52, 프레시=유도)
     for p in peers:
         p["peer_name"] = c["name_of"].get(p["peer_code"], p["peer_code"])
+        j = c["idx"].get(p["peer_code"])
         # 표시용: 실제 rationale 기여 상위 2축(양수만)에 한국어 라벨. 값·판정 미변경(정렬·라벨뿐).
         top = sorted(p["rationale"].items(), key=lambda kv: kv[1], reverse=True)
-        p["top_axes"] = [AXIS_LABELS.get(k, k) for k, v in top[:2] if v > 0]
+        labels = []
+        for axkey, v in top[:2]:
+            if v <= 0:
+                continue
+            fl = floors.get(axkey)
+            # 원 유사도가 하한 미만이면 라벨 제거(상투어만으로 붙은 '유사' 주장 차단).
+            if fl is not None and j is not None and float(raw_axis[axkey][j]) < float(fl):
+                continue
+            labels.append(AXIS_LABELS.get(axkey, axkey))
+        p["top_axes"] = labels
 
     return {
         "ok": True,

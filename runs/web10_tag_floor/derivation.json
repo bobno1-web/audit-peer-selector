@@ -1,0 +1,114 @@
+{
+  "axis": "text",
+  "method": "cross-industry (KSIC-2 다른) text-cosine null distribution, p99",
+  "ksic_prefix": 2,
+  "quantile": 0.99,
+  "dev_years": [
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022
+  ],
+  "per_year": [
+    {
+      "year": 2016,
+      "n_firms": 2051,
+      "n_same_pairs": 96064,
+      "n_cross_pairs": 2006211,
+      "cross_p50": 0.183,
+      "cross_p90": 0.3307,
+      "cross_p99": 0.5202,
+      "same_p50": 0.2373,
+      "same_p99": 0.6632,
+      "auc_same_gt_cross": 0.6489
+    },
+    {
+      "year": 2017,
+      "n_firms": 2139,
+      "n_same_pairs": 103478,
+      "n_cross_pairs": 2183113,
+      "cross_p50": 0.1799,
+      "cross_p90": 0.3263,
+      "cross_p99": 0.5176,
+      "same_p50": 0.2356,
+      "same_p99": 0.6712,
+      "auc_same_gt_cross": 0.6511
+    },
+    {
+      "year": 2018,
+      "n_firms": 2205,
+      "n_same_pairs": 111266,
+      "n_cross_pairs": 2318644,
+      "cross_p50": 0.1795,
+      "cross_p90": 0.3251,
+      "cross_p99": 0.5174,
+      "same_p50": 0.2347,
+      "same_p99": 0.6665,
+      "auc_same_gt_cross": 0.6504
+    },
+    {
+      "year": 2019,
+      "n_firms": 2269,
+      "n_same_pairs": 118707,
+      "n_cross_pairs": 2454339,
+      "cross_p50": 0.1788,
+      "cross_p90": 0.3233,
+      "cross_p99": 0.5171,
+      "same_p50": 0.2341,
+      "same_p99": 0.6646,
+      "auc_same_gt_cross": 0.6501
+    },
+    {
+      "year": 2020,
+      "n_firms": 2346,
+      "n_same_pairs": 127929,
+      "n_cross_pairs": 2622756,
+      "cross_p50": 0.1771,
+      "cross_p90": 0.3213,
+      "cross_p99": 0.5204,
+      "same_p50": 0.2334,
+      "same_p99": 0.6721,
+      "auc_same_gt_cross": 0.6533
+    },
+    {
+      "year": 2021,
+      "n_firms": 2418,
+      "n_same_pairs": 136990,
+      "n_cross_pairs": 2785163,
+      "cross_p50": 0.1768,
+      "cross_p90": 0.3202,
+      "cross_p99": 0.5228,
+      "same_p50": 0.2342,
+      "same_p99": 0.6844,
+      "auc_same_gt_cross": 0.6564
+    },
+    {
+      "year": 2022,
+      "n_firms": 2479,
+      "n_same_pairs": 144380,
+      "n_cross_pairs": 2927101,
+      "cross_p50": 0.1757,
+      "cross_p90": 0.3189,
+      "cross_p99": 0.5245,
+      "same_p50": 0.2355,
+      "same_p99": 0.7023,
+      "auc_same_gt_cross": 0.6623
+    }
+  ],
+  "per_year_p99": [
+    0.5202,
+    0.5176,
+    0.5174,
+    0.5171,
+    0.5204,
+    0.5228,
+    0.5245
+  ],
+  "mean_p99": 0.52,
+  "std_p99": 0.0027,
+  "floor_value": 0.52,
+  "mean_auc": 0.6532
+}

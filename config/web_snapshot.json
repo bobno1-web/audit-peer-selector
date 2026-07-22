@@ -1,6 +1,6 @@
 {
-  "serve_as_of_year": 2025,
+  "serve_as_of_year": 2026,
   "rollback_year": 2022,
-  "note": "웹이 조회하는 스냅샷 연도(데이터 소스 포인터). 확정 L6 가중치(dev 동결)를 이 연도 데이터에 apply 만 한다 — 재학습/재유도 아님. 롤백: serve_as_of_year 를 2022 로 바꾸거나(또는 env PEER_SNAPSHOT_YEAR=2022) 이 파일을 지우면 완비 최신 연도로 자동. 엔진/채점기/임계값은 이 파일과 무관하게 dev 동결값 그대로.",
-  "loop": "WEB-5"
+  "note": "웹이 조회하는 스냅샷 연도(데이터 소스 포인터). WEB-10: 회계연도 2025(as_of 2026-05-15) 최신 스냅샷. 확정 L6 가중치(dev 동결, sha256 2e48a3cd…)를 이 연도 데이터에 apply 만 한다 — 재학습/재유도 아님. 텍스트는 연도별 프레시(section_vectors_2026.npz), 태그 하한은 그 공간에서 유도(0.49, section_vectors_2026.floor.json). 롤백: serve_as_of_year 를 2022(dev)로 바꾸거나(또는 env PEER_SNAPSHOT_YEAR=2022) 이 파일을 지우면 완비 최신 연도로 자동. 엔진/채점기/임계값은 이 파일과 무관하게 dev 동결값 그대로.",
+  "loop": "WEB-10 (was WEB-5)"
 }
